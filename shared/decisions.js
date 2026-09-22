@@ -1,13 +1,18 @@
 /** Typed TypeSafe request and strict response validation; reusable by replay verification. */
 import {clone, actionId} from './engine.js';
 export const MODEL = 'jev-1.13.0';
+// Smallest increment the provider reports probabilities and expected scores on.
+export const PROBABILITY_GRAIN = 0.01;
 export const SCORE_LEVELS = ['Little useful continuation', 'Limited continuation', 'Moderate continuation', 'Strong continuation', 'Very strong continuation'];
 const prob = n => typeof n === 'number' && Number.isFinite(n) && n >= 0 && n <= 1;
 function assert(ok, code) { if (!ok) { const e = new Error(code); e.code = code; throw e; } }
 function distribution(values, keys) {
   assert(values && typeof values === 'object' && !Array.isArray(values), 'invalid_distribution');
   assert(Object.keys(values).length === keys.length && keys.every(k => Object.hasOwn(values, k) && prob(values[k])), 'invalid_distribution_keys');
-  assert(Math.abs(Object.values(values).reduce((a, b) => a + b, 0) - 1) <= 0.001, 'invalid_distribution_sum');
+  // Each bucket is rounded to the grain, so the sum can drift by half a grain per bucket.
+  // This is the worst-case accumulation of that rounding, not slack for arbitrary drift.
+  const sumTolerance = keys.length * (PROBABILITY_GRAIN / 2);
+  assert(Math.abs(Object.values(values).reduce((a, b) => a + b, 0) - 1) <= sumTolerance, 'invalid_distribution_sum');
 }
 export function buildRequest(observation, surface, model = MODEL) {
   const candidates = clone(surface.candidates);
@@ -40,7 +45,11 @@ export function validateResponse(response, request) {
         const keys = q.criteria.map((_, i) => String(i)); distribution(a.probabilities, keys);
         assert(a.legend && keys.every(k => a.legend[k] === q.criteria[Number(k)]), 'score_legend_mismatch');
         const expected = keys.reduce((sum, k) => sum + Number(k) * a.probabilities[k], 0);
-        assert(Number.isFinite(a.score) && a.score >= 0 && a.score <= keys.length - 1 && Math.abs(a.score - expected) <= 0.01, 'invalid_score');
+        // mean = sum(k * p_k); each p_k may be off by half a grain, so the mean can drift by
+        // half*sum(k), and the reported score is itself rounded by up to half a grain.
+        const half = PROBABILITY_GRAIN / 2, n = keys.length;
+        const meanTolerance = half * (n * (n - 1) / 2) + half;
+        assert(Number.isFinite(a.score) && a.score >= 0 && a.score <= keys.length - 1 && Math.abs(a.score - expected) <= meanTolerance, 'invalid_score');
       }
     }
   }

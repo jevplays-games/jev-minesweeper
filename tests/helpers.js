@@ -17,3 +17,31 @@ export function validResponse(request){
   else answers[id]={type:'score',score:3,legend:Object.fromEntries(q.criteria.map((v,i)=>[String(i),v])),probabilities:Object.fromEntries(q.criteria.map((_,i)=>[String(i),i===3?1:0])),confidence:1};
  }return{model:request.model,answers,usage:{input_tokens:128,output_tokens:32}};
 }
+
+/** A response shaped like the live provider actually answers: probabilities and scores
+ *  reported on a 0.01 grain, so buckets do not sum to exactly 1 and the reported score
+ *  does not exactly equal the distribution mean. validResponse() returns exact one-hot
+ *  values the provider never produces, which is why the suite could not catch a
+ *  validator whose tolerances were tighter than that rounding. */
+export function roundedResponse(request){
+  const r=validResponse(request);
+  for(const[id,q]of Object.entries(request.questions)){
+    const a=r.answers[id];
+    if(q.type==='score'){
+      // 0.02/0.23/0.47/0.21/0.07 sums to 1.00 but its mean is 2.08; report 2.09 as the
+      // provider would after rounding the expected score independently.
+      const p=[0.02,0.23,0.47,0.21,0.07];
+      a.probabilities=Object.fromEntries(q.criteria.map((_,i)=>[String(i),p[i]??0]));
+      a.score=2.09;
+      a.confidence=0.62;
+    } else if(q.type==='choice'){
+      const keys=Object.keys(q.criteria);
+      // Spread mass across candidates on the grain, leaving the top choice maximal.
+      const each=Math.round((0.30/Math.max(1,keys.length-1))*100)/100;
+      a.probabilities=Object.fromEntries(keys.map((k,i)=>[k,i===0?0.71:each]));
+      a.choice=keys[0];
+      a.confidence=0.71;
+    }
+  }
+  return r;
+}
