@@ -52,6 +52,7 @@ def bridge(page, base: str):
     html = (ROOT / 'public/index.html').read_text()
     html = re.sub(r'<script[^>]*>.*?</script>', '', html, flags=re.S)
     html = re.sub(r'<link[^>]*>', '', html)
+    html = html.replace('</head>', '<style>' + (ROOT / 'public/brand/brand.css').read_text() + '</style></head>')
     html = html.replace('</head>', '<style>' + (ROOT / 'public/game.css').read_text() + '</style></head>')
     page.set_content(html)
     page.evaluate("""() => {

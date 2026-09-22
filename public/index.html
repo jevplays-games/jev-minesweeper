@@ -123,7 +123,7 @@
     <div class="jv-scrim" id="jv-scrim"></div>
     <div class="jv-sheet" id="jv-sheet" role="dialog" aria-modal="true" aria-label="Menu">
       <p class="jv-sheet-label" id="acctLabel">Account</p>
-      <div class="acct" role="group" aria-labelledby="acctLabel"><span id="connection" class="connection">Connecting</span><span id="identity" class="muted">Guest player</span><button id="login" class="button small">Sign in with Discord</button><button id="logout" class="button small" hidden>Sign out</button></div>
+      <div class="acct" id="jv-controls" role="group" aria-labelledby="acctLabel"><span id="connection" class="connection">Connecting</span><span id="identity" class="muted">Guest player</span><button id="login" class="button small">Sign in with Discord</button><button id="logout" class="button small" hidden>Sign out</button></div>
     </div>
   </div>
   <dialog id="replayDialog" class="replay-dialog"><div class="section-heading"><h2>Sealed replay</h2><button id="closeReplay" class="button small">Close</button></div><p id="replayCaption" class="muted"></p><div class="replay-controls"><button id="replayPrev" class="button small">Previous</button><input id="replayStep" type="range" min="0" max="0" value="0" aria-label="Replay event"><button id="replayNext" class="button small">Next</button></div><div class="replay-boards"><div><h3>You</h3><div class="board-scroll"><div id="replayHuman" class="board readonly" role="grid" aria-label="Your replay board"></div></div></div><div><h3>Opponent</h3><div class="board-scroll"><div id="replayJev" class="board readonly" role="grid" aria-label="Opponent replay board"></div></div></div></div></dialog>
