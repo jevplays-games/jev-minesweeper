@@ -4,7 +4,7 @@ export class Workers {
   constructor(size = 2, timeoutMs = 60000) { this.size = size; this.timeoutMs = timeoutMs; this.queue = []; this.slots = []; this.nextId = 0; this.closed = false; for (let i = 0; i < size; i++) this.spawn(i); }
   spawn(i) {
     if (this.closed) return;
-    const worker = new Worker(new URL('./worker.js', import.meta.url), {execArgv: process.execArgv.filter(x => !x.startsWith('--input-type'))});
+    const worker = new Worker(new URL('./worker.js', import.meta.url), {execArgv: []});
     const slot = {worker, job: null}; this.slots[i] = slot;
     worker.on('message', message => {
       const job = slot.job; if (!job || message.id !== job.id) return;
