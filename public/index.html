@@ -1,23 +1,36 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="color-scheme" content="dark"><meta name="description" content="Two boards. One race. Play Minesweeper against JEV with inspectable decisions and detailed replay analytics.">
-  <title>Minesweeper vs JEV · JEV Arcade</title>
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/game.css">
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="color-scheme" content="dark"><meta name="theme-color" content="#0e1017"><meta name="description" content="Two boards. One race. Play Minesweeper against JEV with inspectable decisions and detailed replay analytics.">
+  <title>Minesweeper · JEV Arcade</title>
+  <link rel="preload" href="/brand/inter-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="icon" type="image/svg+xml" href="/brand/icon.svg">
+  <link rel="apple-touch-icon" href="/brand/icon.svg">
+  <link rel="stylesheet" href="/brand/brand.css">
+  <link rel="stylesheet" href="/game.css">
+  <script type="module" src="/brand/brand.js"></script>
   <script type="module" src="/game.js"></script>
 </head>
 <body>
-  <a class="skip-link" href="#humanBoard">Skip to your board</a>
-  <div class="app-shell">
-    <header class="topbar">
-      <a class="brand" href="/"><span class="brand-mark" aria-hidden="true">J</span><span>JEV<span class="brand-light"> ARCADE</span></span></a>
-      <div class="topbar-right"><span id="connection" class="connection">Connecting</span><span id="identity" class="muted">Guest player</span><button id="login" class="button small">Sign in with Discord</button><button id="logout" class="button small" hidden>Sign out</button></div>
+  <a class="jv-skip" href="#humanBoard">Skip to game</a>
+  <div class="jv-app">
+    <header class="jv-header">
+      <a class="jv-brand" href="/" aria-label="JEV Arcade home">
+        <img class="jv-mark" src="/brand/mark.svg" alt="" width="28" height="28">
+        <span class="jv-wordmark">JEV ARCADE</span>
+        <span class="jv-sep" aria-hidden="true"></span>
+        <span class="jv-title">Minesweeper</span>
+      </a>
+      <span class="jv-status" aria-label="Shared race clock"><span class="jv-dot"></span><strong id="clock" class="clock">00:00.0</strong></span>
+      <button class="jv-icon-btn jv-menu-btn" id="jv-menu" type="button" aria-expanded="false" aria-controls="jv-sheet" aria-label="Menu">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
     </header>
-    <main>
-      <section class="hero" aria-labelledby="gameTitle">
+    <main class="jv-main" id="main">
+      <section class="hero jv-hero" aria-labelledby="gameTitle">
         <div><p class="eyebrow">HUMAN VS STRUCTURED INTELLIGENCE</p><h1 id="gameTitle">Mine<span class="title-accent">sweeper</span><span class="versus">vs JEV</span></h1><p class="subtitle">Two independent boards. The same starting square. First to clear wins.</p></div>
-        <div class="hero-status"><span class="eyebrow">SHARED RACE CLOCK</span><strong id="clock" class="clock">00:00.0</strong><span id="matchMode" class="pill">Unofficial practice</span></div>
+        <div class="hero-status"><span class="eyebrow">MATCH MODE</span><span id="matchMode" class="pill">Unofficial practice</span></div>
       </section>
       <section class="toolbar" aria-label="Game setup">
         <label>Board<select id="preset"><option value="beginner">Beginner · 9 × 9 / 10 mines</option><option value="intermediate">Intermediate · 16 × 16 / 40 mines</option><option value="expert">Expert · 30 × 16 / 99 mines</option></select></label>
@@ -28,7 +41,7 @@
         <div class="toolbar-actions"><button id="newGame" class="button primary">New game</button><button id="resign" class="button" disabled>Resign</button><button id="offline" class="button quiet">Offline practice</button></div>
       </section>
       <div id="notice" class="notice" role="status" aria-live="polite">Click a square on your board to open the same starting coordinate on both boards.</div>
-      <section class="arena" aria-label="Two-board Minesweeper race">
+      <section class="arena jv-first" aria-label="Two-board Minesweeper race">
         <article class="board-card human-card">
           <div class="board-header"><div class="player-title"><span class="player-token you-token">Y</span><div><h2>You</h2><span id="humanStatus" class="muted">Choose your opening</span></div></div><div class="board-count"><strong id="humanProgress">0 / 71</strong><span>safe cells</span></div></div>
           <progress id="humanMeter" value="0" max="71" aria-label="Your safe-cell progress"></progress>
@@ -107,6 +120,11 @@
       </section>
     </main>
     <footer><span>JEV ARCADE / MINESWEEPER</span><span>Deterministic rules. Inspectable decisions. Verified outcomes.</span><span id="buildLabel">Build 1.0.0</span></footer>
+    <div class="jv-scrim" id="jv-scrim"></div>
+    <div class="jv-sheet" id="jv-sheet" role="dialog" aria-modal="true" aria-label="Menu">
+      <p class="jv-sheet-label" id="acctLabel">Account</p>
+      <div class="acct" role="group" aria-labelledby="acctLabel"><span id="connection" class="connection">Connecting</span><span id="identity" class="muted">Guest player</span><button id="login" class="button small">Sign in with Discord</button><button id="logout" class="button small" hidden>Sign out</button></div>
+    </div>
   </div>
   <dialog id="replayDialog" class="replay-dialog"><div class="section-heading"><h2>Sealed replay</h2><button id="closeReplay" class="button small">Close</button></div><p id="replayCaption" class="muted"></p><div class="replay-controls"><button id="replayPrev" class="button small">Previous</button><input id="replayStep" type="range" min="0" max="0" value="0" aria-label="Replay event"><button id="replayNext" class="button small">Next</button></div><div class="replay-boards"><div><h3>You</h3><div class="board-scroll"><div id="replayHuman" class="board readonly" role="grid" aria-label="Your replay board"></div></div></div><div><h3>Opponent</h3><div class="board-scroll"><div id="replayJev" class="board readonly" role="grid" aria-label="Opponent replay board"></div></div></div></div></dialog>
 </body>
