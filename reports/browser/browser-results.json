@@ -1,0 +1,31 @@
+{
+  "mode": "DOM bridge (HTTP/SSE navigation not certified)",
+  "browser": "Chromium",
+  "viewports": [
+    "1440x1100",
+    "390x844"
+  ],
+  "observations": [
+    {
+      "workflow": "desktop game, protected opening, local opponent, flag/unflag, keyboard roving focus",
+      "pass": true
+    },
+    {
+      "workflow": "sealed report, player comparison, JSON export and replay viewer",
+      "pass": true
+    },
+    {
+      "workflow": "history and public leaderboard empty state",
+      "pass": true
+    },
+    {
+      "workflow": "390px mobile layout without document-level horizontal overflow",
+      "pass": true
+    },
+    {
+      "workflow": "explicit offline practice and local-only post-game analytics",
+      "pass": true
+    }
+  ],
+  "uncaughtPageErrors": []
+}

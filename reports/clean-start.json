@@ -1,0 +1,16 @@
+{
+  "date": "2026-09-22",
+  "pass": true,
+  "method": "Fresh source-only copy, no original database or environment file; native HTTP session/create/protected start/resign/verified analytics. Real keys explicitly blank.",
+  "checks": [
+    "fresh database creation",
+    "health endpoint",
+    "guest session and CSRF",
+    "independent covered-board creation",
+    "protected opening and no active seeds/mines",
+    "resignation rules verification",
+    "owner-only sealed analytics"
+  ],
+  "outcome": "loss",
+  "providerCalls": 0
+}

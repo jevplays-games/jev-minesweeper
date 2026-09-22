@@ -1,0 +1,64 @@
+{
+  "measuredAt": "2026-09-22",
+  "method": "Sum of separately gzip-compressed static files; includes optional offline/shared analytics modules, not just initial requests. Not a measured page-load benchmark.",
+  "files": [
+    {
+      "file": "public/index.html",
+      "bytes": 17345,
+      "gzipBytes": 5477
+    },
+    {
+      "file": "public/api.js",
+      "bytes": 2069,
+      "gzipBytes": 936
+    },
+    {
+      "file": "public/game.css",
+      "bytes": 14318,
+      "gzipBytes": 3993
+    },
+    {
+      "file": "public/game.js",
+      "bytes": 32596,
+      "gzipBytes": 10963
+    },
+    {
+      "file": "public/offline.js",
+      "bytes": 4474,
+      "gzipBytes": 1718
+    },
+    {
+      "file": "public/favicon.svg",
+      "bytes": 309,
+      "gzipBytes": 198
+    },
+    {
+      "file": "shared/analytics.js",
+      "bytes": 20235,
+      "gzipBytes": 6536
+    },
+    {
+      "file": "shared/engine.js",
+      "bytes": 12155,
+      "gzipBytes": 3892
+    },
+    {
+      "file": "shared/replay.js",
+      "bytes": 6304,
+      "gzipBytes": 1925
+    },
+    {
+      "file": "shared/decisions.js",
+      "bytes": 6231,
+      "gzipBytes": 2347
+    },
+    {
+      "file": "shared/solver.js",
+      "bytes": 10924,
+      "gzipBytes": 3449
+    }
+  ],
+  "totalBytes": 126960,
+  "totalGzipBytes": 41434,
+  "runtimeNpmDependencies": 0
+}

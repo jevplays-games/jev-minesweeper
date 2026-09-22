@@ -1,0 +1,897 @@
+
+> minesweeper-vs-jev@1.0.0 test:coverage
+> node --experimental-test-coverage --test
+
+TAP version 13
+# (node:2622) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: health endpoint returns success
+ok 1 - health endpoint returns success
+  ---
+  duration_ms: 28.293856
+  type: 'test'
+  ...
+# Subtest: static root and CSP are served without framework code
+ok 2 - static root and CSP are served without framework code
+  ---
+  duration_ms: 10.778153
+  type: 'test'
+  ...
+# Subtest: server files and environment files are not served
+ok 3 - server files and environment files are not served
+  ---
+  duration_ms: 6.590623
+  type: 'test'
+  ...
+# Subtest: guest match creation succeeds and cannot be ranked
+ok 4 - guest match creation succeeds and cannot be ranked
+  ---
+  duration_ms: 12.709024
+  type: 'test'
+  ...
+# Subtest: browser-supplied guild and score fields are rejected
+ok 5 - browser-supplied guild and score fields are rejected
+  ---
+  duration_ms: 5.794834
+  type: 'test'
+  ...
+# Subtest: match creation requires CSRF token
+ok 6 - match creation requires CSRF token
+  ---
+  duration_ms: 5.331215
+  type: 'test'
+  ...
+# Subtest: match creation requires same origin
+ok 7 - match creation requires same origin
+  ---
+  duration_ms: 3.776491
+  type: 'test'
+  ...
+# Subtest: duplicate creation id returns original match
+ok 8 - duplicate creation id returns original match
+  ---
+  duration_ms: 9.983055
+  type: 'test'
+  ...
+# Subtest: creation id cannot be reused with a different body
+ok 9 - creation id cannot be reused with a different body
+  ---
+  duration_ms: 10.094984
+  type: 'test'
+  ...
+# Subtest: one owner cannot keep multiple active matches
+ok 10 - one owner cannot keep multiple active matches
+  ---
+  duration_ms: 9.354127
+  type: 'test'
+  ...
+# Subtest: different owner cannot read or act on a match
+ok 11 - different owner cannot read or act on a match
+  ---
+  duration_ms: 27.032925
+  type: 'test'
+  ...
+# Subtest: unknown UUID error does not crash audit logging
+ok 12 - unknown UUID error does not crash audit logging
+  ---
+  duration_ms: 6.426075
+  type: 'test'
+  ...
+# Subtest: active snapshots expose no hidden layout or seed
+ok 13 - active snapshots expose no hidden layout or seed
+  ---
+  duration_ms: 14.830711
+  type: 'test'
+  ...
+# Subtest: active replay and postgame analytics endpoints are locked
+ok 14 - active replay and postgame analytics endpoints are locked
+  ---
+  duration_ms: 18.170865
+  type: 'test'
+  ...
+# Subtest: wrong human board revision is rejected
+ok 15 - wrong human board revision is rejected
+  ---
+  duration_ms: 13.016065
+  type: 'test'
+  ...
+# Subtest: idempotent action is applied exactly once
+ok 16 - idempotent action is applied exactly once
+  ---
+  duration_ms: 18.14159
+  type: 'test'
+  ...
+# Subtest: forged opponent actor is rejected rather than selecting its board
+ok 17 - forged opponent actor is rejected rather than selecting its board
+  ---
+  duration_ms: 17.265701
+  type: 'test'
+  ...
+# Subtest: resignation is verified and exposes sealed analytics with no fabricated clear time
+ok 18 - resignation is verified and exposes sealed analytics with no fabricated clear time
+  ---
+  duration_ms: 33.356841
+  type: 'test'
+  ...
+# Subtest: a real generated board can be cleared and verified through the HTTP API
+ok 19 - a real generated board can be cleared and verified through the HTTP API
+  ---
+  duration_ms: 192.30406
+  type: 'test'
+  ...
+# Subtest: world leaderboard is public and channel scope needs a valid launch grant
+ok 20 - world leaderboard is public and channel scope needs a valid launch grant
+  ---
+  duration_ms: 7.054031
+  type: 'test'
+  ...
+# Subtest: admin analytics are unavailable without administrator authorization
+ok 21 - admin analytics are unavailable without administrator authorization
+  ---
+  duration_ms: 1.085706
+  type: 'test'
+  ...
+# Subtest: profile and CSV exports are owner-only
+ok 22 - profile and CSV exports are owner-only
+  ---
+  duration_ms: 4.800835
+  type: 'test'
+  ...
+# Subtest: Monday UTC boundary is explicit
+ok 23 - Monday UTC boundary is explicit
+  ---
+  duration_ms: 0.249866
+  type: 'test'
+  ...
+# Subtest: leaderboard qualifies at 20 matches and keeps channel populations isolated
+ok 24 - leaderboard qualifies at 20 matches and keeps channel populations isolated
+  ---
+  duration_ms: 3.91537
+  type: 'test'
+  ...
+# Subtest: native HTTP SSE delivers an owner-filtered public snapshot
+ok 25 - native HTTP SSE delivers an owner-filtered public snapshot
+  ---
+  duration_ms: 13.804575
+  type: 'test'
+  ...
+# Subtest: native HTTP SSE rejects another match owner
+ok 26 - native HTTP SSE rejects another match owner
+  ---
+  duration_ms: 12.35574
+  type: 'test'
+  ...
+# Subtest: recorded mocked provider choices verify without network inference
+ok 27 - recorded mocked provider choices verify without network inference
+  ---
+  duration_ms: 189.169291
+  type: 'test'
+  ...
+# Subtest: recorded provider usage and decision totals reconcile to analytics
+ok 28 - recorded provider usage and decision totals reconcile to analytics
+  ---
+  duration_ms: 100.916668
+  type: 'test'
+  ...
+# Subtest: rehashing cannot legitimize a changed observation hash in an applied decision
+ok 29 - rehashing cannot legitimize a changed observation hash in an applied decision
+  ---
+  duration_ms: 57.118341
+  type: 'test'
+  ...
+# Subtest: rehashing cannot legitimize a changed model in an applied decision
+ok 30 - rehashing cannot legitimize a changed model in an applied decision
+  ---
+  duration_ms: 54.515939
+  type: 'test'
+  ...
+# Subtest: rehashing cannot legitimize a changed candidate in an applied decision
+ok 31 - rehashing cannot legitimize a changed candidate in an applied decision
+  ---
+  duration_ms: 62.806368
+  type: 'test'
+  ...
+# Subtest: rehashing cannot legitimize a changed selected action in an applied decision
+ok 32 - rehashing cannot legitimize a changed selected action in an applied decision
+  ---
+  duration_ms: 55.009363
+  type: 'test'
+  ...
+# Subtest: rehashing cannot legitimize a changed false forced source in an applied decision
+ok 33 - rehashing cannot legitimize a changed false forced source in an applied decision
+  ---
+  duration_ms: 48.162604
+  type: 'test'
+  ...
+# Subtest: rehashing cannot legitimize a changed invalid provider probability in an applied decision
+ok 34 - rehashing cannot legitimize a changed invalid provider probability in an applied decision
+  ---
+  duration_ms: 41.364439
+  type: 'test'
+  ...
+# Subtest: neighbors do not wrap at cell 0
+ok 35 - neighbors do not wrap at cell 0
+  ---
+  duration_ms: 1.405858
+  type: 'test'
+  ...
+# Subtest: neighbors do not wrap at cell 1
+ok 36 - neighbors do not wrap at cell 1
+  ---
+  duration_ms: 0.227863
+  type: 'test'
+  ...
+# Subtest: neighbors do not wrap at cell 4
+ok 37 - neighbors do not wrap at cell 4
+  ---
+  duration_ms: 0.097728
+  type: 'test'
+  ...
+# Subtest: neighbors do not wrap at cell 8
+ok 38 - neighbors do not wrap at cell 8
+  ---
+  duration_ms: 0.09306
+  type: 'test'
+  ...
+# Subtest: invalid board configuration is rejected
+ok 39 - invalid board configuration is rejected
+  ---
+  duration_ms: 0.612933
+  type: 'test'
+  ...
+# Subtest: invalid difficulty rejected
+ok 40 - invalid difficulty rejected
+  ---
+  duration_ms: 0.156967
+  type: 'test'
+  ...
+# Subtest: same generator inputs reconstruct same board
+ok 41 - same generator inputs reconstruct same board
+  ---
+  duration_ms: 30.306925
+  type: 'test'
+  ...
+# Subtest: independent seeds yield distinct layouts
+ok 42 - independent seeds yield distinct layouts
+  ---
+  duration_ms: 8.993433
+  type: 'test'
+  ...
+# Subtest: malformed seeds are rejected
+ok 43 - malformed seeds are rejected
+  ---
+  duration_ms: 0.422667
+  type: 'test'
+  ...
+# Subtest: protected opening and mine count hold at every beginner coordinate
+ok 44 - protected opening and mine count hold at every beginner coordinate
+  ---
+  duration_ms: 189.109771
+  type: 'test'
+  ...
+# Subtest: generator is deterministic across a 30-seed sample
+ok 45 - generator is deterministic across a 30-seed sample
+  ---
+  duration_ms: 91.929083
+  type: 'test'
+  ...
+# Subtest: duplicate mine positions rejected
+ok 46 - duplicate mine positions rejected
+  ---
+  duration_ms: 0.311339
+  type: 'test'
+  ...
+# Subtest: flag placement is not completion
+ok 47 - flag placement is not completion
+  ---
+  duration_ms: 0.300743
+  type: 'test'
+  ...
+# Subtest: flagged cells cannot be revealed
+ok 48 - flagged cells cannot be revealed
+  ---
+  duration_ms: 0.122044
+  type: 'test'
+  ...
+# Subtest: repeated explicit flag is rejected as no change
+ok 49 - repeated explicit flag is rejected as no change
+  ---
+  duration_ms: 0.25841
+  type: 'test'
+  ...
+# Subtest: unflag returns a covered cell
+ok 50 - unflag returns a covered cell
+  ---
+  duration_ms: 0.182525
+  type: 'test'
+  ...
+# Subtest: zero expansion clears all connected safe cells
+ok 51 - zero expansion clears all connected safe cells
+  ---
+  duration_ms: 0.15279
+  type: 'test'
+  ...
+# Subtest: zero expansion respects a flag on a safe cell
+ok 52 - zero expansion respects a flag on a safe cell
+  ---
+  duration_ms: 0.090035
+  type: 'test'
+  ...
+# Subtest: correct chord can complete a board
+ok 53 - correct chord can complete a board
+  ---
+  duration_ms: 0.097988
+  type: 'test'
+  ...
+# Subtest: unsafe chord explodes even while revealing other safe cells
+ok 54 - unsafe chord explodes even while revealing other safe cells
+  ---
+  duration_ms: 0.080622
+  type: 'test'
+  ...
+# Subtest: chord requires matching flag count
+ok 55 - chord requires matching flag count
+  ---
+  duration_ms: 0.092339
+  type: 'test'
+  ...
+# Subtest: mine reveal is legal and terminal, not a validation rejection
+ok 56 - mine reveal is legal and terminal, not a validation rejection
+  ---
+  duration_ms: 0.060831
+  type: 'test'
+  ...
+# Subtest: terminal boards reject further actions
+ok 57 - terminal boards reject further actions
+  ---
+  duration_ms: 0.118699
+  type: 'test'
+  ...
+# Subtest: out of range action is rejected before mutation
+ok 58 - out of range action is rejected before mutation
+  ---
+  duration_ms: 0.399842
+  type: 'test'
+  ...
+# Subtest: unknown action type is rejected
+ok 59 - unknown action type is rejected
+  ---
+  duration_ms: 0.103266
+  type: 'test'
+  ...
+# Subtest: first coordinate opens both independent boards
+ok 60 - first coordinate opens both independent boards
+  ---
+  duration_ms: 5.299206
+  type: 'test'
+  ...
+# Subtest: public match projection contains no seeds, bitmap, or hidden adjacency
+ok 61 - public match projection contains no seeds, bitmap, or hidden adjacency
+  ---
+  duration_ms: 4.402926
+  type: 'test'
+  ...
+# Subtest: ready public projection does not contain seeds
+ok 62 - ready public projection does not contain seeds
+  ---
+  duration_ms: 0.619904
+  type: 'test'
+  ...
+# Subtest: one explosion does not award the surviving player a win
+ok 63 - one explosion does not award the surviving player a win
+  ---
+  duration_ms: 1.678139
+  type: 'test'
+  ...
+# Subtest: two exploded boards draw
+ok 64 - two exploded boards draw
+  ---
+  duration_ms: 1.593231
+  type: 'test'
+  ...
+# Subtest: clears in the same interval draw
+ok 65 - clears in the same interval draw
+  ---
+  duration_ms: 1.471357
+  type: 'test'
+  ...
+# Subtest: an earlier clear bucket wins
+ok 66 - an earlier clear bucket wins
+  ---
+  duration_ms: 1.514543
+  type: 'test'
+  ...
+# Subtest: actions after an unresolved winning interval are rejected
+ok 67 - actions after an unresolved winning interval are rejected
+  ---
+  duration_ms: 1.895787
+  type: 'test'
+  ...
+# Subtest: deadline without completion draws
+ok 68 - deadline without completion draws
+  ---
+  duration_ms: 3.643511
+  type: 'test'
+  ...
+# Subtest: actions at deadline are not accepted
+ok 69 - actions at deadline are not accepted
+  ---
+  duration_ms: 1.858611
+  type: 'test'
+  ...
+# Subtest: non-monotonic time is rejected
+ok 70 - non-monotonic time is rejected
+  ---
+  duration_ms: 4.805372
+  type: 'test'
+  ...
+# Subtest: resignation is a human loss
+ok 71 - resignation is a human loss
+  ---
+  duration_ms: 2.737065
+  type: 'test'
+  ...
+# Subtest: canonical object key ordering is stable
+ok 72 - canonical object key ordering is stable
+  ---
+  duration_ms: 0.166371
+  type: 'test'
+  ...
+# Subtest: HMAC generator matches frozen cross-runtime vectors
+ok 73 - HMAC generator matches frozen cross-runtime vectors
+  ---
+  duration_ms: 7.07378
+  type: 'test'
+  ...
+# Subtest: documented TypeSafe response shape validates
+ok 74 - documented TypeSafe response shape validates
+  ---
+  duration_ms: 2.087937
+  type: 'test'
+  ...
+# Subtest: rejects wrong model
+ok 75 - rejects wrong model
+  ---
+  duration_ms: 0.414756
+  type: 'test'
+  ...
+# Subtest: rejects missing answer
+ok 76 - rejects missing answer
+  ---
+  duration_ms: 0.191829
+  type: 'test'
+  ...
+# Subtest: rejects unknown choice
+ok 77 - rejects unknown choice
+  ---
+  duration_ms: 0.283057
+  type: 'test'
+  ...
+# Subtest: rejects negative probability
+ok 78 - rejects negative probability
+  ---
+  duration_ms: 0.307333
+  type: 'test'
+  ...
+# Subtest: rejects bad probability sum
+ok 79 - rejects bad probability sum
+  ---
+  duration_ms: 0.21189
+  type: 'test'
+  ...
+# Subtest: rejects invalid confidence
+ok 80 - rejects invalid confidence
+  ---
+  duration_ms: 0.222465
+  type: 'test'
+  ...
+# Subtest: rejects invalid noul
+ok 81 - rejects invalid noul
+  ---
+  duration_ms: 0.241484
+  type: 'test'
+  ...
+# Subtest: rejects score mismatch
+ok 82 - rejects score mismatch
+  ---
+  duration_ms: 0.283908
+  type: 'test'
+  ...
+# Subtest: rejects invalid usage
+ok 83 - rejects invalid usage
+  ---
+  duration_ms: 0.33122
+  type: 'test'
+  ...
+# Subtest: model risk influences uncertain-cell selection
+ok 84 - model risk influences uncertain-cell selection
+  ---
+  duration_ms: 0.557891
+  type: 'test'
+  ...
+# Subtest: remote adapter applies validated typed response
+ok 85 - remote adapter applies validated typed response
+  ---
+  duration_ms: 40.052957
+  type: 'test'
+  ...
+# Subtest: missing key is explicitly local, not a fabricated JEV call
+ok 86 - missing key is explicitly local, not a fabricated JEV call
+  ---
+  duration_ms: 1.723497
+  type: 'test'
+  ...
+# Subtest: provider authentication failures are not retried
+ok 87 - provider authentication failures are not retried
+  ---
+  duration_ms: 1.575945
+  type: 'test'
+  ...
+# Subtest: Retry-After longer than recovery budget is honored without retry
+ok 88 - Retry-After longer than recovery budget is honored without retry
+  ---
+  duration_ms: 1.593031
+  type: 'test'
+  ...
+# Subtest: retryable overload gets one bounded retry
+ok 89 - retryable overload gets one bounded retry
+  ---
+  duration_ms: 3.400985
+  type: 'test'
+  ...
+# Subtest: malformed response falls back and records failure
+ok 90 - malformed response falls back and records failure
+  ---
+  duration_ms: 1.910579
+  type: 'test'
+  ...
+# Subtest: timeout cannot hang the game adapter
+ok 91 - timeout cannot hang the game adapter
+  ---
+  duration_ms: 20.479183
+  type: 'test'
+  ...
+# Subtest: complete replay reconstructs the winning outcome
+ok 92 - complete replay reconstructs the winning outcome
+  ---
+  duration_ms: 10.11885
+  type: 'test'
+  ...
+# Subtest: tampered seed is rejected
+ok 93 - tampered seed is rejected
+  ---
+  duration_ms: 1.0817
+  type: 'test'
+  ...
+# Subtest: tampered result is rejected
+ok 94 - tampered result is rejected
+  ---
+  duration_ms: 5.56745
+  type: 'test'
+  ...
+# Subtest: tampered action is rejected
+ok 95 - tampered action is rejected
+  ---
+  duration_ms: 5.1555
+  type: 'test'
+  ...
+# Subtest: tampered head hash is rejected
+ok 96 - tampered head hash is rejected
+  ---
+  duration_ms: 12.070061
+  type: 'test'
+  ...
+# Subtest: tampered event order is rejected
+ok 97 - tampered event order is rejected
+  ---
+  duration_ms: 0.636339
+  type: 'test'
+  ...
+# Subtest: tampered engine version is rejected
+ok 98 - tampered engine version is rejected
+  ---
+  duration_ms: 0.194654
+  type: 'test'
+  ...
+# Subtest: tampered policy version is rejected
+ok 99 - tampered policy version is rejected
+  ---
+  duration_ms: 0.115364
+  type: 'test'
+  ...
+# Subtest: tampered event time is rejected
+ok 100 - tampered event time is rejected
+  ---
+  duration_ms: 11.220449
+  type: 'test'
+  ...
+# Subtest: rehashing an illegal action does not bypass rule verification
+ok 101 - rehashing an illegal action does not bypass rule verification
+  ---
+  duration_ms: 9.678687
+  type: 'test'
+  ...
+# Subtest: analytics reconcile opening and command reveal counts
+ok 102 - analytics reconcile opening and command reveal counts
+  ---
+  duration_ms: 16.877696
+  type: 'test'
+  ...
+# Subtest: post-game heatmaps account for every accepted command
+ok 103 - post-game heatmaps account for every accepted command
+  ---
+  duration_ms: 9.558275
+  type: 'test'
+  ...
+# Subtest: race time accounting covers the full match
+ok 104 - race time accounting covers the full match
+  ---
+  duration_ms: 11.836989
+  type: 'test'
+  ...
+# Subtest: 3BV and adjacency histograms reconcile safe cells
+ok 105 - 3BV and adjacency histograms reconcile safe cells
+  ---
+  duration_ms: 9.796434
+  type: 'test'
+  ...
+# Subtest: empty samples produce null, not fabricated zero performance
+ok 106 - empty samples produce null, not fabricated zero performance
+  ---
+  duration_ms: 0.1858
+  type: 'test'
+  ...
+# Subtest: Brier score and calibration bins use safety probabilities correctly
+ok 107 - Brier score and calibration bins use safety probabilities correctly
+  ---
+  duration_ms: 0.244999
+  type: 'test'
+  ...
+# Subtest: probability one fits final calibration bin
+ok 108 - probability one fits final calibration bin
+  ---
+  duration_ms: 0.189586
+  type: 'test'
+  ...
+# Subtest: quantiles use documented linear interpolation
+ok 109 - quantiles use documented linear interpolation
+  ---
+  duration_ms: 0.098939
+  type: 'test'
+  ...
+# Subtest: draws count in the win-rate denominator and break streaks
+ok 110 - draws count in the win-rate denominator and break streaks
+  ---
+  duration_ms: 0.415676
+  type: 'test'
+  ...
+# Subtest: CSV neutralizes spreadsheet formulas and escapes quotes
+ok 111 - CSV neutralizes spreadsheet formulas and escapes quotes
+  ---
+  duration_ms: 0.292461
+  type: 'test'
+  ...
+# Subtest: unknown provider usage is not assumed free
+ok 112 - unknown provider usage is not assumed free
+  ---
+  duration_ms: 12.22897
+  type: 'test'
+  ...
+# (node:2679) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: constant-time token comparison preserves equality semantics
+ok 113 - constant-time token comparison preserves equality semantics
+  ---
+  duration_ms: 0.977383
+  type: 'test'
+  ...
+# Subtest: secure tokens are 256-bit opaque strings
+ok 114 - secure tokens are 256-bit opaque strings
+  ---
+  duration_ms: 0.603409
+  type: 'test'
+  ...
+# Subtest: session tokens are stored hashed, not raw
+ok 115 - session tokens are stored hashed, not raw
+  ---
+  duration_ms: 1.488292
+  type: 'test'
+  ...
+# Subtest: expired session is not accepted
+ok 116 - expired session is not accepted
+  ---
+  duration_ms: 0.926296
+  type: 'test'
+  ...
+# Subtest: idle sessions expire before their absolute lifetime
+ok 117 - idle sessions expire before their absolute lifetime
+  ---
+  duration_ms: 0.702689
+  type: 'test'
+  ...
+# Subtest: CSRF requires both a matching origin and matching synchronizer token
+ok 118 - CSRF requires both a matching origin and matching synchronizer token
+  ---
+  duration_ms: 0.48469
+  type: 'test'
+  ...
+# Subtest: OAuth requests only identify scope and stores one-time state hash
+ok 119 - OAuth requests only identify scope and stores one-time state hash
+  ---
+  duration_ms: 1.391266
+  type: 'test'
+  ...
+# Subtest: OAuth state mismatch is rejected before token exchange
+ok 120 - OAuth state mismatch is rejected before token exchange
+  ---
+  duration_ms: 3.380144
+  type: 'test'
+  ...
+# Subtest: OAuth callback rotates session and persists no OAuth tokens
+ok 121 - OAuth callback rotates session and persists no OAuth tokens
+  ---
+  duration_ms: 23.454898
+  type: 'test'
+  ...
+# Subtest: Discord signatures validate only the exact timestamp and raw body
+ok 122 - Discord signatures validate only the exact timestamp and raw body
+  ---
+  duration_ms: 1.702135
+  type: 'test'
+  ...
+# Subtest: stale Discord signature is rejected
+ok 123 - stale Discord signature is rejected
+  ---
+  duration_ms: 0.323588
+  type: 'test'
+  ...
+# Subtest: Discord signed ping returns type one
+ok 124 - Discord signed ping returns type one
+  ---
+  duration_ms: 1.789086
+  type: 'test'
+  ...
+# Subtest: guild interaction creates user-bound one-time launch ticket
+ok 125 - guild interaction creates user-bound one-time launch ticket
+  ---
+  duration_ms: 1.542825
+  type: 'test'
+  ...
+# Subtest: forged community scope cannot be authorized by query parameters
+ok 126 - forged community scope cannot be authorized by query parameters
+  ---
+  duration_ms: 0.180472
+  type: 'test'
+  ...
+# Subtest: expired launch-context grant is rejected
+ok 127 - expired launch-context grant is rejected
+  ---
+  duration_ms: 0.113971
+  type: 'test'
+  ...
+# Subtest: bounded limiter respects a fixed window
+ok 128 - bounded limiter respects a fixed window
+  ---
+  duration_ms: 0.177707
+  type: 'test'
+  ...
+# Subtest: transaction rollback is atomic
+ok 129 - transaction rollback is atomic
+  ---
+  duration_ms: 1.834245
+  type: 'test'
+  ...
+# Subtest: binomial coefficient handles edge cases
+ok 130 - binomial coefficient handles edge cases
+  ---
+  duration_ms: 1.009591
+  type: 'test'
+  ...
+# Subtest: flags are annotations, not assumed mines
+ok 131 - flags are annotations, not assumed mines
+  ---
+  duration_ms: 3.228686
+  type: 'test'
+  ...
+# Subtest: unconstrained exact probability uses global mine count
+ok 132 - unconstrained exact probability uses global mine count
+  ---
+  duration_ms: 0.21882
+  type: 'test'
+  ...
+# Subtest: global combinatorial weighting distinguishes frontier and off-frontier risks
+ok 133 - global combinatorial weighting distinguishes frontier and off-frontier risks
+  ---
+  duration_ms: 0.234273
+  type: 'test'
+  ...
+# Subtest: partial enumeration never reports exactness
+ok 134 - partial enumeration never reports exactness
+  ---
+  duration_ms: 0.162294
+  type: 'test'
+  ...
+# Subtest: easy and normal have no exhaustive enumeration
+ok 135 - easy and normal have no exhaustive enumeration
+  ---
+  duration_ms: 0.142104
+  type: 'test'
+  ...
+# Subtest: equivalent observations yield identical candidate surfaces
+ok 136 - equivalent observations yield identical candidate surfaces
+  ---
+  duration_ms: 1.734715
+  type: 'test'
+  ...
+# Subtest: candidate caps hold at every difficulty
+ok 137 - candidate caps hold at every difficulty
+  ---
+  duration_ms: 2.677245
+  type: 'test'
+  ...
+# Subtest: JEV payload is bounded and omits private fields
+ok 138 - JEV payload is bounded and omits private fields
+  ---
+  duration_ms: 16.355328
+  type: 'test'
+  ...
+# Subtest: proven-safe deductions agree with hidden truth over 100 seeded boards
+ok 139 - proven-safe deductions agree with hidden truth over 100 seeded boards
+  ---
+  duration_ms: 157.765082
+  type: 'test'
+  ...
+# Subtest: terminal board has no candidates
+ok 140 - terminal board has no candidates
+  ---
+  duration_ms: 0.260323
+  type: 'test'
+  ...
+# Subtest: exact risk agrees with independent exhaustive truth enumeration on small boards
+ok 141 - exact risk agrees with independent exhaustive truth enumeration on small boards
+  ---
+  duration_ms: 42.867885
+  type: 'test'
+  ...
+1..141
+# tests 141
+# suites 0
+# pass 141
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1012.827344
+# start of coverage report
+# -----------------------------------------------------------------------------------------------------------------------------
+# file                      | line % | branch % | funcs % | uncovered lines
+# -----------------------------------------------------------------------------------------------------------------------------
+# server                    |        |          |         | 
+#  config.js                | 100.00 |    57.14 |  100.00 | 
+#  db.js                    |  80.65 |    88.24 |   92.31 | 24-29
+#  discord.js               |  94.03 |    66.13 |  100.00 | 55-58
+#  jev.js                   | 100.00 |    89.74 |  100.00 | 
+#  main.js                  |  84.95 |    70.31 |   80.00 | 48 87-88 91-93 103-104 106-107 114-122 152-155 177-179 182 203-206
+#  matches.js               |  82.33 |    69.77 |   86.84 | 23-27 105-106 117-120 160-162 166-173 175-185 189-193
+#  security.js              | 100.00 |    81.25 |  100.00 | 
+#  worker.js                |  92.86 |    75.00 |  100.00 | 11
+#  workers.js               |  86.11 |    63.64 |   71.43 | 19-23
+# shared                    |        |          |         | 
+#  analytics.js             |  96.64 |    83.41 |   97.75 | 87-88 104-106
+#  decisions.js             |  98.41 |    65.43 |  100.00 | 60
+#  engine.js                | 100.00 |    91.95 |   97.67 | 
+#  replay.js                |  97.56 |    87.50 |  100.00 | 29-30
+#  solver.js                |  97.02 |    94.12 |   90.91 | 143-144 149-151
+# tests                     |        |          |         | 
+#  api.test.js              | 100.00 |    96.43 |  100.00 | 
+#  decision-journal.test.js | 100.00 |    94.29 |  100.00 | 
+#  engine.test.js           | 100.00 |   100.00 |  100.00 | 
+#  helpers.js               | 100.00 |    95.65 |  100.00 | 
+#  jev.test.js              | 100.00 |   100.00 |   96.55 | 
+#  replay-analytics.test.js | 100.00 |   100.00 |  100.00 | 
+#  security-discord.test.js | 100.00 |   100.00 |   96.77 | 
+#  solver.test.js           | 100.00 |    94.29 |  100.00 | 
+# -----------------------------------------------------------------------------------------------------------------------------
+# all files                 |  93.78 |    83.65 |   95.38 | 
+# -----------------------------------------------------------------------------------------------------------------------------
+# end of coverage report

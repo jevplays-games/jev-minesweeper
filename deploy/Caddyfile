@@ -1,0 +1,6 @@
+# Replace with your actual hostname and configure APP_ORIGIN identically.
+games.example.com {
+    encode zstd gzip
+    reverse_proxy 127.0.0.1:3000
+    # Do not enable request logs containing OAuth query parameters.
+}

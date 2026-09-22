@@ -1,0 +1,2545 @@
+{
+  "format": "analytics-observed-field-catalog",
+  "version": 1,
+  "analyticsVersion": "ms-analytics-1.0.0",
+  "scope": "Structural index generated from the bundled synthetic match; not a full JSON Schema and not a promise that every optional provider field occurs in this local-only fixture. See ANALYTICS.md for definitions and provider schemas.",
+  "fieldCount": 423,
+  "fields": [
+    {
+      "path": "actions[].actor",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "actions[].atMs",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "actions[].cell",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "actions[].classification",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "actions[].column",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "actions[].componentCount",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "actions[].decisionLatencyMs",
+      "types": [
+        "null",
+        "number"
+      ]
+    },
+    {
+      "path": "actions[].exploded",
+      "types": [
+        "boolean"
+      ]
+    },
+    {
+      "path": "actions[].flagValue",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "actions[].flagsAfter",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "actions[].flagsBefore",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "actions[].frontierCells",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "actions[].opponentSource",
+      "types": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "path": "actions[].provenSafeAvailable",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "actions[].revealedSafe",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "actions[].riskSource",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "actions[].riskValue",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "actions[].row",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "actions[].safeDelta",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "actions[].seq",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "actions[].solverCutoff",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "actions[].solverExactComplete",
+      "types": [
+        "boolean"
+      ]
+    },
+    {
+      "path": "actions[].solverNodes",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "actions[].type",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "analyticsVersion",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "boards.{actor}.adjacencyHistogram[]",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "boards.{actor}.cellCount",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "boards.{actor}.cornerMines",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "boards.{actor}.edgeMines",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "boards.{actor}.firstCell",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "boards.{actor}.firstCellColumn",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "boards.{actor}.firstCellRow",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "boards.{actor}.height",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "boards.{actor}.isolatedNumberCells",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "boards.{actor}.mineCount",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "boards.{actor}.mineDensity",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "boards.{actor}.openingSizeDistribution.count",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "boards.{actor}.openingSizeDistribution.max",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "boards.{actor}.openingSizeDistribution.mean",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "boards.{actor}.openingSizeDistribution.min",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "boards.{actor}.openingSizeDistribution.p50",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "boards.{actor}.openingSizeDistribution.p90",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "boards.{actor}.openingSizeDistribution.p95",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "boards.{actor}.openingSizeDistribution.p99",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "boards.{actor}.openingSizeDistribution.populationStdDev",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "boards.{actor}.openingSizeDistribution.sum",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "boards.{actor}.safeCellCount",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "boards.{actor}.threeBV",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "boards.{actor}.width",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "boards.{actor}.zeroCells",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "boards.{actor}.zeroRegions",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "configuration.adjudicationMs",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "configuration.aiDifficulty",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "configuration.deadlineMs",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "configuration.engineVersion",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "configuration.height",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "configuration.jevIntervalMs",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "configuration.lateToleranceMs",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "configuration.mineCount",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "configuration.model",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "configuration.policyVersion",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "configuration.preset",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "configuration.width",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "decisionJournal[].attempts",
+      "type": "array",
+      "note": "Zero observed records in this fixture; may contain records in other matches."
+    },
+    {
+      "path": "decisionJournal[].boardRevision",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "decisionJournal[].candidates[].action.cell",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "decisionJournal[].candidates[].action.type",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "decisionJournal[].candidates[].column",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "decisionJournal[].candidates[].coveredNeighbors",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "decisionJournal[].candidates[].evidence[]",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "decisionJournal[].candidates[].frontier",
+      "types": [
+        "boolean"
+      ]
+    },
+    {
+      "path": "decisionJournal[].candidates[].frontierTouches",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "decisionJournal[].candidates[].group",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "decisionJournal[].candidates[].id",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "decisionJournal[].candidates[].progress",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "decisionJournal[].candidates[].risk.source",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "decisionJournal[].candidates[].risk.value",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "decisionJournal[].candidates[].row",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "decisionJournal[].errorCode",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "decisionJournal[].fallback",
+      "types": [
+        "boolean"
+      ]
+    },
+    {
+      "path": "decisionJournal[].id",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "decisionJournal[].latencyMs",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "decisionJournal[].legalCount",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "decisionJournal[].model",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "decisionJournal[].observationHash",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "decisionJournal[].policyVersion",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "decisionJournal[].requestBytes",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "decisionJournal[].response",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "decisionJournal[].selected.action.cell",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "decisionJournal[].selected.action.type",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "decisionJournal[].selected.choiceProbability",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "decisionJournal[].selected.column",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "decisionJournal[].selected.continuation",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "decisionJournal[].selected.coveredNeighbors",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "decisionJournal[].selected.evaluatedRisk.source",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "decisionJournal[].selected.evaluatedRisk.value",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "decisionJournal[].selected.evidence[]",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "decisionJournal[].selected.frontier",
+      "types": [
+        "boolean"
+      ]
+    },
+    {
+      "path": "decisionJournal[].selected.frontierTouches",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "decisionJournal[].selected.group",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "decisionJournal[].selected.id",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "decisionJournal[].selected.progress",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "decisionJournal[].selected.risk.source",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "decisionJournal[].selected.risk.value",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "decisionJournal[].selected.row",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "decisionJournal[].solver.components",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "decisionJournal[].solver.cutoffReason",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "decisionJournal[].solver.exactComplete",
+      "types": [
+        "boolean"
+      ]
+    },
+    {
+      "path": "decisionJournal[].solver.largestComponent",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "decisionJournal[].solver.nodes",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "decisionJournal[].solver.safeCount",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "decisionJournal[].solverMs",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "decisionJournal[].source",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "generatedFrom",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "limitations[]",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "match.acceptedCommands",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "match.acceptedEvents",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "match.durationMs",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "match.independentLayouts",
+      "types": [
+        "boolean"
+      ]
+    },
+    {
+      "path": "match.mineDensity",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "matchId",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "metadata.eligibilityReasons[]",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "metadata.eligible",
+      "types": [
+        "boolean"
+      ]
+    },
+    {
+      "path": "metadata.fixture",
+      "types": [
+        "boolean"
+      ]
+    },
+    {
+      "path": "metadata.note",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "metadata.verification",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "operations.auditEvents",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "operations.idempotentRetries",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "operations.reconnects",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "operations.rejectedRequests",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "operations.rejectionReasons",
+      "type": "object",
+      "note": "Dynamic counts keyed by observed code; absent keys do not represent observed events."
+    },
+    {
+      "path": "operations.requestLatencyMs.count",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "operations.requestLatencyMs.max",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "operations.requestLatencyMs.mean",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "operations.requestLatencyMs.min",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "operations.requestLatencyMs.p50",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "operations.requestLatencyMs.p90",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "operations.requestLatencyMs.p95",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "operations.requestLatencyMs.p99",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "operations.requestLatencyMs.populationStdDev",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "operations.requestLatencyMs.sum",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "operations.schedulingMisses",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "operations.types",
+      "type": "object",
+      "note": "Dynamic counts keyed by observed code; absent keys do not represent observed events."
+    },
+    {
+      "path": "opponent.calibration.allEvaluated.bins[].count",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.calibration.allEvaluated.bins[].lower",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.calibration.allEvaluated.bins[].meanPrediction",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "opponent.calibration.allEvaluated.bins[].observedFrequency",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "opponent.calibration.allEvaluated.bins[].predictionSum",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.calibration.allEvaluated.bins[].successes",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.calibration.allEvaluated.bins[].upper",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.calibration.allEvaluated.brier",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "opponent.calibration.allEvaluated.count",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.calibration.allEvaluated.expectedCalibrationError",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "opponent.calibration.allEvaluated.logLoss",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "opponent.calibration.selected.bins[].count",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.calibration.selected.bins[].lower",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.calibration.selected.bins[].meanPrediction",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "opponent.calibration.selected.bins[].observedFrequency",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "opponent.calibration.selected.bins[].predictionSum",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.calibration.selected.bins[].successes",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.calibration.selected.bins[].upper",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.calibration.selected.brier",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "opponent.calibration.selected.count",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.calibration.selected.expectedCalibrationError",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "opponent.calibration.selected.logLoss",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "opponent.calibration.warning",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "opponent.candidates.count",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.candidates.max",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.candidates.mean",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.candidates.min",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.candidates.p50",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.candidates.p90",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.candidates.p95",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.candidates.p99",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.candidates.populationStdDev",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.candidates.sum",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.choiceConfidence.count",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.choiceConfidence.max",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "opponent.choiceConfidence.mean",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "opponent.choiceConfidence.min",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "opponent.choiceConfidence.p50",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "opponent.choiceConfidence.p90",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "opponent.choiceConfidence.p95",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "opponent.choiceConfidence.p99",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "opponent.choiceConfidence.populationStdDev",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "opponent.choiceConfidence.sum",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.decisions",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.estimatedCost.amount",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "opponent.estimatedCost.configuredInputPricePerMillion",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "opponent.estimatedCost.currency",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "opponent.estimatedCost.scope",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "opponent.estimatedCost.usageComplete",
+      "types": [
+        "boolean"
+      ]
+    },
+    {
+      "path": "opponent.exactEnumerationRate",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.fallbackDecisions",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.fallbackReasons",
+      "type": "object",
+      "note": "Dynamic counts keyed by observed code; absent keys do not represent observed events."
+    },
+    {
+      "path": "opponent.forcedDecisions",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.invalidResponseCount",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.latencyMs.count",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.latencyMs.max",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.latencyMs.mean",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.latencyMs.min",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.latencyMs.p50",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.latencyMs.p90",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.latencyMs.p95",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.latencyMs.p99",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.latencyMs.populationStdDev",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.latencyMs.sum",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.legalActions.count",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.legalActions.max",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.legalActions.mean",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.legalActions.min",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.legalActions.p50",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.legalActions.p90",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.legalActions.p95",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.legalActions.p99",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.legalActions.populationStdDev",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.legalActions.sum",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.localDecisions",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.providerAttempts",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.providerLatencyMs.count",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.providerLatencyMs.max",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "opponent.providerLatencyMs.mean",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "opponent.providerLatencyMs.min",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "opponent.providerLatencyMs.p50",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "opponent.providerLatencyMs.p90",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "opponent.providerLatencyMs.p95",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "opponent.providerLatencyMs.p99",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "opponent.providerLatencyMs.populationStdDev",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "opponent.providerLatencyMs.sum",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.providerStatusCounts",
+      "type": "object",
+      "note": "Dynamic counts keyed by observed code; absent keys do not represent observed events."
+    },
+    {
+      "path": "opponent.remoteDecisions",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.requestBytes.count",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.requestBytes.max",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.requestBytes.mean",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.requestBytes.min",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.requestBytes.p50",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.requestBytes.p90",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.requestBytes.p95",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.requestBytes.p99",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.requestBytes.populationStdDev",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.requestBytes.sum",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.retryCount",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.selectedRiskSource.proof",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.solverCutoffReasons.disabled",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.solverMs.count",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.solverMs.max",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.solverMs.mean",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.solverMs.min",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.solverMs.p50",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.solverMs.p90",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.solverMs.p95",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.solverMs.p99",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.solverMs.populationStdDev",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.solverMs.sum",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.solverNodes.count",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.solverNodes.max",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.solverNodes.mean",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.solverNodes.min",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.solverNodes.p50",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.solverNodes.p90",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.solverNodes.p95",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.solverNodes.p99",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.solverNodes.populationStdDev",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.solverNodes.sum",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.sourceCounts.local",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.tokenUsage.inputTokens",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.tokenUsage.measuredAttempts",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.tokenUsage.outputTokens",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "opponent.tokenUsage.unknownAttempts",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.actions",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.activeMs",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.chords",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.clearMs",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "players.{actor}.commandsPerSecond",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.correctFlagPlacements",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.correctFlagsAtEnd",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.correctFlagsRemoved",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.exactChosenRisk.count",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.exactChosenRisk.max",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.exactChosenRisk.mean",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.exactChosenRisk.min",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.exactChosenRisk.p50",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.exactChosenRisk.p90",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.exactChosenRisk.p95",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.exactChosenRisk.p99",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.exactChosenRisk.populationStdDev",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.exactChosenRisk.sum",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.exactRiskCoverage",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.exactRiskCoveredActions",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.explodedCell",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "players.{actor}.explodedWhileProvenSafeAvailable",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.firstActionMs",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.flagChurn",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.flagF1",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.flagPlacementPrecision",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "players.{actor}.flagPrecision",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "players.{actor}.flagRecall",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.flagsAtEnd",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.flagsPlaced",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.flagsRemoved",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.frontierSize.count",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.frontierSize.max",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.frontierSize.mean",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.frontierSize.min",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.frontierSize.p50",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.frontierSize.p90",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.frontierSize.p95",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.frontierSize.p99",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.frontierSize.populationStdDev",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.frontierSize.sum",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.heatmaps.commands[]",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.heatmaps.flagPlacements[]",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.heatmaps.revealAtMs[]",
+      "types": [
+        "null",
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.heatmaps.uncertainReveals[]",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.idleGapsOver10s",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.idleGapsOver2s",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.idleGapsOver5s",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.incorrectFlagPlacements",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.incorrectFlagsAtEnd",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.incorrectFlagsRemoved",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.inputGapMs.count",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.inputGapMs.max",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.inputGapMs.mean",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.inputGapMs.min",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.inputGapMs.p50",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.inputGapMs.p90",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.inputGapMs.p95",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.inputGapMs.p99",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.inputGapMs.populationStdDev",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.inputGapMs.sum",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.knownAlternativeRiskRegret.count",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.knownAlternativeRiskRegret.max",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.knownAlternativeRiskRegret.mean",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.knownAlternativeRiskRegret.min",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.knownAlternativeRiskRegret.p50",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.knownAlternativeRiskRegret.p90",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.knownAlternativeRiskRegret.p95",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.knownAlternativeRiskRegret.p99",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.knownAlternativeRiskRegret.populationStdDev",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.knownAlternativeRiskRegret.sum",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.knownMineRevealActions",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.largestComponent.count",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.largestComponent.max",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.largestComponent.mean",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.largestComponent.min",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.largestComponent.p50",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.largestComponent.p90",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.largestComponent.p95",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.largestComponent.p99",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.largestComponent.populationStdDev",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.largestComponent.sum",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.lastActionMs",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.maximumIdleGapMs",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.proofCoverage",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.provenSafeOptions.count",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.provenSafeOptions.max",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.provenSafeOptions.mean",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.provenSafeOptions.min",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.provenSafeOptions.p50",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.provenSafeOptions.p90",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.provenSafeOptions.p95",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.provenSafeOptions.p99",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.provenSafeOptions.populationStdDev",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.provenSafeOptions.sum",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.provenSafeRevealActions",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.revealYield.count",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.revealYield.max",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.revealYield.mean",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.revealYield.min",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.revealYield.p50",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.revealYield.p90",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.revealYield.p95",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.revealYield.p99",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.revealYield.populationStdDev",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.revealYield.sum",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.revealedMineCells",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.revealedSafe",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.reveals",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.safeCellsFromActions",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.safeCellsFromOpening",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.safeCellsPerAction",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.safeChords",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.safeCompletionRate",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.status",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "players.{actor}.terminalAtMs",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "players.{actor}.threeBVPerSecondOnClear",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "players.{actor}.uncertainExplosions",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.uncertainRevealActions",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.uncertainRevealRate",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.uncertainRevealSurvivalRate",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "players.{actor}.uncertainRevealsWhileProvenSafeAvailable",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.uncertainSurvivals",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.unflaggedMinesAtEnd",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.unrevealedSafeCells",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.unsafeChords",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.zeroExpansionActions",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "players.{actor}.zeroExpansionCells",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "race.humanAheadMs",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "race.humanLeadAreaCellMs",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "race.humanPeakLeadCells",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "race.jevAheadMs",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "race.jevPeakLeadCells",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "race.leadChanges",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "race.tiedMs",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "result.finishedAtMs",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "result.humanClearMs",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "result.humanRevealed",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "result.humanStatus",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "result.jevClearMs",
+      "types": [
+        "null"
+      ]
+    },
+    {
+      "path": "result.jevRevealed",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "result.jevStatus",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "result.openingOnly",
+      "types": [
+        "boolean"
+      ]
+    },
+    {
+      "path": "result.outcome",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "result.reason",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "timeline[].actor",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "timeline[].atMs",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "timeline[].event",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "timeline[].humanLead",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "timeline[].humanSafe",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "timeline[].humanStatus",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "timeline[].jevSafe",
+      "types": [
+        "number"
+      ]
+    },
+    {
+      "path": "timeline[].jevStatus",
+      "types": [
+        "string"
+      ]
+    },
+    {
+      "path": "timeline[].seq",
+      "types": [
+        "number"
+      ]
+    }
+  ]
+}

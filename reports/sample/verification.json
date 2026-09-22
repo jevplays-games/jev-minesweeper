@@ -1,0 +1,17 @@
+{
+  "valid": true,
+  "matchId": "synthetic-sample-match",
+  "events": 24,
+  "result": {
+    "outcome": "win",
+    "reason": "human_cleared_first",
+    "finishedAtMs": 9000,
+    "openingOnly": false,
+    "humanStatus": "cleared",
+    "jevStatus": "active",
+    "humanRevealed": 71,
+    "jevRevealed": 62,
+    "humanClearMs": 8400,
+    "jevClearMs": null
+  }
+}

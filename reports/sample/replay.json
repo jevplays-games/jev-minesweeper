@@ -1,0 +1,2926 @@
+{
+  "format": "jev-arcade-replay",
+  "version": 1,
+  "engineVersion": "ms-race-1.0.0",
+  "generatorVersion": "hmac-shuffle-1",
+  "policyVersion": "ms-policy-1.0.0",
+  "matchId": "synthetic-sample-match",
+  "config": {
+    "adjudicationMs": 100,
+    "deadlineMs": 900000,
+    "jevIntervalMs": 1000,
+    "width": 9,
+    "height": 9,
+    "mineCount": 10,
+    "preset": "beginner",
+    "aiDifficulty": "normal",
+    "model": "jev-1.13.0",
+    "policyVersion": "ms-policy-1.0.0",
+    "engineVersion": "ms-race-1.0.0",
+    "lateToleranceMs": 100
+  },
+  "seeds": {
+    "human": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "jev": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+  },
+  "commitments": {
+    "human": "275bde3073d4ca53279fde8229f33a54fdd57adbde5bfc52512da049fb526aaf",
+    "jev": "e1e180cc1b9192fe90c7bafda6399c9bd1c43ed11e38b47f646fd7743d89620f"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "start",
+      "actor": "human",
+      "atMs": 0,
+      "payload": {
+        "cell": 40
+      },
+      "decision": null,
+      "requestId": null,
+      "previousHash": null,
+      "hash": "90a53ae765b45bfbc3c25dbc6e19545467d3415f04a33c915d7824f5bf45aa2a"
+    },
+    {
+      "seq": 2,
+      "type": "action",
+      "actor": "human",
+      "atMs": 600,
+      "payload": {
+        "expectedRevision": 1,
+        "action": {
+          "type": "reveal",
+          "cell": 69
+        }
+      },
+      "decision": null,
+      "requestId": null,
+      "previousHash": "90a53ae765b45bfbc3c25dbc6e19545467d3415f04a33c915d7824f5bf45aa2a",
+      "hash": "3115bcffe673ac5f4a34f00f24bf7169d053f2d82d32071efdff4cb862e4bc0d"
+    },
+    {
+      "seq": 3,
+      "type": "action",
+      "actor": "jev",
+      "atMs": 1000,
+      "payload": {
+        "expectedRevision": 1,
+        "action": {
+          "type": "reveal",
+          "cell": 25
+        }
+      },
+      "decision": {
+        "id": "97507735-6f0a-4afd-b0f3-7f320a87bd68",
+        "policyVersion": "ms-policy-1.0.0",
+        "model": "jev-1.13.0",
+        "boardRevision": 1,
+        "observationHash": "cf57f3c905816de3abd56850a3dac74b059acfc0912eda03e86d203e1724fc81",
+        "candidates": [
+          {
+            "id": "reveal_25",
+            "action": {
+              "type": "reveal",
+              "cell": 25
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.7,
+            "row": 3,
+            "column": 8,
+            "frontierTouches": 0,
+            "coveredNeighbors": 7,
+            "frontier": false
+          },
+          {
+            "id": "reveal_15",
+            "action": {
+              "type": "reveal",
+              "cell": 15
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.6,
+            "row": 2,
+            "column": 7,
+            "frontierTouches": 0,
+            "coveredNeighbors": 6,
+            "frontier": false
+          },
+          {
+            "id": "reveal_19",
+            "action": {
+              "type": "reveal",
+              "cell": 19
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.5,
+            "row": 3,
+            "column": 2,
+            "frontierTouches": 0,
+            "coveredNeighbors": 5,
+            "frontier": false
+          },
+          {
+            "id": "reveal_1",
+            "action": {
+              "type": "reveal",
+              "cell": 1
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.4,
+            "row": 1,
+            "column": 2,
+            "frontierTouches": 0,
+            "coveredNeighbors": 4,
+            "frontier": false
+          },
+          {
+            "id": "reveal_6",
+            "action": {
+              "type": "reveal",
+              "cell": 6
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.4,
+            "row": 1,
+            "column": 7,
+            "frontierTouches": 0,
+            "coveredNeighbors": 4,
+            "frontier": false
+          },
+          {
+            "id": "reveal_2",
+            "action": {
+              "type": "reveal",
+              "cell": 2
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.3,
+            "row": 1,
+            "column": 3,
+            "frontierTouches": 0,
+            "coveredNeighbors": 3,
+            "frontier": false
+          },
+          {
+            "id": "reveal_5",
+            "action": {
+              "type": "reveal",
+              "cell": 5
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.3,
+            "row": 1,
+            "column": 6,
+            "frontierTouches": 0,
+            "coveredNeighbors": 3,
+            "frontier": false
+          },
+          {
+            "id": "reveal_35",
+            "action": {
+              "type": "reveal",
+              "cell": 35
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.3,
+            "row": 4,
+            "column": 9,
+            "frontierTouches": 0,
+            "coveredNeighbors": 3,
+            "frontier": false
+          },
+          {
+            "id": "reveal_76",
+            "action": {
+              "type": "reveal",
+              "cell": 76
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.3,
+            "row": 9,
+            "column": 5,
+            "frontierTouches": 0,
+            "coveredNeighbors": 3,
+            "frontier": false
+          },
+          {
+            "id": "reveal_4",
+            "action": {
+              "type": "reveal",
+              "cell": 4
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.2,
+            "row": 1,
+            "column": 5,
+            "frontierTouches": 0,
+            "coveredNeighbors": 2,
+            "frontier": false
+          },
+          {
+            "id": "reveal_74",
+            "action": {
+              "type": "reveal",
+              "cell": 74
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.2,
+            "row": 9,
+            "column": 3,
+            "frontierTouches": 0,
+            "coveredNeighbors": 2,
+            "frontier": false
+          },
+          {
+            "id": "reveal_77",
+            "action": {
+              "type": "reveal",
+              "cell": 77
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.2,
+            "row": 9,
+            "column": 6,
+            "frontierTouches": 0,
+            "coveredNeighbors": 2,
+            "frontier": false
+          }
+        ],
+        "legalCount": 68,
+        "solver": {
+          "nodes": 0,
+          "exactComplete": false,
+          "cutoffReason": "disabled",
+          "components": 1,
+          "largestComponent": 6,
+          "safeCount": 12
+        },
+        "solverMs": 0.9265669999999986,
+        "requestBytes": 8479,
+        "source": "local",
+        "fallback": false,
+        "errorCode": "not_configured",
+        "attempts": [],
+        "response": null,
+        "selected": {
+          "id": "reveal_25",
+          "action": {
+            "type": "reveal",
+            "cell": 25
+          },
+          "group": 0,
+          "risk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "evidence": [
+            "PROVEN_SAFE"
+          ],
+          "progress": 0.7,
+          "row": 3,
+          "column": 8,
+          "frontierTouches": 0,
+          "coveredNeighbors": 7,
+          "frontier": false,
+          "evaluatedRisk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "continuation": 0.7,
+          "choiceProbability": 0
+        },
+        "latencyMs": 2.6671809999999994
+      },
+      "requestId": null,
+      "previousHash": "3115bcffe673ac5f4a34f00f24bf7169d053f2d82d32071efdff4cb862e4bc0d",
+      "hash": "779cac538dc9765e4e5923533e7350086daf91283522bc9f39541e0b60ad88c4"
+    },
+    {
+      "seq": 4,
+      "type": "action",
+      "actor": "human",
+      "atMs": 1200,
+      "payload": {
+        "expectedRevision": 2,
+        "action": {
+          "type": "reveal",
+          "cell": 70
+        }
+      },
+      "decision": null,
+      "requestId": null,
+      "previousHash": "779cac538dc9765e4e5923533e7350086daf91283522bc9f39541e0b60ad88c4",
+      "hash": "0daae658761a72909c4a2dc5e3e2796f338bc02daaeb4b7a280fab3ede041c26"
+    },
+    {
+      "seq": 5,
+      "type": "action",
+      "actor": "human",
+      "atMs": 1800,
+      "payload": {
+        "expectedRevision": 3,
+        "action": {
+          "type": "reveal",
+          "cell": 64
+        }
+      },
+      "decision": null,
+      "requestId": null,
+      "previousHash": "0daae658761a72909c4a2dc5e3e2796f338bc02daaeb4b7a280fab3ede041c26",
+      "hash": "57e185b1a9e13ce723ee7ec0b0bb23415c53da3fd916c3e60dfafd31c3b258bc"
+    },
+    {
+      "seq": 6,
+      "type": "action",
+      "actor": "jev",
+      "atMs": 2000,
+      "payload": {
+        "expectedRevision": 2,
+        "action": {
+          "type": "reveal",
+          "cell": 16
+        }
+      },
+      "decision": {
+        "id": "ca75c83f-21ba-4a70-8cee-d6bdfcb7cc54",
+        "policyVersion": "ms-policy-1.0.0",
+        "model": "jev-1.13.0",
+        "boardRevision": 2,
+        "observationHash": "d40fa87b8f2ecc1191cf9d2ec2ad4d1e159f9820ed2f2b7f26722a1150845972",
+        "candidates": [
+          {
+            "id": "reveal_16",
+            "action": {
+              "type": "reveal",
+              "cell": 16
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.7,
+            "row": 2,
+            "column": 8,
+            "frontierTouches": 0,
+            "coveredNeighbors": 7,
+            "frontier": false
+          },
+          {
+            "id": "reveal_15",
+            "action": {
+              "type": "reveal",
+              "cell": 15
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.5,
+            "row": 2,
+            "column": 7,
+            "frontierTouches": 0,
+            "coveredNeighbors": 5,
+            "frontier": false
+          },
+          {
+            "id": "reveal_19",
+            "action": {
+              "type": "reveal",
+              "cell": 19
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.5,
+            "row": 3,
+            "column": 2,
+            "frontierTouches": 0,
+            "coveredNeighbors": 5,
+            "frontier": false
+          },
+          {
+            "id": "reveal_1",
+            "action": {
+              "type": "reveal",
+              "cell": 1
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.4,
+            "row": 1,
+            "column": 2,
+            "frontierTouches": 0,
+            "coveredNeighbors": 4,
+            "frontier": false
+          },
+          {
+            "id": "reveal_6",
+            "action": {
+              "type": "reveal",
+              "cell": 6
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.4,
+            "row": 1,
+            "column": 7,
+            "frontierTouches": 0,
+            "coveredNeighbors": 4,
+            "frontier": false
+          },
+          {
+            "id": "reveal_17",
+            "action": {
+              "type": "reveal",
+              "cell": 17
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.4,
+            "row": 2,
+            "column": 9,
+            "frontierTouches": 0,
+            "coveredNeighbors": 4,
+            "frontier": false
+          },
+          {
+            "id": "reveal_26",
+            "action": {
+              "type": "reveal",
+              "cell": 26
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.4,
+            "row": 3,
+            "column": 9,
+            "frontierTouches": 0,
+            "coveredNeighbors": 4,
+            "frontier": false
+          },
+          {
+            "id": "reveal_2",
+            "action": {
+              "type": "reveal",
+              "cell": 2
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.3,
+            "row": 1,
+            "column": 3,
+            "frontierTouches": 0,
+            "coveredNeighbors": 3,
+            "frontier": false
+          },
+          {
+            "id": "reveal_5",
+            "action": {
+              "type": "reveal",
+              "cell": 5
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.3,
+            "row": 1,
+            "column": 6,
+            "frontierTouches": 0,
+            "coveredNeighbors": 3,
+            "frontier": false
+          },
+          {
+            "id": "reveal_76",
+            "action": {
+              "type": "reveal",
+              "cell": 76
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.3,
+            "row": 9,
+            "column": 5,
+            "frontierTouches": 0,
+            "coveredNeighbors": 3,
+            "frontier": false
+          },
+          {
+            "id": "reveal_4",
+            "action": {
+              "type": "reveal",
+              "cell": 4
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.2,
+            "row": 1,
+            "column": 5,
+            "frontierTouches": 0,
+            "coveredNeighbors": 2,
+            "frontier": false
+          },
+          {
+            "id": "reveal_35",
+            "action": {
+              "type": "reveal",
+              "cell": 35
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.2,
+            "row": 4,
+            "column": 9,
+            "frontierTouches": 0,
+            "coveredNeighbors": 2,
+            "frontier": false
+          },
+          {
+            "id": "reveal_74",
+            "action": {
+              "type": "reveal",
+              "cell": 74
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.2,
+            "row": 9,
+            "column": 3,
+            "frontierTouches": 0,
+            "coveredNeighbors": 2,
+            "frontier": false
+          },
+          {
+            "id": "reveal_77",
+            "action": {
+              "type": "reveal",
+              "cell": 77
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.2,
+            "row": 9,
+            "column": 6,
+            "frontierTouches": 0,
+            "coveredNeighbors": 2,
+            "frontier": false
+          }
+        ],
+        "legalCount": 66,
+        "solver": {
+          "nodes": 0,
+          "exactComplete": false,
+          "cutoffReason": "disabled",
+          "components": 1,
+          "largestComponent": 6,
+          "safeCount": 14
+        },
+        "solverMs": 0.6138660000000016,
+        "requestBytes": 9678,
+        "source": "local",
+        "fallback": false,
+        "errorCode": "not_configured",
+        "attempts": [],
+        "response": null,
+        "selected": {
+          "id": "reveal_16",
+          "action": {
+            "type": "reveal",
+            "cell": 16
+          },
+          "group": 0,
+          "risk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "evidence": [
+            "PROVEN_SAFE"
+          ],
+          "progress": 0.7,
+          "row": 2,
+          "column": 8,
+          "frontierTouches": 0,
+          "coveredNeighbors": 7,
+          "frontier": false,
+          "evaluatedRisk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "continuation": 0.7,
+          "choiceProbability": 0
+        },
+        "latencyMs": 1.0529870000000017
+      },
+      "requestId": null,
+      "previousHash": "57e185b1a9e13ce723ee7ec0b0bb23415c53da3fd916c3e60dfafd31c3b258bc",
+      "hash": "b6592cc07d5604bf71d58ce633895808c9ea10e9d8c2e8eb11bc8a404f90d53a"
+    },
+    {
+      "seq": 7,
+      "type": "action",
+      "actor": "human",
+      "atMs": 2400,
+      "payload": {
+        "expectedRevision": 4,
+        "action": {
+          "type": "reveal",
+          "cell": 68
+        }
+      },
+      "decision": null,
+      "requestId": null,
+      "previousHash": "b6592cc07d5604bf71d58ce633895808c9ea10e9d8c2e8eb11bc8a404f90d53a",
+      "hash": "765d9b8ea7e562043ab29fdc67e3620f5183774ee8267e87a9ad96685b4d890c"
+    },
+    {
+      "seq": 8,
+      "type": "action",
+      "actor": "human",
+      "atMs": 3000,
+      "payload": {
+        "expectedRevision": 5,
+        "action": {
+          "type": "reveal",
+          "cell": 63
+        }
+      },
+      "decision": null,
+      "requestId": null,
+      "previousHash": "765d9b8ea7e562043ab29fdc67e3620f5183774ee8267e87a9ad96685b4d890c",
+      "hash": "3bbbefe2d9a068adee6b26773378c812202587d7e60e3408417c0f2d6992710e"
+    },
+    {
+      "seq": 9,
+      "type": "action",
+      "actor": "jev",
+      "atMs": 3000,
+      "payload": {
+        "expectedRevision": 3,
+        "action": {
+          "type": "reveal",
+          "cell": 19
+        }
+      },
+      "decision": {
+        "id": "16ff62a1-2d68-40f2-b305-076654cdd77c",
+        "policyVersion": "ms-policy-1.0.0",
+        "model": "jev-1.13.0",
+        "boardRevision": 3,
+        "observationHash": "a32212f3858dd3b9aea20a873ec8fc9ba5a10fd090b4c6942be30afedace0e4d",
+        "candidates": [
+          {
+            "id": "reveal_19",
+            "action": {
+              "type": "reveal",
+              "cell": 19
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.5,
+            "row": 3,
+            "column": 2,
+            "frontierTouches": 0,
+            "coveredNeighbors": 5,
+            "frontier": false
+          },
+          {
+            "id": "reveal_1",
+            "action": {
+              "type": "reveal",
+              "cell": 1
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.4,
+            "row": 1,
+            "column": 2,
+            "frontierTouches": 0,
+            "coveredNeighbors": 4,
+            "frontier": false
+          },
+          {
+            "id": "reveal_7",
+            "action": {
+              "type": "reveal",
+              "cell": 7
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.4,
+            "row": 1,
+            "column": 8,
+            "frontierTouches": 0,
+            "coveredNeighbors": 4,
+            "frontier": false
+          },
+          {
+            "id": "reveal_15",
+            "action": {
+              "type": "reveal",
+              "cell": 15
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.4,
+            "row": 2,
+            "column": 7,
+            "frontierTouches": 0,
+            "coveredNeighbors": 4,
+            "frontier": false
+          },
+          {
+            "id": "reveal_2",
+            "action": {
+              "type": "reveal",
+              "cell": 2
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.3,
+            "row": 1,
+            "column": 3,
+            "frontierTouches": 0,
+            "coveredNeighbors": 3,
+            "frontier": false
+          },
+          {
+            "id": "reveal_5",
+            "action": {
+              "type": "reveal",
+              "cell": 5
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.3,
+            "row": 1,
+            "column": 6,
+            "frontierTouches": 0,
+            "coveredNeighbors": 3,
+            "frontier": false
+          },
+          {
+            "id": "reveal_6",
+            "action": {
+              "type": "reveal",
+              "cell": 6
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.3,
+            "row": 1,
+            "column": 7,
+            "frontierTouches": 0,
+            "coveredNeighbors": 3,
+            "frontier": false
+          },
+          {
+            "id": "reveal_17",
+            "action": {
+              "type": "reveal",
+              "cell": 17
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.3,
+            "row": 2,
+            "column": 9,
+            "frontierTouches": 0,
+            "coveredNeighbors": 3,
+            "frontier": false
+          },
+          {
+            "id": "reveal_26",
+            "action": {
+              "type": "reveal",
+              "cell": 26
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.3,
+            "row": 3,
+            "column": 9,
+            "frontierTouches": 0,
+            "coveredNeighbors": 3,
+            "frontier": false
+          },
+          {
+            "id": "reveal_76",
+            "action": {
+              "type": "reveal",
+              "cell": 76
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.3,
+            "row": 9,
+            "column": 5,
+            "frontierTouches": 0,
+            "coveredNeighbors": 3,
+            "frontier": false
+          },
+          {
+            "id": "reveal_4",
+            "action": {
+              "type": "reveal",
+              "cell": 4
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.2,
+            "row": 1,
+            "column": 5,
+            "frontierTouches": 0,
+            "coveredNeighbors": 2,
+            "frontier": false
+          },
+          {
+            "id": "reveal_8",
+            "action": {
+              "type": "reveal",
+              "cell": 8
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.2,
+            "row": 1,
+            "column": 9,
+            "frontierTouches": 0,
+            "coveredNeighbors": 2,
+            "frontier": false
+          },
+          {
+            "id": "reveal_35",
+            "action": {
+              "type": "reveal",
+              "cell": 35
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.2,
+            "row": 4,
+            "column": 9,
+            "frontierTouches": 0,
+            "coveredNeighbors": 2,
+            "frontier": false
+          },
+          {
+            "id": "reveal_74",
+            "action": {
+              "type": "reveal",
+              "cell": 74
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.2,
+            "row": 9,
+            "column": 3,
+            "frontierTouches": 0,
+            "coveredNeighbors": 2,
+            "frontier": false
+          },
+          {
+            "id": "reveal_77",
+            "action": {
+              "type": "reveal",
+              "cell": 77
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.2,
+            "row": 9,
+            "column": 6,
+            "frontierTouches": 0,
+            "coveredNeighbors": 2,
+            "frontier": false
+          }
+        ],
+        "legalCount": 64,
+        "solver": {
+          "nodes": 0,
+          "exactComplete": false,
+          "cutoffReason": "disabled",
+          "components": 1,
+          "largestComponent": 6,
+          "safeCount": 15
+        },
+        "solverMs": 0.40610300000000166,
+        "requestBytes": 10270,
+        "source": "local",
+        "fallback": false,
+        "errorCode": "not_configured",
+        "attempts": [],
+        "response": null,
+        "selected": {
+          "id": "reveal_19",
+          "action": {
+            "type": "reveal",
+            "cell": 19
+          },
+          "group": 0,
+          "risk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "evidence": [
+            "PROVEN_SAFE"
+          ],
+          "progress": 0.5,
+          "row": 3,
+          "column": 2,
+          "frontierTouches": 0,
+          "coveredNeighbors": 5,
+          "frontier": false,
+          "evaluatedRisk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "continuation": 0.5,
+          "choiceProbability": 0
+        },
+        "latencyMs": 0.946507000000004
+      },
+      "requestId": null,
+      "previousHash": "3bbbefe2d9a068adee6b26773378c812202587d7e60e3408417c0f2d6992710e",
+      "hash": "4aa574fc6590fcf7c66bb8dde95dbc204ed082883583eea9bb86fc931ddfd200"
+    },
+    {
+      "seq": 10,
+      "type": "action",
+      "actor": "human",
+      "atMs": 3600,
+      "payload": {
+        "expectedRevision": 6,
+        "action": {
+          "type": "reveal",
+          "cell": 71
+        }
+      },
+      "decision": null,
+      "requestId": null,
+      "previousHash": "4aa574fc6590fcf7c66bb8dde95dbc204ed082883583eea9bb86fc931ddfd200",
+      "hash": "98595d2d1aed835a5817e225e56c7c8ca2fb3532f16824835933d976ed51934a"
+    },
+    {
+      "seq": 11,
+      "type": "action",
+      "actor": "jev",
+      "atMs": 4000,
+      "payload": {
+        "expectedRevision": 4,
+        "action": {
+          "type": "reveal",
+          "cell": 1
+        }
+      },
+      "decision": {
+        "id": "d440c8b6-3824-45d0-897f-f863c6bb0203",
+        "policyVersion": "ms-policy-1.0.0",
+        "model": "jev-1.13.0",
+        "boardRevision": 4,
+        "observationHash": "bf0a03a9ced1e19b5a02a2a31b4ceaa8e1bc53f79d44a5d11dcb4f9529030f9c",
+        "candidates": [
+          {
+            "id": "reveal_1",
+            "action": {
+              "type": "reveal",
+              "cell": 1
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.4,
+            "row": 1,
+            "column": 2,
+            "frontierTouches": 0,
+            "coveredNeighbors": 4,
+            "frontier": false
+          },
+          {
+            "id": "reveal_7",
+            "action": {
+              "type": "reveal",
+              "cell": 7
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.4,
+            "row": 1,
+            "column": 8,
+            "frontierTouches": 0,
+            "coveredNeighbors": 4,
+            "frontier": false
+          },
+          {
+            "id": "reveal_15",
+            "action": {
+              "type": "reveal",
+              "cell": 15
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.4,
+            "row": 2,
+            "column": 7,
+            "frontierTouches": 0,
+            "coveredNeighbors": 4,
+            "frontier": false
+          },
+          {
+            "id": "reveal_2",
+            "action": {
+              "type": "reveal",
+              "cell": 2
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.3,
+            "row": 1,
+            "column": 3,
+            "frontierTouches": 0,
+            "coveredNeighbors": 3,
+            "frontier": false
+          },
+          {
+            "id": "reveal_5",
+            "action": {
+              "type": "reveal",
+              "cell": 5
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.3,
+            "row": 1,
+            "column": 6,
+            "frontierTouches": 0,
+            "coveredNeighbors": 3,
+            "frontier": false
+          },
+          {
+            "id": "reveal_6",
+            "action": {
+              "type": "reveal",
+              "cell": 6
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.3,
+            "row": 1,
+            "column": 7,
+            "frontierTouches": 0,
+            "coveredNeighbors": 3,
+            "frontier": false
+          },
+          {
+            "id": "reveal_17",
+            "action": {
+              "type": "reveal",
+              "cell": 17
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.3,
+            "row": 2,
+            "column": 9,
+            "frontierTouches": 0,
+            "coveredNeighbors": 3,
+            "frontier": false
+          },
+          {
+            "id": "reveal_26",
+            "action": {
+              "type": "reveal",
+              "cell": 26
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.3,
+            "row": 3,
+            "column": 9,
+            "frontierTouches": 0,
+            "coveredNeighbors": 3,
+            "frontier": false
+          },
+          {
+            "id": "reveal_76",
+            "action": {
+              "type": "reveal",
+              "cell": 76
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.3,
+            "row": 9,
+            "column": 5,
+            "frontierTouches": 0,
+            "coveredNeighbors": 3,
+            "frontier": false
+          },
+          {
+            "id": "reveal_4",
+            "action": {
+              "type": "reveal",
+              "cell": 4
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.2,
+            "row": 1,
+            "column": 5,
+            "frontierTouches": 0,
+            "coveredNeighbors": 2,
+            "frontier": false
+          },
+          {
+            "id": "reveal_8",
+            "action": {
+              "type": "reveal",
+              "cell": 8
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.2,
+            "row": 1,
+            "column": 9,
+            "frontierTouches": 0,
+            "coveredNeighbors": 2,
+            "frontier": false
+          },
+          {
+            "id": "reveal_35",
+            "action": {
+              "type": "reveal",
+              "cell": 35
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.2,
+            "row": 4,
+            "column": 9,
+            "frontierTouches": 0,
+            "coveredNeighbors": 2,
+            "frontier": false
+          },
+          {
+            "id": "reveal_74",
+            "action": {
+              "type": "reveal",
+              "cell": 74
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.2,
+            "row": 9,
+            "column": 3,
+            "frontierTouches": 0,
+            "coveredNeighbors": 2,
+            "frontier": false
+          },
+          {
+            "id": "reveal_77",
+            "action": {
+              "type": "reveal",
+              "cell": 77
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.2,
+            "row": 9,
+            "column": 6,
+            "frontierTouches": 0,
+            "coveredNeighbors": 2,
+            "frontier": false
+          }
+        ],
+        "legalCount": 62,
+        "solver": {
+          "nodes": 0,
+          "exactComplete": false,
+          "cutoffReason": "disabled",
+          "components": 1,
+          "largestComponent": 8,
+          "safeCount": 14
+        },
+        "solverMs": 0.8963310000000035,
+        "requestBytes": 9717,
+        "source": "local",
+        "fallback": false,
+        "errorCode": "not_configured",
+        "attempts": [],
+        "response": null,
+        "selected": {
+          "id": "reveal_1",
+          "action": {
+            "type": "reveal",
+            "cell": 1
+          },
+          "group": 0,
+          "risk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "evidence": [
+            "PROVEN_SAFE"
+          ],
+          "progress": 0.4,
+          "row": 1,
+          "column": 2,
+          "frontierTouches": 0,
+          "coveredNeighbors": 4,
+          "frontier": false,
+          "evaluatedRisk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "continuation": 0.4,
+          "choiceProbability": 0
+        },
+        "latencyMs": 1.2601200000000006
+      },
+      "requestId": null,
+      "previousHash": "98595d2d1aed835a5817e225e56c7c8ca2fb3532f16824835933d976ed51934a",
+      "hash": "f8e5a379628b2c974cc916feffecab27160106505c93b784b935ea8c2ef4a78a"
+    },
+    {
+      "seq": 12,
+      "type": "action",
+      "actor": "human",
+      "atMs": 4200,
+      "payload": {
+        "expectedRevision": 7,
+        "action": {
+          "type": "reveal",
+          "cell": 53
+        }
+      },
+      "decision": null,
+      "requestId": null,
+      "previousHash": "f8e5a379628b2c974cc916feffecab27160106505c93b784b935ea8c2ef4a78a",
+      "hash": "0af7028affb130423b35cabc718d0942201e11ac8c0c34381e8310e5abc726fe"
+    },
+    {
+      "seq": 13,
+      "type": "action",
+      "actor": "human",
+      "atMs": 4800,
+      "payload": {
+        "expectedRevision": 8,
+        "action": {
+          "type": "reveal",
+          "cell": 60
+        }
+      },
+      "decision": null,
+      "requestId": null,
+      "previousHash": "0af7028affb130423b35cabc718d0942201e11ac8c0c34381e8310e5abc726fe",
+      "hash": "2cbdc0ef1879c9a326d0bf99e238cb003a9917386ae598e835fe4862f81a9f4f"
+    },
+    {
+      "seq": 14,
+      "type": "action",
+      "actor": "jev",
+      "atMs": 5000,
+      "payload": {
+        "expectedRevision": 5,
+        "action": {
+          "type": "reveal",
+          "cell": 7
+        }
+      },
+      "decision": {
+        "id": "3200965d-438d-45c3-91d4-a8f318aa905b",
+        "policyVersion": "ms-policy-1.0.0",
+        "model": "jev-1.13.0",
+        "boardRevision": 5,
+        "observationHash": "ce60dda234554dcd6c1c8d828a378f684c60d1fef1ca863793efe26bacbeebe7",
+        "candidates": [
+          {
+            "id": "reveal_7",
+            "action": {
+              "type": "reveal",
+              "cell": 7
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.4,
+            "row": 1,
+            "column": 8,
+            "frontierTouches": 0,
+            "coveredNeighbors": 4,
+            "frontier": false
+          },
+          {
+            "id": "reveal_15",
+            "action": {
+              "type": "reveal",
+              "cell": 15
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.4,
+            "row": 2,
+            "column": 7,
+            "frontierTouches": 0,
+            "coveredNeighbors": 4,
+            "frontier": false
+          },
+          {
+            "id": "reveal_5",
+            "action": {
+              "type": "reveal",
+              "cell": 5
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.3,
+            "row": 1,
+            "column": 6,
+            "frontierTouches": 0,
+            "coveredNeighbors": 3,
+            "frontier": false
+          },
+          {
+            "id": "reveal_6",
+            "action": {
+              "type": "reveal",
+              "cell": 6
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.3,
+            "row": 1,
+            "column": 7,
+            "frontierTouches": 0,
+            "coveredNeighbors": 3,
+            "frontier": false
+          },
+          {
+            "id": "reveal_9",
+            "action": {
+              "type": "reveal",
+              "cell": 9
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.3,
+            "row": 2,
+            "column": 1,
+            "frontierTouches": 0,
+            "coveredNeighbors": 3,
+            "frontier": false
+          },
+          {
+            "id": "reveal_17",
+            "action": {
+              "type": "reveal",
+              "cell": 17
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.3,
+            "row": 2,
+            "column": 9,
+            "frontierTouches": 0,
+            "coveredNeighbors": 3,
+            "frontier": false
+          },
+          {
+            "id": "reveal_26",
+            "action": {
+              "type": "reveal",
+              "cell": 26
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.3,
+            "row": 3,
+            "column": 9,
+            "frontierTouches": 0,
+            "coveredNeighbors": 3,
+            "frontier": false
+          },
+          {
+            "id": "reveal_76",
+            "action": {
+              "type": "reveal",
+              "cell": 76
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.3,
+            "row": 9,
+            "column": 5,
+            "frontierTouches": 0,
+            "coveredNeighbors": 3,
+            "frontier": false
+          },
+          {
+            "id": "reveal_0",
+            "action": {
+              "type": "reveal",
+              "cell": 0
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.2,
+            "row": 1,
+            "column": 1,
+            "frontierTouches": 0,
+            "coveredNeighbors": 2,
+            "frontier": false
+          },
+          {
+            "id": "reveal_2",
+            "action": {
+              "type": "reveal",
+              "cell": 2
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.2,
+            "row": 1,
+            "column": 3,
+            "frontierTouches": 0,
+            "coveredNeighbors": 2,
+            "frontier": false
+          },
+          {
+            "id": "reveal_4",
+            "action": {
+              "type": "reveal",
+              "cell": 4
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.2,
+            "row": 1,
+            "column": 5,
+            "frontierTouches": 0,
+            "coveredNeighbors": 2,
+            "frontier": false
+          },
+          {
+            "id": "reveal_8",
+            "action": {
+              "type": "reveal",
+              "cell": 8
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.2,
+            "row": 1,
+            "column": 9,
+            "frontierTouches": 0,
+            "coveredNeighbors": 2,
+            "frontier": false
+          },
+          {
+            "id": "reveal_35",
+            "action": {
+              "type": "reveal",
+              "cell": 35
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.2,
+            "row": 4,
+            "column": 9,
+            "frontierTouches": 0,
+            "coveredNeighbors": 2,
+            "frontier": false
+          },
+          {
+            "id": "reveal_74",
+            "action": {
+              "type": "reveal",
+              "cell": 74
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.2,
+            "row": 9,
+            "column": 3,
+            "frontierTouches": 0,
+            "coveredNeighbors": 2,
+            "frontier": false
+          },
+          {
+            "id": "reveal_77",
+            "action": {
+              "type": "reveal",
+              "cell": 77
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.2,
+            "row": 9,
+            "column": 6,
+            "frontierTouches": 0,
+            "coveredNeighbors": 2,
+            "frontier": false
+          }
+        ],
+        "legalCount": 60,
+        "solver": {
+          "nodes": 0,
+          "exactComplete": false,
+          "cutoffReason": "disabled",
+          "components": 1,
+          "largestComponent": 7,
+          "safeCount": 15
+        },
+        "solverMs": 0.5209660000000014,
+        "requestBytes": 10310,
+        "source": "local",
+        "fallback": false,
+        "errorCode": "not_configured",
+        "attempts": [],
+        "response": null,
+        "selected": {
+          "id": "reveal_7",
+          "action": {
+            "type": "reveal",
+            "cell": 7
+          },
+          "group": 0,
+          "risk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "evidence": [
+            "PROVEN_SAFE"
+          ],
+          "progress": 0.4,
+          "row": 1,
+          "column": 8,
+          "frontierTouches": 0,
+          "coveredNeighbors": 4,
+          "frontier": false,
+          "evaluatedRisk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "continuation": 0.4,
+          "choiceProbability": 0
+        },
+        "latencyMs": 0.870432000000001
+      },
+      "requestId": null,
+      "previousHash": "2cbdc0ef1879c9a326d0bf99e238cb003a9917386ae598e835fe4862f81a9f4f",
+      "hash": "2287f4062960105cdc0dfe447b2f92d0b96db6d85c7588a6f84be633bef8a7d4"
+    },
+    {
+      "seq": 15,
+      "type": "action",
+      "actor": "human",
+      "atMs": 5400,
+      "payload": {
+        "expectedRevision": 9,
+        "action": {
+          "type": "reveal",
+          "cell": 73
+        }
+      },
+      "decision": null,
+      "requestId": null,
+      "previousHash": "2287f4062960105cdc0dfe447b2f92d0b96db6d85c7588a6f84be633bef8a7d4",
+      "hash": "6bb675b3e1bf913ba26cd6c2dde193112dc966c223018069b569685ffa434ff6"
+    },
+    {
+      "seq": 16,
+      "type": "action",
+      "actor": "human",
+      "atMs": 6000,
+      "payload": {
+        "expectedRevision": 10,
+        "action": {
+          "type": "reveal",
+          "cell": 75
+        }
+      },
+      "decision": null,
+      "requestId": null,
+      "previousHash": "6bb675b3e1bf913ba26cd6c2dde193112dc966c223018069b569685ffa434ff6",
+      "hash": "d2cb432cbdaf38a345e7b04b2598bee7ef2053e89cc91875f227858021ecfcad"
+    },
+    {
+      "seq": 17,
+      "type": "action",
+      "actor": "jev",
+      "atMs": 6000,
+      "payload": {
+        "expectedRevision": 6,
+        "action": {
+          "type": "reveal",
+          "cell": 9
+        }
+      },
+      "decision": {
+        "id": "1d7b7a85-f5e6-417a-b2d1-30a7c9d58972",
+        "policyVersion": "ms-policy-1.0.0",
+        "model": "jev-1.13.0",
+        "boardRevision": 6,
+        "observationHash": "b79243d00ee86be82a4b2d1d97fb223030a384c6be8e47846f62e247b440c9cf",
+        "candidates": [
+          {
+            "id": "reveal_9",
+            "action": {
+              "type": "reveal",
+              "cell": 9
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.3,
+            "row": 2,
+            "column": 1,
+            "frontierTouches": 0,
+            "coveredNeighbors": 3,
+            "frontier": false
+          },
+          {
+            "id": "reveal_76",
+            "action": {
+              "type": "reveal",
+              "cell": 76
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.3,
+            "row": 9,
+            "column": 5,
+            "frontierTouches": 0,
+            "coveredNeighbors": 3,
+            "frontier": false
+          },
+          {
+            "id": "reveal_0",
+            "action": {
+              "type": "reveal",
+              "cell": 0
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.2,
+            "row": 1,
+            "column": 1,
+            "frontierTouches": 0,
+            "coveredNeighbors": 2,
+            "frontier": false
+          },
+          {
+            "id": "reveal_2",
+            "action": {
+              "type": "reveal",
+              "cell": 2
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.2,
+            "row": 1,
+            "column": 3,
+            "frontierTouches": 0,
+            "coveredNeighbors": 2,
+            "frontier": false
+          },
+          {
+            "id": "reveal_74",
+            "action": {
+              "type": "reveal",
+              "cell": 74
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.2,
+            "row": 9,
+            "column": 3,
+            "frontierTouches": 0,
+            "coveredNeighbors": 2,
+            "frontier": false
+          },
+          {
+            "id": "reveal_77",
+            "action": {
+              "type": "reveal",
+              "cell": 77
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.2,
+            "row": 9,
+            "column": 6,
+            "frontierTouches": 0,
+            "coveredNeighbors": 2,
+            "frontier": false
+          },
+          {
+            "id": "reveal_35",
+            "action": {
+              "type": "reveal",
+              "cell": 35
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.1,
+            "row": 4,
+            "column": 9,
+            "frontierTouches": 0,
+            "coveredNeighbors": 1,
+            "frontier": false
+          }
+        ],
+        "legalCount": 44,
+        "solver": {
+          "nodes": 0,
+          "exactComplete": false,
+          "cutoffReason": "disabled",
+          "components": 1,
+          "largestComponent": 7,
+          "safeCount": 7
+        },
+        "solverMs": 0.5348969999999937,
+        "requestBytes": 5359,
+        "source": "local",
+        "fallback": false,
+        "errorCode": "not_configured",
+        "attempts": [],
+        "response": null,
+        "selected": {
+          "id": "reveal_9",
+          "action": {
+            "type": "reveal",
+            "cell": 9
+          },
+          "group": 0,
+          "risk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "evidence": [
+            "PROVEN_SAFE"
+          ],
+          "progress": 0.3,
+          "row": 2,
+          "column": 1,
+          "frontierTouches": 0,
+          "coveredNeighbors": 3,
+          "frontier": false,
+          "evaluatedRisk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "continuation": 0.3,
+          "choiceProbability": 0
+        },
+        "latencyMs": 0.8054640000000006
+      },
+      "requestId": null,
+      "previousHash": "d2cb432cbdaf38a345e7b04b2598bee7ef2053e89cc91875f227858021ecfcad",
+      "hash": "40075ab40cde0e55727526cb36f7e2d8e4bf287235f299fe44e5b6d608305f85"
+    },
+    {
+      "seq": 18,
+      "type": "action",
+      "actor": "human",
+      "atMs": 6600,
+      "payload": {
+        "expectedRevision": 11,
+        "action": {
+          "type": "reveal",
+          "cell": 77
+        }
+      },
+      "decision": null,
+      "requestId": null,
+      "previousHash": "40075ab40cde0e55727526cb36f7e2d8e4bf287235f299fe44e5b6d608305f85",
+      "hash": "21f0b673b3fd8aef511337391f132289dbb90b703a5ee6a0c15b37053eccab90"
+    },
+    {
+      "seq": 19,
+      "type": "action",
+      "actor": "jev",
+      "atMs": 7000,
+      "payload": {
+        "expectedRevision": 7,
+        "action": {
+          "type": "reveal",
+          "cell": 18
+        }
+      },
+      "decision": {
+        "id": "7e8339c2-9dac-4f96-92ac-a53f3cee544e",
+        "policyVersion": "ms-policy-1.0.0",
+        "model": "jev-1.13.0",
+        "boardRevision": 7,
+        "observationHash": "eca79e99b2cbdf34e2b92f05db819805a63022c11f1c0754255239757a235f3f",
+        "candidates": [
+          {
+            "id": "reveal_18",
+            "action": {
+              "type": "reveal",
+              "cell": 18
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.3,
+            "row": 3,
+            "column": 1,
+            "frontierTouches": 0,
+            "coveredNeighbors": 3,
+            "frontier": false
+          },
+          {
+            "id": "reveal_36",
+            "action": {
+              "type": "reveal",
+              "cell": 36
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.3,
+            "row": 5,
+            "column": 1,
+            "frontierTouches": 0,
+            "coveredNeighbors": 3,
+            "frontier": false
+          },
+          {
+            "id": "reveal_63",
+            "action": {
+              "type": "reveal",
+              "cell": 63
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.3,
+            "row": 8,
+            "column": 1,
+            "frontierTouches": 0,
+            "coveredNeighbors": 3,
+            "frontier": false
+          },
+          {
+            "id": "reveal_76",
+            "action": {
+              "type": "reveal",
+              "cell": 76
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.3,
+            "row": 9,
+            "column": 5,
+            "frontierTouches": 0,
+            "coveredNeighbors": 3,
+            "frontier": false
+          },
+          {
+            "id": "reveal_2",
+            "action": {
+              "type": "reveal",
+              "cell": 2
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.2,
+            "row": 1,
+            "column": 3,
+            "frontierTouches": 0,
+            "coveredNeighbors": 2,
+            "frontier": false
+          },
+          {
+            "id": "reveal_45",
+            "action": {
+              "type": "reveal",
+              "cell": 45
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.2,
+            "row": 6,
+            "column": 1,
+            "frontierTouches": 0,
+            "coveredNeighbors": 2,
+            "frontier": false
+          },
+          {
+            "id": "reveal_72",
+            "action": {
+              "type": "reveal",
+              "cell": 72
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.2,
+            "row": 9,
+            "column": 1,
+            "frontierTouches": 0,
+            "coveredNeighbors": 2,
+            "frontier": false
+          },
+          {
+            "id": "reveal_74",
+            "action": {
+              "type": "reveal",
+              "cell": 74
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.2,
+            "row": 9,
+            "column": 3,
+            "frontierTouches": 0,
+            "coveredNeighbors": 2,
+            "frontier": false
+          },
+          {
+            "id": "reveal_77",
+            "action": {
+              "type": "reveal",
+              "cell": 77
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.2,
+            "row": 9,
+            "column": 6,
+            "frontierTouches": 0,
+            "coveredNeighbors": 2,
+            "frontier": false
+          },
+          {
+            "id": "reveal_0",
+            "action": {
+              "type": "reveal",
+              "cell": 0
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.1,
+            "row": 1,
+            "column": 1,
+            "frontierTouches": 0,
+            "coveredNeighbors": 1,
+            "frontier": false
+          },
+          {
+            "id": "reveal_35",
+            "action": {
+              "type": "reveal",
+              "cell": 35
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.1,
+            "row": 4,
+            "column": 9,
+            "frontierTouches": 0,
+            "coveredNeighbors": 1,
+            "frontier": false
+          }
+        ],
+        "legalCount": 42,
+        "solver": {
+          "nodes": 0,
+          "exactComplete": false,
+          "cutoffReason": "disabled",
+          "components": 0,
+          "largestComponent": 0,
+          "safeCount": 11
+        },
+        "solverMs": 0.6796250000000015,
+        "requestBytes": 7485,
+        "source": "local",
+        "fallback": false,
+        "errorCode": "not_configured",
+        "attempts": [],
+        "response": null,
+        "selected": {
+          "id": "reveal_18",
+          "action": {
+            "type": "reveal",
+            "cell": 18
+          },
+          "group": 0,
+          "risk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "evidence": [
+            "PROVEN_SAFE"
+          ],
+          "progress": 0.3,
+          "row": 3,
+          "column": 1,
+          "frontierTouches": 0,
+          "coveredNeighbors": 3,
+          "frontier": false,
+          "evaluatedRisk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "continuation": 0.3,
+          "choiceProbability": 0
+        },
+        "latencyMs": 0.9684799999999996
+      },
+      "requestId": null,
+      "previousHash": "21f0b673b3fd8aef511337391f132289dbb90b703a5ee6a0c15b37053eccab90",
+      "hash": "62c24de9e1c9397a8b650adedfba363b74aced6730daa38eedf5c1f973f6113f"
+    },
+    {
+      "seq": 20,
+      "type": "action",
+      "actor": "human",
+      "atMs": 7200,
+      "payload": {
+        "expectedRevision": 12,
+        "action": {
+          "type": "reveal",
+          "cell": 5
+        }
+      },
+      "decision": null,
+      "requestId": null,
+      "previousHash": "62c24de9e1c9397a8b650adedfba363b74aced6730daa38eedf5c1f973f6113f",
+      "hash": "9df651b93792461dd1d8ee74b405baacae5640375cba44782b7cb54af74ad74c"
+    },
+    {
+      "seq": 21,
+      "type": "action",
+      "actor": "human",
+      "atMs": 7800,
+      "payload": {
+        "expectedRevision": 13,
+        "action": {
+          "type": "reveal",
+          "cell": 62
+        }
+      },
+      "decision": null,
+      "requestId": null,
+      "previousHash": "9df651b93792461dd1d8ee74b405baacae5640375cba44782b7cb54af74ad74c",
+      "hash": "154673b85ef6696ad0667243771b52541251ba33032127425982834748ba80cc"
+    },
+    {
+      "seq": 22,
+      "type": "action",
+      "actor": "jev",
+      "atMs": 8000,
+      "payload": {
+        "expectedRevision": 8,
+        "action": {
+          "type": "reveal",
+          "cell": 36
+        }
+      },
+      "decision": {
+        "id": "f7d99670-8359-4181-b9ff-deabd0a1e1d7",
+        "policyVersion": "ms-policy-1.0.0",
+        "model": "jev-1.13.0",
+        "boardRevision": 8,
+        "observationHash": "af50996163ee34dfb63f9ce05ed8481a37aa5b98561aa62086bc6134977f5557",
+        "candidates": [
+          {
+            "id": "reveal_36",
+            "action": {
+              "type": "reveal",
+              "cell": 36
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.3,
+            "row": 5,
+            "column": 1,
+            "frontierTouches": 0,
+            "coveredNeighbors": 3,
+            "frontier": false
+          },
+          {
+            "id": "reveal_63",
+            "action": {
+              "type": "reveal",
+              "cell": 63
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.3,
+            "row": 8,
+            "column": 1,
+            "frontierTouches": 0,
+            "coveredNeighbors": 3,
+            "frontier": false
+          },
+          {
+            "id": "reveal_76",
+            "action": {
+              "type": "reveal",
+              "cell": 76
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.3,
+            "row": 9,
+            "column": 5,
+            "frontierTouches": 0,
+            "coveredNeighbors": 3,
+            "frontier": false
+          },
+          {
+            "id": "reveal_2",
+            "action": {
+              "type": "reveal",
+              "cell": 2
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.2,
+            "row": 1,
+            "column": 3,
+            "frontierTouches": 0,
+            "coveredNeighbors": 2,
+            "frontier": false
+          },
+          {
+            "id": "reveal_45",
+            "action": {
+              "type": "reveal",
+              "cell": 45
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.2,
+            "row": 6,
+            "column": 1,
+            "frontierTouches": 0,
+            "coveredNeighbors": 2,
+            "frontier": false
+          },
+          {
+            "id": "reveal_72",
+            "action": {
+              "type": "reveal",
+              "cell": 72
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.2,
+            "row": 9,
+            "column": 1,
+            "frontierTouches": 0,
+            "coveredNeighbors": 2,
+            "frontier": false
+          },
+          {
+            "id": "reveal_74",
+            "action": {
+              "type": "reveal",
+              "cell": 74
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.2,
+            "row": 9,
+            "column": 3,
+            "frontierTouches": 0,
+            "coveredNeighbors": 2,
+            "frontier": false
+          },
+          {
+            "id": "reveal_77",
+            "action": {
+              "type": "reveal",
+              "cell": 77
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.2,
+            "row": 9,
+            "column": 6,
+            "frontierTouches": 0,
+            "coveredNeighbors": 2,
+            "frontier": false
+          },
+          {
+            "id": "reveal_0",
+            "action": {
+              "type": "reveal",
+              "cell": 0
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.1,
+            "row": 1,
+            "column": 1,
+            "frontierTouches": 0,
+            "coveredNeighbors": 1,
+            "frontier": false
+          },
+          {
+            "id": "reveal_35",
+            "action": {
+              "type": "reveal",
+              "cell": 35
+            },
+            "group": 0,
+            "risk": {
+              "value": 0,
+              "source": "proof"
+            },
+            "evidence": [
+              "PROVEN_SAFE"
+            ],
+            "progress": 0.1,
+            "row": 4,
+            "column": 9,
+            "frontierTouches": 0,
+            "coveredNeighbors": 1,
+            "frontier": false
+          }
+        ],
+        "legalCount": 40,
+        "solver": {
+          "nodes": 0,
+          "exactComplete": false,
+          "cutoffReason": "disabled",
+          "components": 0,
+          "largestComponent": 0,
+          "safeCount": 10
+        },
+        "solverMs": 0.2486550000000065,
+        "requestBytes": 6863,
+        "source": "local",
+        "fallback": false,
+        "errorCode": "not_configured",
+        "attempts": [],
+        "response": null,
+        "selected": {
+          "id": "reveal_36",
+          "action": {
+            "type": "reveal",
+            "cell": 36
+          },
+          "group": 0,
+          "risk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "evidence": [
+            "PROVEN_SAFE"
+          ],
+          "progress": 0.3,
+          "row": 5,
+          "column": 1,
+          "frontierTouches": 0,
+          "coveredNeighbors": 3,
+          "frontier": false,
+          "evaluatedRisk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "continuation": 0.3,
+          "choiceProbability": 0
+        },
+        "latencyMs": 0.6011560000000031
+      },
+      "requestId": null,
+      "previousHash": "154673b85ef6696ad0667243771b52541251ba33032127425982834748ba80cc",
+      "hash": "3100b312508a550a8d442656430de7ebc464924e736f21eccba4ed88988b7464"
+    },
+    {
+      "seq": 23,
+      "type": "action",
+      "actor": "human",
+      "atMs": 8400,
+      "payload": {
+        "expectedRevision": 14,
+        "action": {
+          "type": "reveal",
+          "cell": 72
+        }
+      },
+      "decision": null,
+      "requestId": null,
+      "previousHash": "3100b312508a550a8d442656430de7ebc464924e736f21eccba4ed88988b7464",
+      "hash": "3dd8a4c58388984656e4828e72c94a604cd51739f9cbb331497013916305d718"
+    },
+    {
+      "seq": 24,
+      "type": "adjudicate",
+      "actor": "system",
+      "atMs": 9000,
+      "payload": {},
+      "decision": null,
+      "requestId": null,
+      "previousHash": "3dd8a4c58388984656e4828e72c94a604cd51739f9cbb331497013916305d718",
+      "hash": "8c77bb8a79694bf564fb2e3dab026bf07bbf6c675246bfc54f424349bcffa51a"
+    }
+  ],
+  "headHash": "8c77bb8a79694bf564fb2e3dab026bf07bbf6c675246bfc54f424349bcffa51a",
+  "result": {
+    "outcome": "win",
+    "reason": "human_cleared_first",
+    "finishedAtMs": 9000,
+    "openingOnly": false,
+    "humanStatus": "cleared",
+    "jevStatus": "active",
+    "humanRevealed": 71,
+    "jevRevealed": 62,
+    "humanClearMs": 8400,
+    "jevClearMs": null
+  },
+  "metadata": {
+    "fixture": true,
+    "eligible": false,
+    "verification": "verified",
+    "eligibilityReasons": [
+      "synthetic_regression_fixture"
+    ],
+    "note": "Both players are scripted local policies. No human performance or live JEV result is represented."
+  }
+}

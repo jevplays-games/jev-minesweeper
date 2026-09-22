@@ -1,0 +1,11 @@
+left,right,races,wins,losses,draws
+random,easy-local,100,1,72,27
+random,normal-local,100,1,91,8
+random,hard-local,100,1,94,5
+random,jev-local,100,1,94,5
+easy-local,normal-local,100,37,58,5
+easy-local,hard-local,100,34,62,4
+easy-local,jev-local,100,35,61,4
+normal-local,hard-local,100,45,50,5
+normal-local,jev-local,100,46,49,5
+hard-local,jev-local,100,48,46,6

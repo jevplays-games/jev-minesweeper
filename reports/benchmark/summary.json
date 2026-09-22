@@ -1,0 +1,319 @@
+{
+  "metadata": {
+    "generatedAt": "2026-09-22T05:27:20.801Z",
+    "startedAt": "2026-09-22T05:27:19.529Z",
+    "seedSet": "heldout-ms-v1",
+    "preset": "beginner",
+    "boards": 100,
+    "policies": [
+      "random",
+      "easy-local",
+      "normal-local",
+      "hard-local",
+      "jev-local"
+    ],
+    "engineVersion": "ms-race-1.0.0",
+    "generatorVersion": "hmac-shuffle-1",
+    "policyVersion": "ms-policy-1.0.0",
+    "model": "jev-1.13.0",
+    "remoteRequested": false,
+    "runtime": "v22.16.0",
+    "method": "Same seeds and opening for each standalone policy. Independent-board race pairs swap seed allocation. One action = 1000 logical ms; compute/service latency reported separately.",
+    "limitations": [
+      "Local policy results are NOT live JEV results.",
+      "This is an implementation baseline, not proof of human-level ability or an externally certified benchmark.",
+      "Seed set is deterministic and tunable; do not tune on this held-out namespace and then call it held-out.",
+      "Remote failures remain in the results and are counted as fallback; remote calls may incur charges.",
+      "Latency depends on this host and run; logical race time deliberately excludes it."
+    ]
+  },
+  "summary": [
+    {
+      "policy": "random",
+      "boards": 100,
+      "clears": 1,
+      "clearRate": 0.01,
+      "clearRate95PercentWilson": {
+        "lower": 0.0017674320641406505,
+        "upper": 0.054486196178705315
+      },
+      "explosions": 99,
+      "unfinished": 0,
+      "meanMoves": 2.97,
+      "clearLogicalMs": {
+        "count": 1,
+        "sum": 5000,
+        "min": 5000,
+        "max": 5000,
+        "mean": 5000,
+        "p50": 5000,
+        "p90": 5000,
+        "p95": 5000,
+        "p99": 5000,
+        "populationStdDev": 0
+      },
+      "decisionLatencyMs": {
+        "count": 297,
+        "sum": 1.128977999998206,
+        "min": 0.0012020000000347864,
+        "max": 0.03848800000002939,
+        "mean": 0.0038012727272666866,
+        "p50": 0.0022030000000086147,
+        "p90": 0.006331999999991923,
+        "p95": 0.00832619999999906,
+        "p99": 0.026889440000043206,
+        "populationStdDev": 0.004447801128481302
+      },
+      "invalid": 0,
+      "fallback": 0,
+      "providerAttempts": 0,
+      "inputTokens": 0
+    },
+    {
+      "policy": "easy-local",
+      "boards": 100,
+      "clears": 72,
+      "clearRate": 0.72,
+      "clearRate95PercentWilson": {
+        "lower": 0.6251197129007884,
+        "upper": 0.7986031478881379
+      },
+      "explosions": 28,
+      "unfinished": 0,
+      "meanMoves": 17.29,
+      "clearLogicalMs": {
+        "count": 72,
+        "sum": 1330000,
+        "min": 8000,
+        "max": 47000,
+        "mean": 18472.222222222223,
+        "p50": 18000,
+        "p90": 23900,
+        "p95": 30450.000000000004,
+        "p99": 41320.00000000005,
+        "populationStdDev": 6497.803522520819
+      },
+      "decisionLatencyMs": {
+        "count": 1729,
+        "sum": 151.85982800000158,
+        "min": 0.023795000000006894,
+        "max": 1.8847220000000036,
+        "mean": 0.0878310167727019,
+        "p50": 0.06265400000006593,
+        "p90": 0.1785850000000039,
+        "p95": 0.23712359999999533,
+        "p99": 0.40047503999997097,
+        "populationStdDev": 0.0917810588772583
+      },
+      "invalid": 0,
+      "fallback": 0,
+      "providerAttempts": 0,
+      "inputTokens": 0
+    },
+    {
+      "policy": "normal-local",
+      "boards": 100,
+      "clears": 92,
+      "clearRate": 0.92,
+      "clearRate95PercentWilson": {
+        "lower": 0.8500189229905127,
+        "upper": 0.9589065385156194
+      },
+      "explosions": 8,
+      "unfinished": 0,
+      "meanMoves": 17.89,
+      "clearLogicalMs": {
+        "count": 92,
+        "sum": 1626000,
+        "min": 7000,
+        "max": 38000,
+        "mean": 17673.91304347826,
+        "p50": 18000,
+        "p90": 24900.000000000007,
+        "p95": 29000,
+        "p99": 31630.000000000025,
+        "populationStdDev": 5960.209902293299
+      },
+      "decisionLatencyMs": {
+        "count": 1789,
+        "sum": 249.9799129999996,
+        "min": 0.03562400000009802,
+        "max": 1.4126389999999986,
+        "mean": 0.13973164505310207,
+        "p50": 0.10010099999999511,
+        "p90": 0.2883889999999951,
+        "p95": 0.3607056000000057,
+        "p99": 0.48333484000005633,
+        "populationStdDev": 0.10962171679034036
+      },
+      "invalid": 0,
+      "fallback": 0,
+      "providerAttempts": 0,
+      "inputTokens": 0
+    },
+    {
+      "policy": "hard-local",
+      "boards": 100,
+      "clears": 95,
+      "clearRate": 0.95,
+      "clearRate95PercentWilson": {
+        "lower": 0.8882495307680808,
+        "upper": 0.9784563208456319
+      },
+      "explosions": 5,
+      "unfinished": 0,
+      "meanMoves": 17.72,
+      "clearLogicalMs": {
+        "count": 95,
+        "sum": 1674000,
+        "min": 7000,
+        "max": 38000,
+        "mean": 17621.052631578947,
+        "p50": 17000,
+        "p90": 25000,
+        "p95": 29299.999999999996,
+        "p99": 33300.000000000015,
+        "populationStdDev": 6085.667281439878
+      },
+      "decisionLatencyMs": {
+        "count": 1772,
+        "sum": 268.42327799999975,
+        "min": 0.03835700000001907,
+        "max": 1.4377280000001065,
+        "mean": 0.15148040519187345,
+        "p50": 0.10736650000004033,
+        "p90": 0.29138490000002554,
+        "p95": 0.37547989999997183,
+        "p99": 0.6073841699999672,
+        "populationStdDev": 0.13112926566710914
+      },
+      "invalid": 0,
+      "fallback": 0,
+      "providerAttempts": 0,
+      "inputTokens": 0
+    },
+    {
+      "policy": "jev-local",
+      "boards": 100,
+      "clears": 95,
+      "clearRate": 0.95,
+      "clearRate95PercentWilson": {
+        "lower": 0.8882495307680808,
+        "upper": 0.9784563208456319
+      },
+      "explosions": 5,
+      "unfinished": 0,
+      "meanMoves": 17.75,
+      "clearLogicalMs": {
+        "count": 95,
+        "sum": 1677000,
+        "min": 7000,
+        "max": 38000,
+        "mean": 17652.63157894737,
+        "p50": 17000,
+        "p90": 25000,
+        "p95": 29299.999999999996,
+        "p99": 33300.000000000015,
+        "populationStdDev": 6098.780587440379
+      },
+      "decisionLatencyMs": {
+        "count": 1775,
+        "sum": 264.18675200000024,
+        "min": 0.03901899999999614,
+        "max": 2.24245099999996,
+        "mean": 0.1488376067605635,
+        "p50": 0.10575900000003458,
+        "p90": 0.2936026000000425,
+        "p95": 0.3836211999999249,
+        "p99": 0.5823825399999918,
+        "populationStdDev": 0.1285039312466063
+      },
+      "invalid": 0,
+      "fallback": 0,
+      "providerAttempts": 0,
+      "inputTokens": 0
+    }
+  ],
+  "races": [
+    {
+      "left": "random",
+      "right": "easy-local",
+      "races": 100,
+      "wins": 1,
+      "losses": 72,
+      "draws": 27
+    },
+    {
+      "left": "random",
+      "right": "normal-local",
+      "races": 100,
+      "wins": 1,
+      "losses": 91,
+      "draws": 8
+    },
+    {
+      "left": "random",
+      "right": "hard-local",
+      "races": 100,
+      "wins": 1,
+      "losses": 94,
+      "draws": 5
+    },
+    {
+      "left": "random",
+      "right": "jev-local",
+      "races": 100,
+      "wins": 1,
+      "losses": 94,
+      "draws": 5
+    },
+    {
+      "left": "easy-local",
+      "right": "normal-local",
+      "races": 100,
+      "wins": 37,
+      "losses": 58,
+      "draws": 5
+    },
+    {
+      "left": "easy-local",
+      "right": "hard-local",
+      "races": 100,
+      "wins": 34,
+      "losses": 62,
+      "draws": 4
+    },
+    {
+      "left": "easy-local",
+      "right": "jev-local",
+      "races": 100,
+      "wins": 35,
+      "losses": 61,
+      "draws": 4
+    },
+    {
+      "left": "normal-local",
+      "right": "hard-local",
+      "races": 100,
+      "wins": 45,
+      "losses": 50,
+      "draws": 5
+    },
+    {
+      "left": "normal-local",
+      "right": "jev-local",
+      "races": 100,
+      "wins": 46,
+      "losses": 49,
+      "draws": 5
+    },
+    {
+      "left": "hard-local",
+      "right": "jev-local",
+      "races": 100,
+      "wins": 48,
+      "losses": 46,
+      "draws": 6
+    }
+  ]
+}
