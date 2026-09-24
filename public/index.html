@@ -42,21 +42,21 @@
       </section>
       <div id="notice" class="notice" role="status" aria-live="polite">Click a square on your board to open the same starting coordinate on both boards.</div>
       <section class="arena jv-first" aria-label="Two-board Minesweeper race">
-        <article class="board-card human-card">
+        <article class="jv-panel is-tight board-card is-human">
           <div class="board-header"><div class="player-title"><span class="player-token you-token">Y</span><div><h2>You</h2><span id="humanStatus" class="muted">Choose your opening</span></div></div><div class="board-count"><strong id="humanProgress">0 / 71</strong><span>safe cells</span></div></div>
           <progress id="humanMeter" value="0" max="71" aria-label="Your safe-cell progress"></progress>
           <div class="board-scroll"><div id="humanBoard" class="board" role="grid" aria-label="Your Minesweeper board"></div></div>
           <div class="board-footer"><div class="segmented" aria-label="Touch action"><button id="revealMode" aria-pressed="true">Reveal</button><button id="flagMode" aria-pressed="false">Flag</button></div><span id="flagCount" class="muted">0 flags / 10 mines</span></div>
           <p class="board-help">Click: reveal · Right-click / F: flag · C / double-click: chord</p>
         </article>
-        <article class="board-card jev-card">
+        <article class="jv-panel is-tight board-card is-jev">
           <div class="board-header"><div class="player-title"><span class="player-token jev-token">J</span><div><h2 id="opponentTitle">Opponent</h2><span id="jevStatus" class="muted">Waiting for your opening</span></div></div><div class="board-count"><strong id="jevProgress">0 / 71</strong><span>safe cells</span></div></div>
           <progress id="jevMeter" value="0" max="71" aria-label="Opponent safe-cell progress"></progress>
           <div class="board-scroll"><div id="jevBoard" class="board readonly" role="grid" aria-label="Opponent Minesweeper board, read only"></div></div>
           <div class="board-footer"><span id="opponentBadge" class="pill amber">Local heuristic · not JEV</span><span class="muted">Read-only board</span></div>
           <p class="board-help">Independent mine layout. No hidden information is shared.</p>
         </article>
-        <aside class="decision-card" aria-labelledby="decisionTitle">
+        <aside class="jv-panel is-tight decision-card" aria-labelledby="decisionTitle">
           <div class="section-heading"><h2 id="decisionTitle">Decision lab</h2><label class="switch-label"><input type="checkbox" id="analysisToggle" checked> Show</label></div>
           <div id="decisionPanel">
             <p class="eyebrow amber-text">STRUCTURED EVIDENCE, NOT THOUGHTS</p>
@@ -78,13 +78,13 @@
           <button role="tab" id="tab-leaderboards" aria-selected="false" aria-controls="panel-leaderboards" data-panel="leaderboards">Leaderboards</button>
           <button role="tab" id="tab-rules" aria-selected="false" aria-controls="panel-rules" data-panel="rules">Rules & integrity</button>
         </div>
-        <div class="panel" id="panel-live" role="tabpanel" aria-labelledby="tab-live">
+        <div class="jv-panel" id="panel-live" role="tabpanel" aria-labelledby="tab-live">
           <div class="section-heading"><div><h2>Progress, move by move</h2><p class="muted">Only visible information is shown during an active match.</p></div><div class="chart-legend"><span class="human-key">You</span><span class="jev-key">Opponent</span></div></div>
           <canvas id="liveChart" height="210" aria-label="Safe-cell progress over elapsed time for you and the opponent" role="img"></canvas>
           <details><summary>Accessible progress data</summary><div id="liveData" class="table-scroll"></div></details>
           <div class="integrity-note"><strong>Sealed until game over.</strong> Layout analysis, flag accuracy, safety-forecast calibration, and mine-based heatmaps are available only after the match ends.</div>
         </div>
-        <div class="panel" id="panel-report" role="tabpanel" aria-labelledby="tab-report" hidden>
+        <div class="jv-panel" id="panel-report" role="tabpanel" aria-labelledby="tab-report" hidden>
           <div class="section-heading"><div><h2>Post-game analytics</h2><p id="reportStatus" class="muted">Complete a match to unlock the replay-derived report.</p></div><button id="loadReport" class="button small" disabled>Load report</button></div>
           <div id="reportContent" hidden>
             <div id="reportSummary" class="stat-grid"></div>
@@ -98,17 +98,17 @@
             <div id="reportLimitations" class="integrity-note"></div>
           </div>
         </div>
-        <div class="panel" id="panel-history" role="tabpanel" aria-labelledby="tab-history" hidden>
+        <div class="jv-panel" id="panel-history" role="tabpanel" aria-labelledby="tab-history" hidden>
           <div class="section-heading"><div><h2>Your match history</h2><p class="muted">Owned records only. Filtered by the selected board and reasoning difficulty above.</p></div><button id="refreshHistory" class="button small">Refresh</button></div>
           <div class="filter-row"><label>Period<select id="historyPeriod"><option value="all">All time</option><option value="week">This week · UTC</option></select></label><label>Eligibility<select id="historyMode"><option value="all">All matches</option><option value="ranked">Verified ranked only</option><option value="practice">Unofficial / practice</option></select></label><button id="exportHistory" class="button small">History CSV</button><button id="exportProfile" class="button small">Profile JSON</button></div>
           <div id="historySummary" class="stat-grid"></div><div id="historyTable" class="table-scroll"></div><button id="historyMore" class="button small" hidden>Next page</button>
         </div>
-        <div class="panel" id="panel-leaderboards" role="tabpanel" aria-labelledby="tab-leaderboards" hidden>
+        <div class="jv-panel" id="panel-leaderboards" role="tabpanel" aria-labelledby="tab-leaderboards" hidden>
           <div class="section-heading"><div><h2>Verified leaderboards</h2><p class="muted">Ranked after 20 eligible matches. Versions, board sizes, and difficulties are never mixed.</p></div><button id="refreshLeaderboard" class="button small">Refresh</button></div>
           <div class="filter-row"><label>Scope<select id="leaderboardScope"><option value="world">World</option><option value="server">Discord server</option><option value="channel">Discord channel</option></select></label><label>Period<select id="leaderboardPeriod"><option value="all">All time</option><option value="week">This week · UTC</option></select></label></div>
           <div id="leaderboardTable" class="table-scroll"></div><button id="leaderboardMore" class="button small" hidden>Next page</button><p id="leaderboardNote" class="muted"></p>
         </div>
-        <div class="panel prose" id="panel-rules" role="tabpanel" aria-labelledby="tab-rules" hidden>
+        <div class="jv-panel prose" id="panel-rules" role="tabpanel" aria-labelledby="tab-rules" hidden>
           <h2>Two boards. One race.</h2><p>Choose your first square. That coordinate opens on both boards, with no mines in its surrounding neighborhood. Layouts are independent, so an opponent reveal does not reveal your mines. Clear every safe cell first to win. Flags are optional annotations, not points.</p>
           <h3>Controls</h3><p>Click or press Enter/Space to reveal. Right-click or press F to set or remove a flag. Use the Reveal/Flag switch on touchscreens. Press C or double-click a revealed number to chord: its adjacent flag count must match that number. Incorrect flags can make a chord explode. Use arrow keys to move keyboard focus.</p>
           <h3>Race outcomes</h3><p>A mine ends that board, not automatically the race. The other player must still clear their board. Two clears in the same 100-millisecond finish interval are a draw. Two exploded boards, or neither board clearing by 15 minutes, are a draw. Resignation or 30 seconds disconnected from a started server match is a loss. Ready matches expire after two minutes.</p>
@@ -123,7 +123,7 @@
     <div class="jv-scrim" id="jv-scrim"></div>
     <div class="jv-sheet" id="jv-sheet" role="dialog" aria-modal="true" aria-label="Menu">
       <p class="jv-sheet-label" id="acctLabel">Account</p>
-      <div class="acct" id="jv-controls" role="group" aria-labelledby="acctLabel"><span id="connection" class="connection">Connecting</span><span id="identity" class="muted">Guest player</span><button id="login" class="button small">Sign in with Discord</button><button id="logout" class="button small" hidden>Sign out</button></div>
+      <div class="acct" id="jv-controls" role="group" aria-labelledby="acctLabel"><span id="connection" class="connection">Connecting</span><span id="identity" class="muted">Guest player</span><button id="login" class="button small jv-sheet-item">Sign in with Discord</button><button id="logout" class="button small jv-sheet-item" hidden>Sign out</button></div>
     </div>
   </div>
   <dialog id="replayDialog" class="replay-dialog"><div class="section-heading"><h2>Sealed replay</h2><button id="closeReplay" class="button small">Close</button></div><p id="replayCaption" class="muted"></p><div class="replay-controls"><button id="replayPrev" class="button small">Previous</button><input id="replayStep" type="range" min="0" max="0" value="0" aria-label="Replay event"><button id="replayNext" class="button small">Next</button></div><div class="replay-boards"><div><h3>You</h3><div class="board-scroll"><div id="replayHuman" class="board readonly" role="grid" aria-label="Your replay board"></div></div></div><div><h3>Opponent</h3><div class="board-scroll"><div id="replayJev" class="board readonly" role="grid" aria-label="Opponent replay board"></div></div></div></div></dialog>
