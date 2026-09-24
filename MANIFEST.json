@@ -26,8 +26,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 9021,
-      "sha256": "6fc7e2d00a8cb3c6fe2ada7b9fce2a1e7a6d8dc817d46d41d9a79ca8170ce918"
+      "bytes": 9018,
+      "sha256": "098c09d8548fa3205ecd81277975cbee078316902336a4e273b52507aa28e068"
     },
     {
       "path": "START-HERE.md",
@@ -96,8 +96,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 710,
-      "sha256": "4a7c33c0bb05622d4c1937c852a7caa05a04f83b1da52823b6a5b8a0d8d9e2ed"
+      "bytes": 707,
+      "sha256": "00ac32b2fd63fd62e95c67d65e847917f7313340758baf3d3f0b937798bf04cf"
     },
     {
       "path": "public/api.js",
@@ -106,23 +106,23 @@
     },
     {
       "path": "public/favicon.svg",
-      "bytes": 309,
-      "sha256": "f2b127bb7588ceb213304c1c351d7002c283786521b5f7a28fa4a0a9cc237290"
+      "bytes": 581,
+      "sha256": "fddcf21f0d45a0455e02b9e78cac6df6336f0f4ca303f4fa4ecfa5ed7885a522"
     },
     {
       "path": "public/game.css",
-      "bytes": 14318,
-      "sha256": "4a252ea7b604005124b4f176bcd4f002c49503ee858caae9e6ea85a37f4f1fb6"
+      "bytes": 14594,
+      "sha256": "750a4c22e04b99f086071238d0d05f35f12c9fcdcfca0503fa238dc3cfb6af4f"
     },
     {
       "path": "public/game.js",
-      "bytes": 32596,
-      "sha256": "91455be41fba6a158323f0846cf89c671e38f600cf8ffb9ad6d97f1f3c459106"
+      "bytes": 33447,
+      "sha256": "71e4143457c6b478758b866075184d306dc3452ea32700e6fd12ccbf5c186534"
     },
     {
       "path": "public/index.html",
-      "bytes": 17345,
-      "sha256": "85c0c48aace6e93238397007d3445a5be24218f5c9a884c47e5cda30ac987b95"
+      "bytes": 18556,
+      "sha256": "0519dc6c47b2608a8a76a7e035df3a4425f730ea41120d6235724daa89ded85a"
     },
     {
       "path": "public/offline.js",
@@ -286,8 +286,8 @@
     },
     {
       "path": "server/main.js",
-      "bytes": 20363,
-      "sha256": "e23af01c931e4a15375e6a5097c13e9d5f4edf1b5a38ba0e39223ffa004fee17"
+      "bytes": 20734,
+      "sha256": "7ffd800d251ee6bf76dca3fb61417c0c09e7b585fa53cb11ad2da28e749f2295"
     },
     {
       "path": "server/matches.js",
@@ -311,8 +311,8 @@
     },
     {
       "path": "server/workers.js",
-      "bytes": 2333,
-      "sha256": "df372b8e456ce7e49fb054eda2fa1b7a52ed45ed21e30a63cd052509ad7b2024"
+      "bytes": 2276,
+      "sha256": "d7be3978b4fd40280218c40867cdc7601e3b36b7c90b84c5d2cd185f351e2930"
     },
     {
       "path": "shared/analytics.js",
@@ -321,8 +321,8 @@
     },
     {
       "path": "shared/decisions.js",
-      "bytes": 6231,
-      "sha256": "f360ad1f882c83f4b8eabde7acf61d2ef448d958a20302c8e500acbab3486d3c"
+      "bytes": 6916,
+      "sha256": "83218ee272bcee9f77455b6f397c8dd6d05644b2221fac9e7352d65218d2a47e"
     },
     {
       "path": "shared/engine.js",
@@ -346,8 +346,8 @@
     },
     {
       "path": "tests/browser_smoke.py",
-      "bytes": 9948,
-      "sha256": "d6170088a96711a321f177505377d29165eb1e56a7615a93369c924888bbc013"
+      "bytes": 10062,
+      "sha256": "95427a95669e02d5e76428bda722a1faa6d131e25db1ef0e715730bae2f10d89"
     },
     {
       "path": "tests/decision-journal.test.js",
@@ -366,13 +366,13 @@
     },
     {
       "path": "tests/helpers.js",
-      "bytes": 2013,
-      "sha256": "5316ced94a012835521dd49d20ae1801794931ed7070da442e1c17e379a08a26"
+      "bytes": 3330,
+      "sha256": "bee0f90b38fcec03771423d9f267b3a668359ec7dc9eb3deb55a6203499cb1d9"
     },
     {
       "path": "tests/jev.test.js",
-      "bytes": 4336,
-      "sha256": "7586602ec1936e70ad96b97e911495a9785b4a85783f0dcca9db23a614b00a5e"
+      "bytes": 5178,
+      "sha256": "59a6d7442340b7a4a94fe3b8ee99b7f399899b8ae18296654e6df22a79d9b3e1"
     },
     {
       "path": "tests/replay-analytics.test.js",

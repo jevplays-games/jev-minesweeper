@@ -205,5 +205,20 @@ $('exportHistory').onclick=()=>downloadEndpoint('/api/exports/history.csv','mine
 window.addEventListener('resize',()=>{drawLive();if(report&&!$('panel-report').hidden)drawHeatmaps();});
 setInterval(()=>{const elapsed=snapshot?.phase==='running'?receivedElapsed+performance.now()-receivedAt:receivedElapsed;text('clock',time(elapsed));},100);
 render();
-try{await refreshMe();connection(true);if(me.activeMatchId){update(await request(`/api/matches/${me.activeMatchId}`));unsubscribe=subscribe(me.activeMatchId,update,connection);}else if(launch)notify(me.user?'Discord launch detected. Create a match to redeem this channel context.':'Discord launch detected. Sign in with the account that invoked /jev play.');else if(!me.features.jev)notify('Local heuristic mode: no TypeSafe key is configured. Click your opening square to play an unofficial race.');render();}
-catch(e){connection(false);notify('Server connection unavailable. Offline practice remains available in this already-loaded page.','error');}
+let serverUp=false;
+try{await refreshMe();serverUp=true;connection(true);if(me.activeMatchId){update(await request(`/api/matches/${me.activeMatchId}`));unsubscribe=subscribe(me.activeMatchId,update,connection);}else if(launch)notify(me.user?'Discord launch detected. Create a match to redeem this channel context.':'Discord launch detected. Sign in with the account that invoked /jev play.');else if(!me.features.jev)notify('Local heuristic mode: no TypeSafe key is configured. Click your opening square to play an unofficial race.');render();}
+catch(e){connection(false);notify('Server connection unavailable. Starting offline practice in this already-loaded page.','error');}
+await autoStart();
+/* Auto-start: both boards are live as soon as the page is, with no click.
+   It returns early when a match is already on screen -- refreshMe() has just
+   rejoined any server match via activeMatchId -- so a reload resumes the race
+   instead of resigning it and opening a second one, and newGame()'s resign
+   confirm can never be triggered by a page load.
+   Ranked needs a signed-in Discord account AND a configured JEV key, the same
+   gate as the <option>; without either this starts practice, and with no server
+   at all it starts the offline heuristic, which labels itself not-JEV. */
+async function autoStart(){
+  if(snapshot&&snapshot.phase!=='complete')return;
+  $('mode').value=serverUp&&me?.user&&me?.features?.jev?'ranked':'practice';
+  try{await newGame(!serverUp);}catch(e){showError(e);}
+}
