@@ -111,8 +111,8 @@
     },
     {
       "path": "public/game.css",
-      "bytes": 14594,
-      "sha256": "750a4c22e04b99f086071238d0d05f35f12c9fcdcfca0503fa238dc3cfb6af4f"
+      "bytes": 14600,
+      "sha256": "c95c2dcfacc6294a8876d4993f74a830992c4f3f473509150bc8a549938c20fe"
     },
     {
       "path": "public/game.js",
