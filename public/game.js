@@ -1,7 +1,7 @@
-import {request,setCsrf,setBearer,subscribe,download,downloadEndpoint} from './api.js';
+import {request,setCsrf,setBearer,subscribe,download,downloadEndpoint,fetchReplay} from './api.js';
 import {PRESETS,createMatch,observeMatch} from '/shared/engine.js';
 import {applyRecordedEvent} from '/shared/replay.js';
-import {csv} from '/shared/analytics.js';
+import {csv,analyzeReplay} from '/shared/analytics.js';
 import {MODEL} from '/shared/decisions.js';
 import {POLICY_VERSION} from '/shared/solver.js';
 const $=id=>document.getElementById(id);
@@ -158,13 +158,18 @@ for(const id of ['preset','difficulty','analysisToggle','cellSize'])$(id).addEve
 for(const button of document.querySelectorAll('[role=tab]')){button.addEventListener('click',()=>switchTab(button.dataset.panel));button.addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight'].includes(e.key))return;e.preventDefault();const tabs=[...document.querySelectorAll('[role=tab]')],index=tabs.indexOf(button),next=tabs[(index+(e.key==='ArrowRight'?1:tabs.length-1))%tabs.length];switchTab(next.dataset.panel);next.focus();});}
 async function loadReport(id=snapshot?.id,isOffline=Boolean(offline)){
   if(!id)return;text('reportStatus','Computing metrics from the sealed event log…');$('loadReport').disabled=true;
-  try{report=isOffline?await offline.analytics():await request(`/api/matches/${id}/analytics`);reportIsOffline=isOffline;reportReplay=isOffline?offline.replay():null;renderReport();}
+  try{
+    // The server holds the authority (it verified the sealed journal); the metrics are derived here, in the browser, from that replay.
+    // That keeps the server's per-request CPU small and cannot change the result: the replay is hash-chained and already verified.
+    if(isOffline){report=await offline.analytics();reportReplay=offline.replay();}
+    else{const [replay,ops]=await Promise.all([fetchReplay(id),request(`/api/matches/${id}/operations`)]);reportReplay=replay;report=await analyzeReplay(replay,{audits:ops.audits,pricePerMillion:ops.pricePerMillion,verified:true});}
+    reportIsOffline=isOffline;renderReport();}
   finally{$('loadReport').disabled=!snapshot||snapshot.phase!=='complete';}
 }
 $('loadReport').onclick=()=>loadReport().catch(e=>{text('reportStatus',e.message);showError(e);});
 function renderReport(){
   $('reportContent').hidden=false;const {players:p,opponent:o,result:r}=report;
-  text('reportStatus',`${r.outcome.toUpperCase()} · ${r.reason.replaceAll('_',' ')} · ${report.matchId.slice(0,8)} · ${report.analyticsVersion} · ${reportIsOffline?'local-only':'server replay-derived'}`);
+  text('reportStatus',`${r.outcome.toUpperCase()} · ${r.reason.replaceAll('_',' ')} · ${report.matchId.slice(0,8)} · ${report.analyticsVersion} · ${reportIsOffline?'local-only':'server-verified replay, derived in this browser'}`);
   stats($('reportSummary'),[['Your clear time',ms(r.humanClearMs)],['Your completion',percent(p.human.safeCompletionRate)],['Safe cells / command',number(p.human.safeCellsPerAction,2)],['Lead changes',number(report.race.leadChanges)],['Remote JEV decisions',number(o.remoteDecisions)],['Fallback decisions',number(o.fallbackDecisions)]]);
   const metrics=[['Accepted commands','actions',number],['Reveal commands','reveals',number],['Flag placements','flagsPlaced',number],['Flag removals','flagsRemoved',number],['Chord commands','chords',number],['Unsafe chords','unsafeChords',number],['Opening safe cells','safeCellsFromOpening',number],['Safe cells from commands','safeCellsFromActions',number],['Expansion actions','zeroExpansionActions',number],['Expansion bonus cells','zeroExpansionCells',number],['Proven-safe reveals','provenSafeRevealActions',number],['Uncertain reveals','uncertainRevealActions',number],['Uncertain survival rate','uncertainRevealSurvivalRate',percent],['Uncertain despite safe alternative','uncertainRevealsWhileProvenSafeAvailable',number],['Mine hit with safe alternative','explodedWhileProvenSafeAvailable',number],['Known-mine reveals','knownMineRevealActions',number],['Flags at end','flagsAtEnd',number],['Flag precision at end','flagPrecision',percent],['Flag recall at end','flagRecall',percent],['Flag F1 at end','flagF1',percent],['Incorrect flag placements','incorrectFlagPlacements',number],['Correct flags removed','correctFlagsRemoved',number],['Commands per active second','commandsPerSecond',v=>number(v,2)],['Safe cells per command','safeCellsPerAction',v=>number(v,2)],['First command after opening','firstActionMs',ms],['Active time','activeMs',ms],['Exact/proven risk coverage','exactRiskCoverage',percent],['Static 3BV / second on clear','threeBVPerSecondOnClear',v=>number(v,2)]];
   table($('comparison'),['Metric','You','Opponent'],metrics.map(([label,key,format])=>[label,format(p.human[key]),format(p.jev[key])]).concat([['Median command gap',ms(p.human.inputGapMs?.p50),ms(p.jev.inputGapMs?.p50)],['95th percentile command gap',ms(p.human.inputGapMs?.p95),ms(p.jev.inputGapMs?.p95)],['Static board 3BV',number(report.boards.human?.threeBV),number(report.boards.jev?.threeBV)]]));
@@ -187,9 +192,9 @@ function drawHeatmaps(){if(!report)return;const type=$('heatmapType').value;for(
   for(let i=0;i<values.length;i++){const value=values[i],intensity=value===null?0:Math.max(.08,value/max);ctx.fillStyle=actor==='human'?`rgba(99,212,231,${.07+intensity*.86})`:`rgba(233,187,104,${.07+intensity*.86})`;ctx.fillRect(x+i%w*size+1,y+Math.floor(i/w)*size+1,size-2,size-2);if(size>=23){ctx.font='10px system-ui';ctx.textAlign='center';ctx.fillStyle=intensity>.5?'#07131f':'#c5d2e3';ctx.fillText(value===null?'·':type==='revealAtMs'?(value/1000).toFixed(0):String(value),x+(i%w+.5)*size,y+(Math.floor(i/w)+.5)*size+3);}}
 }}
 $('heatmapType').onchange=drawHeatmaps;
-async function exportReport(format){if(!report)return;const id=report.matchId;if(!reportIsOffline){await downloadEndpoint(`/api/matches/${id}/export?format=${format}`,`minesweeper-${format}`);return;}if(format==='json')download(report,`minesweeper-${id}-analytics.json`);else if(format==='jsonl')download(reportReplay.events.map(e=>JSON.stringify(e)).join('\n')+'\n',`minesweeper-${id}-events.jsonl`,'application/x-ndjson');else download(csv(format==='csv'?report.actions:report.timeline),`minesweeper-${id}-${format}.csv`,'text/csv');}
+async function exportReport(format){if(!report)return;const id=report.matchId;if(format==='json')download(report,`minesweeper-${id}-analytics.json`);else if(format==='jsonl')download(reportReplay.events.map(e=>JSON.stringify(e)).join(String.fromCharCode(10))+String.fromCharCode(10),`minesweeper-${id}-events.jsonl`,'application/x-ndjson');else download(csv(format==='csv'?report.actions:report.timeline),`minesweeper-${id}-${format==='csv'?'actions':'timeline'}.csv`,'text/csv');}
 $('exportJson').onclick=()=>exportReport('json').catch(showError);$('exportCsv').onclick=()=>exportReport('csv').catch(showError);$('exportTimeline').onclick=()=>exportReport('timeline').catch(showError);$('exportEvents').onclick=()=>exportReport('jsonl').catch(showError);
-async function getReportReplay(){if(reportReplay)return reportReplay;reportReplay=await request(`/api/matches/${report.matchId}/replay`);return reportReplay;}
+async function getReportReplay(){if(reportReplay)return reportReplay;reportReplay=await fetchReplay(report.matchId);return reportReplay;}
 $('exportReplay').onclick=()=>getReportReplay().then(r=>download(r,`minesweeper-${r.matchId}-replay.json`)).catch(showError);
 $('viewReplay').onclick=async()=>{try{const replay=await getReportReplay(),state=await createMatch(replay.config,replay.seeds,replay.matchId);frames=[{view:observeMatch(state),caption:'Before the protected opening'}];for(const e of replay.events){await applyRecordedEvent(state,e);frames.push({view:observeMatch(state),caption:`Event ${e.seq} · ${e.actor} ${e.type} · ${ms(e.atMs)}`});}$('replayStep').max=frames.length-1;$('replayStep').value='0';renderReplay();$('replayDialog').showModal();}catch(e){showError(e);}};
 function renderReplay(){const frame=frames[Number($('replayStep').value)];if(!frame)return;text('replayCaption',frame.caption);renderBoard($('replayHuman'),frame.view.boards.human,false);renderBoard($('replayJev'),frame.view.boards.jev,false);}

@@ -43,23 +43,36 @@ export function exportReplay(state, events, metadata = {}) {
   if (state.phase !== 'complete') throw new Error('replay_not_sealed');
   return {format: 'jev-arcade-replay', version: REPLAY_VERSION, engineVersion: ENGINE_VERSION, generatorVersion: GENERATOR_VERSION, policyVersion: POLICY_VERSION, matchId: state.id, config: state.config, seeds: state.seeds, commitments: state.commitments, events, headHash: events.at(-1)?.hash ?? null, result: resultOf(state), metadata};
 }
-export async function verifyReplay(replay, {checkDecisions = true, allowIncomplete = false} = {}) {
-  if (!replay || replay.format !== 'jev-arcade-replay' || replay.version !== REPLAY_VERSION || replay.engineVersion !== ENGINE_VERSION || replay.generatorVersion !== GENERATOR_VERSION || replay.policyVersion !== POLICY_VERSION || !Array.isArray(replay.events) || replay.events.length > 4005) throw new Error('unsupported_replay');
-  const state = await createMatch(replay.config, replay.seeds, replay.matchId);
-  if (canonical(state.commitments) !== canonical(replay.commitments)) throw new Error('commitment_mismatch');
-  let previous = null;
-  const requestIds = new Set();
-  for (let i = 0; i < replay.events.length; i++) {
-    const event = replay.events[i];
-    if (event.seq !== i + 1 || event.previousHash !== previous || event.hash !== await eventHash(event)) throw new Error('event_hash_mismatch');
-    if (event.requestId) { if (requestIds.has(event.requestId)) throw new Error('duplicate_request_id'); requestIds.add(event.requestId); }
+/** Incremental replay verifier. Feeding events one at a time (with a JSON cursor between calls) lets a server with a small per-request
+ *  CPU budget verify a long match across several requests, while verifyReplay() below stays the single-shot form used everywhere else. */
+export class ReplayVerifier {
+  constructor(header, state, {checkDecisions = true, previous = null, count = 0} = {}) {
+    this.header = header; this.state = state; this.checkDecisions = checkDecisions; this.previous = previous; this.count = count; this.requestIds = new Set();
+  }
+  static assertHeader(replay) {
+    if (!replay || replay.format !== 'jev-arcade-replay' || replay.version !== REPLAY_VERSION || replay.engineVersion !== ENGINE_VERSION || replay.generatorVersion !== GENERATOR_VERSION || replay.policyVersion !== POLICY_VERSION) throw new Error('unsupported_replay');
+  }
+  static async create(replay, options = {}) {
+    ReplayVerifier.assertHeader(replay);
+    const state = await createMatch(replay.config, replay.seeds, replay.matchId);
+    if (canonical(state.commitments) !== canonical(replay.commitments)) throw new Error('commitment_mismatch');
+    return new ReplayVerifier({config: replay.config, seeds: replay.seeds, matchId: replay.matchId}, state, options);
+  }
+  /** Continue from a persisted cursor: only trusted, server-written cursors may be restored. */
+  static restore(cursor, options = {}) { return new ReplayVerifier(cursor.header, cursor.state, {...options, previous: cursor.previous, count: cursor.count}); }
+  cursor() { return {header: this.header, state: this.state, previous: this.previous, count: this.count}; }
+  async feed(event) {
+    const state = this.state;
+    if (event.seq !== this.count + 1 || event.previousHash !== this.previous || event.hash !== await eventHash(event)) throw new Error('event_hash_mismatch');
+    if (event.requestId) { if (this.requestIds.has(event.requestId)) throw new Error('duplicate_request_id'); this.requestIds.add(event.requestId); }
     if (state.phase === 'complete') throw new Error('events_after_completion');
-    if (checkDecisions && event.type === 'action' && event.actor === 'jev') {
+    if (this.checkDecisions && event.type === 'action' && event.actor === 'jev') {
       const d = event.decision;
       if (!d || d.policyVersion !== POLICY_VERSION || d.model !== state.config.model || d.boardRevision !== state.boards.jev.revision) throw new Error('decision_metadata_mismatch');
       const observation = observeBoard(state.boards.jev);
       if (d.observationHash !== await digest(observation)) throw new Error('observation_hash_mismatch');
-      const surface = decisionSurface(observation, state.config.aiDifficulty);
+      // A cpu_guard decision ran under a reduced solver budget; the verifier can only ever tighten the policy, never widen it.
+      const surface = decisionSurface(observation, state.config.aiDifficulty, degradedOverrides(d));
       const built = buildRequest(observation, surface, d.model);
       if (canonical(built.candidates) !== canonical(d.candidates)) throw new Error('candidate_mismatch');
       let expected;
@@ -73,10 +86,23 @@ export async function verifyReplay(replay, {checkDecisions = true, allowIncomple
       } else throw new Error('unsupported_decision_source');
       if (!expected || canonical(expected) !== canonical(d.selected) || !sameAction(expected.action, event.payload.action)) throw new Error('decision_selection_mismatch');
     }
-    await applyRecordedEvent(state, event); previous = event.hash;
+    await applyRecordedEvent(state, event); this.previous = event.hash; this.count++;
   }
-  if (previous !== replay.headHash) throw new Error('head_hash_mismatch');
-  if (!allowIncomplete && state.phase !== 'complete') throw new Error('incomplete_replay');
-  if (canonical(resultOf(state)) !== canonical(replay.result)) throw new Error('result_mismatch');
-  return {verified: true, events: replay.events.length, state};
+  async finish({headHash, result, allowIncomplete = false}) {
+    if (this.previous !== headHash) throw new Error('head_hash_mismatch');
+    if (!allowIncomplete && this.state.phase !== 'complete') throw new Error('incomplete_replay');
+    if (canonical(resultOf(this.state)) !== canonical(result)) throw new Error('result_mismatch');
+    return {verified: true, events: this.count, state: this.state};
+  }
+}
+/** Solver overrides a recorded decision may legitimately carry: only the reduced budget of an explicitly flagged (unranked) cpu_guard decision. */
+export function degradedOverrides(decision) {
+  return decision?.errorCode === 'cpu_guard' && decision.fallback === true ? {variables: 0, nodes: 0} : {};
+}
+export async function verifyReplay(replay, {checkDecisions = true, allowIncomplete = false} = {}) {
+  ReplayVerifier.assertHeader(replay);
+  if (!Array.isArray(replay.events) || replay.events.length > 4005) throw new Error('unsupported_replay');
+  const verifier = await ReplayVerifier.create(replay, {checkDecisions});
+  for (const event of replay.events) await verifier.feed(event);
+  return verifier.finish({headHash: replay.headHash, result: replay.result, allowIncomplete});
 }

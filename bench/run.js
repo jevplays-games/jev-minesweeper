@@ -2,16 +2,16 @@
 import {createHash} from 'node:crypto';
 import {mkdir, writeFile} from 'node:fs/promises';
 import {resolve} from 'node:path';
-import {PRESETS, ENGINE_VERSION, GENERATOR_VERSION, generateBoard, applyBoardAction, observeBoard} from '../shared/engine.js';
-import {decisionSurface, POLICY_VERSION} from '../shared/solver.js';
+import {PRESETS, ENGINE_VERSION, GENERATOR_VERSION, generateBoard, applyBoardAction, observeBoard} from '../public/shared/engine.js';
+import {decisionSurface, POLICY_VERSION} from '../public/shared/solver.js';
 import {chooseJevAction} from '../server/jev.js';
 import {loadConfig} from '../server/config.js';
-import {distribution, wilson, csv} from '../shared/analytics.js';
+import {distribution, wilson, csv} from '../public/shared/analytics.js';
 const args = process.argv.slice(2);
 function arg(key, fallback) { const i = args.indexOf(key); return i < 0 ? fallback : args[i + 1]; }
 const count = Number(arg('--boards', '50')), preset = arg('--preset', 'beginner'), output = resolve(arg('--out', 'reports/benchmark'));
 const namespace = arg('--seed-set', 'heldout-ms-v1'), remote = args.includes('--remote'), remoteLevel = arg('--difficulty', 'jev');
-const config = loadConfig();
+const config = loadConfig({...process.env, DEV_LOCAL: '1'});
 if (!Number.isInteger(count) || count < 2 || count > 10000 || !Object.hasOwn(PRESETS,preset) || !['easy','normal','hard','jev'].includes(remoteLevel)) throw new Error('Usage: npm run bench -- --boards 100 --preset beginner [--out path] [--remote --difficulty jev]');
 if (remote && !config.jevKey) throw new Error('--remote requires TYPESAFE_API_KEY. No local substitute will be reported as a live JEV benchmark.');
 const policies = ['random','easy-local','normal-local','hard-local','jev-local', ...(remote ? [`remote-${remoteLevel}`] : [])];

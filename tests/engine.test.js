@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {neighbors,generateBoard,boardFromMines,applyBoardAction,observeBoard,observeMatch,createMatch,startMatch,applyMatchAction,adjudicate,finish,validateConfig,canonical,clone} from '../shared/engine.js';
+import {neighbors,generateBoard,boardFromMines,applyBoardAction,observeBoard,observeMatch,createMatch,startMatch,applyMatchAction,adjudicate,finish,validateConfig,canonical,clone} from '../public/shared/engine.js';
 import {config,seeds,game} from './helpers.js';
 for(const[cell,count]of[[0,3],[1,5],[4,8],[8,3]])test(`neighbors do not wrap at cell ${cell}`,()=>assert.equal(neighbors(cell,3,3).length,count));
 test('invalid board configuration is rejected',()=>assert.throws(()=>validateConfig({width:3,height:3,mineCount:1}),/invalid_config/));

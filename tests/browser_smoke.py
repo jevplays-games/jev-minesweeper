@@ -1,6 +1,6 @@
 """Chromium UI smoke tests. Use --dom-bridge only in navigation-restricted test runners.
-Default mode exercises real browser HTTP/SSE. Bridge mode tests DOM behavior with
-Python forwarding requests and polling snapshots; it does NOT certify browser networking.
+Default mode exercises real browser HTTP (the game polls the match; there is no server push).
+Bridge mode tests DOM behavior with Python forwarding requests; it does NOT certify browser networking.
 Requires optional Python Playwright; no production browser dependencies are added.
 """
 from __future__ import annotations
@@ -19,7 +19,7 @@ def bundle_modules() -> str:
         imports = list(pattern.finditer(source))
         replacements = []
         for match in imports:
-            target = (ROOT / match[2].lstrip('/')) if match[2].startswith('/') else (ROOT / relative).parent / match[2]
+            target = (ROOT / 'public' / match[2].lstrip('/')) if match[2].startswith('/') else (ROOT / relative).parent / match[2]
             key = target.resolve().relative_to(ROOT).as_posix()
             load(key)
             names = re.sub(r'\s+as\s+', ':', match[1])
@@ -59,12 +59,6 @@ def bridge(page, base: str):
       window.fetch = async (path, options={}) => {
         const r = await window.__localHttp({path, method:options.method||'GET', headers:options.headers||{}, body:options.body??null});
         return new Response(r.body, {status:r.status, headers:r.headers});
-      };
-      window.EventSource = class {
-        constructor(path) { this.listeners={}; this.path=path.replace(/\\/events$/, ''); this.timer=setInterval(()=>this.poll(),200); this.poll(); }
-        addEventListener(name, callback) { this.listeners[name]=callback; }
-        async poll() { try { const r=await fetch(this.path); if(!r.ok)throw Error('poll'); const value=await r.json(); this.onopen?.(); this.listeners.snapshot?.({data:JSON.stringify(value)}); }catch{this.onerror?.();} }
-        close() { clearInterval(this.timer); }
       };
       if(!crypto.randomUUID) Object.defineProperty(crypto,'randomUUID',{value:()=>{const b=crypto.getRandomValues(new Uint8Array(16));b[6]=(b[6]&15)|64;b[8]=(b[8]&63)|128;const s=[...b].map(x=>x.toString(16).padStart(2,'0')).join('');return `${s.slice(0,8)}-${s.slice(8,12)}-${s.slice(12,16)}-${s.slice(16,20)}-${s.slice(20)}`;}});
       if(!crypto.subtle) Object.defineProperty(crypto,'subtle',{value:{
@@ -111,7 +105,7 @@ def run():
         page.screenshot(path=str(out/'desktop-analytics.png'),full_page=True)
         with page.expect_download() as event: page.locator('#exportJson').click()
         download=event.value;download.save_as(str(out/'browser-analytics.json'))
-        report=json.loads((out/'browser-analytics.json').read_text());assert report['analyticsVersion']=='ms-analytics-1.0.0'
+        report=json.loads((out/'browser-analytics.json').read_text());assert report['analyticsVersion']=='ms-analytics-1.1.0'
         page.locator('#viewReplay').click();page.wait_for_function("document.getElementById('replayDialog').open",timeout=15000)
         page.locator('#replayNext').click();assert page.locator('#replayHuman .cell.open').count()>0
         page.locator('#closeReplay').click()

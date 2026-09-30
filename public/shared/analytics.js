@@ -2,7 +2,7 @@
 import {createMatch, observeBoard, neighbors} from './engine.js';
 import {applyRecordedEvent, verifyReplay} from './replay.js';
 import {analyzeObservation} from './solver.js';
-export const ANALYTICS_VERSION = 'ms-analytics-1.0.0';
+export const ANALYTICS_VERSION = 'ms-analytics-1.1.0';
 export const ratio = (n, d) => d > 0 ? n / d : null;
 export const mean = xs => xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : null;
 export function quantile(xs, p) {

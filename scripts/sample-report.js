@@ -1,12 +1,12 @@
 /** Deterministic synthetic regression match, NOT a human performance result. */
 import {mkdir,writeFile} from 'node:fs/promises';
-import {createMatch,startMatch,observeBoard,applyMatchAction,adjudicate} from '../shared/engine.js';
-import {decisionSurface} from '../shared/solver.js';
-import {makeEvent,exportReplay,verifyReplay} from '../shared/replay.js';
-import {analyzeReplay,csv} from '../shared/analytics.js';
+import {createMatch,startMatch,observeBoard,applyMatchAction,adjudicate} from '../public/shared/engine.js';
+import {decisionSurface} from '../public/shared/solver.js';
+import {makeEvent,exportReplay,verifyReplay} from '../public/shared/replay.js';
+import {analyzeReplay,csv} from '../public/shared/analytics.js';
 import {chooseJevAction} from '../server/jev.js';
 import {loadConfig,gameConfig} from '../server/config.js';
-const config={...loadConfig(),jevKey:''},state=await createMatch(gameConfig(config),{human:'a'.repeat(64),jev:'b'.repeat(64)},'synthetic-sample-match');
+const config={...loadConfig({DEV_LOCAL:'1'}),jevKey:''},state=await createMatch(gameConfig(config),{human:'a'.repeat(64),jev:'b'.repeat(64)},'synthetic-sample-match');
 
 const events=[];await startMatch(state,40);events.push(await makeEvent(events,'start','human',0,{cell:40}));
 let humanDue=600,jevDue=1000;

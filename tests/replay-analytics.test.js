@@ -1,6 +1,6 @@
 import test from 'node:test';import assert from 'node:assert/strict';
-import {winningReplay} from './helpers.js';import {verifyReplay,eventHash} from '../shared/replay.js';
-import {analyzeReplay,calibration,distribution,wilson,csv,aggregateMatches} from '../shared/analytics.js';
+import {winningReplay} from './helpers.js';import {verifyReplay,eventHash} from '../public/shared/replay.js';
+import {analyzeReplay,calibration,distribution,wilson,csv,aggregateMatches} from '../public/shared/analytics.js';
 const replay=await winningReplay();
 test('complete replay reconstructs the winning outcome',async()=>{const r=await verifyReplay(replay);assert.equal(r.verified,true);assert.equal(r.state.outcome,'win');});
 for(const[field,change]of[

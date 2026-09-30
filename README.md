@@ -2,18 +2,18 @@
 
 A runnable, server-authoritative two-board Minesweeper race with a vanilla JavaScript interface, TypeSafe/JEV adapter, Discord identity and community context, verified leaderboards, deterministic replays, and detailed replay-derived analytics.
 
-**Delivery status:** implemented and locally tested. Real TypeSafe credentials, Discord authorization, public HTTPS, and a production deployment were not exercised in this environment. Without credentials, the application works against an explicitly labeled local solver; those games are unofficial.
+**Delivery status:** implemented and locally tested; hosted on Cloudflare Workers (Free plan) + D1 at `minesweeper.jevplay.games` per `docs/DEPLOYMENT.md`. Real TypeSafe credentials, Discord authorization, and the Cloudflare deployment itself were not exercised in this environment. Without credentials, the application works against an explicitly labeled local solver; those games are unofficial.
 
 ## Run locally
 
-Use Node.js **22.16.0 or later**. The implementation was tested on 22.16.0; Node 24 LTS is the documented deployment target. The older tested runtime emits an experimental warning for its built-in SQLite module. There are **no npm runtime dependencies and no frontend build step**.
+Use Node.js **22.16.0 or later** (built-in SQLite; Node prints an experimental warning). `npm start` is a local development shim over the same Worker code production runs (`server/worker.js`), with SQLite standing in for D1. There are **no npm runtime dependencies and no frontend build step**.
 
 ```sh
 cd jev-minesweeper
 npm start
 ```
 
-Open `http://localhost:3000`. Select **New game**, then click your starting square. The same coordinate opens on JEV's independently generated board. `npm start` tolerates a missing `.env` and creates a private SQLite database under `data/`.
+Open `http://localhost:3000`. Select **New game**, then click your starting square. The same coordinate opens on JEV's independently generated board. `npm start` tolerates a missing `.env` and creates a private SQLite database under `data/`. To deploy, follow `docs/DEPLOYMENT.md` (`npm run deploy`, `npm run db:remote`).
 
 For configuration, copy `.env.example` to `.env`, edit the relevant values, and restart. On Windows PowerShell, use `Copy-Item .env.example .env`; on macOS/Linux, use `cp .env.example .env`.
 
@@ -37,7 +37,7 @@ The interface includes touch reveal/flag modes, keyboard navigation, standard an
 | Probability calibration | Selected and all-evaluated safety forecasts, Brier score, log loss, ten reliability bins, expected calibration error, sample counts |
 | Operations and integrity | Rejected requests, idempotent retries, reconnects, scheduling misses, verification state, rank eligibility and reasons |
 | History and rankings | W/L/D, clear-win rate, Wilson intervals, actual clear times, streaks, size/difficulty/period/mode filters, Channel/Server/World views |
-| Export | Analytics JSON, action CSV, timeline CSV, event JSONL, replay JSON, history CSV, own-profile JSON |
+| Export | Analytics JSON, action CSV, timeline CSV (derived in your browser from the verified replay), event JSONL, replay JSON, history CSV, own-profile JSON |
 
 **Truth-derived data is sealed until the match is over.** No active mine bitmap, unrevealed adjacency, correct-flag signal, or hindsight evaluation is sent to the player or opponent. Undefined ratios and missing usage produce `null`, not fabricated zeros. A full metric dictionary and a generated field catalog are included.
 
@@ -85,12 +85,13 @@ The optional browser test uses Python Playwright, a development-only tool, not a
 | File | Purpose |
 |---|---|
 | `public/index.html`, `game.css`, `game.js` | Single-page interface and dashboards |
-| `shared/engine.js` | Deterministic rules and safe observations |
-| `shared/solver.js`, `decisions.js` | Public-state deductions and typed decisions |
-| `shared/replay.js`, `analytics.js` | Verification and post-game analytics |
-| `server/main.js`, `matches.js` | HTTP/SSE API and trusted race coordinator |
+| `public/shared/engine.js` | Deterministic rules and safe observations |
+| `public/shared/solver.js`, `decisions.js` | Public-state deductions and typed decisions |
+| `public/shared/replay.js`, `analytics.js` | Verification and post-game analytics |
+| `server/worker.js`, `matches.js` | Worker entry/routing and the lazy, compare-and-swap match lifecycle |
+| `server/main.js`, `local-db.js` | Local development shim (Node http, SQLite behind the D1 interface) |
 | `server/discord.js`, `security.js` | Login, session, launch-context boundaries |
-| `server/schema.sql`, `db.js` | Persistent records and prepared database access |
+| `migrations/`, `server/db.js`, `wrangler.jsonc` | D1 schema, async database layer, Cloudflare configuration |
 | `docs/ARCHITECTURE.md` | A–Z design mapped to the implemented files |
 | `docs/ANALYTICS.md` | Metric definitions, formulas, populations, caveats |
 | `docs/API.md`, `SECURITY.md`, `DEPLOYMENT.md` | Integration and operations |
@@ -98,7 +99,7 @@ The optional browser test uses Python Playwright, a development-only tool, not a
 
 ## Operational boundaries
 
-This is a small single-process deployment, not a horizontally distributed tournament platform. SQLite calls are synchronous; heavier solving/verification/analytics runs in worker threads. Backups contain sensitive records and need restricted access. Active games are voided on restart rather than receiving fabricated continuous timing.
+This runs inside the Cloudflare Workers Free plan (10 ms CPU per request, 100 k requests/day, D1 write allowance) with durable daily caps; it is not a horizontally distributed tournament platform. CPU figures in `reports/cpu/` are from Node, not workerd. See `docs/DEPLOYMENT.md`.
 
 Hidden-information and replay controls prevent straightforward score/state forgery. They do not prove that the human used no external assistance, prevent a trusted host operator from altering its own data, or constitute an independent security/accessibility certification. Real-provider smoke testing and a production load/security review remain deployment gates.
 

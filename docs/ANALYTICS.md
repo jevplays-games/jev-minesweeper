@@ -1,6 +1,6 @@
 # Analytics reference
 
-Version: `ms-analytics-1.0.0`. Implementation: `shared/analytics.js`. Generated structural index: `analytics-field-catalog.json`. Sample exports: `reports/sample/`.
+Version: `ms-analytics-1.1.0`. Implementation: `public/shared/analytics.js`. Generated structural index: `analytics-field-catalog.json`. Sample exports: `reports/sample/`.
 
 ## 1. Evidence and access
 

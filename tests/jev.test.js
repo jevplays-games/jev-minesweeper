@@ -1,6 +1,6 @@
 import test from 'node:test';import assert from 'node:assert/strict';
-import {boardFromMines,observeBoard} from '../shared/engine.js';import {decisionSurface} from '../shared/solver.js';
-import {buildRequest,validateResponse,selectCandidate,MODEL} from '../shared/decisions.js';import {chooseJevAction} from '../server/jev.js';import {validResponse,roundedResponse} from './helpers.js';
+import {boardFromMines,observeBoard} from '../public/shared/engine.js';import {decisionSurface} from '../public/shared/solver.js';
+import {buildRequest,validateResponse,selectCandidate,MODEL} from '../public/shared/decisions.js';import {chooseJevAction} from '../server/jev.js';import {validResponse,roundedResponse} from './helpers.js';
 const observation=observeBoard(boardFromMines(3,3,[0,8]));const surface=decisionSurface(observation,'normal'),built=buildRequest(observation,surface);
 const cfg={model:MODEL,jevKey:'test-only-not-a-real-key',jevEndpoint:'https://example.invalid',providerTimeoutMs:500};
 test('documented TypeSafe response shape validates',()=>assert.equal(validateResponse(validResponse(built.request),built.request).model,MODEL));

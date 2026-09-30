@@ -13,7 +13,7 @@ Inside Discord the game runs in an iframe on `https://<DISCORD_CLIENT_ID>.discor
 3. **Origin.** `Origin == https://<DISCORD_CLIENT_ID>.discordsays.com` is accepted for mutations **only when the request is bearer-authenticated**. Cookie sessions, other origins, another application's discordsays origin and missing CSRF tokens are still rejected (`csrf_rejected`). `POST /api/activity/session` accepts only that origin or the game's own `APP_ORIGIN`. The server has no Host check; Origin plus the CSRF token remain the gate.
 4. **Framing.** Only the HTML document requested with `frame_id` gets `frame-ancestors https://discord.com https://ptb.discord.com https://canary.discord.com` in place of `frame-ancestors 'none'`; the rest of the CSP is unchanged. API responses, scripts and every other path stay unframeable.
 
-Ranked/leaderboard rules, idempotency, CAS revisions, leases and the JEV adapter are untouched. Session-creation attempts are rate limited (60 per 10 minutes per client address; behind the tunnel with `TRUST_PROXY=0` that address is shared).
+Ranked/leaderboard rules, idempotency, CAS revisions, leases and the JEV adapter are untouched. Session-creation attempts are rate limited by a durable D1 quota (60 per 10 minutes per client address; behind the tunnel with `TRUST_PROXY=0` that address is shared).
 
 ## Developer Portal settings
 

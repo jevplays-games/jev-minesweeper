@@ -1,5 +1,5 @@
 import test,{before,after}from'node:test';import assert from'node:assert/strict';
-import {createApp}from'../server/main.js';import {loadConfig}from'../server/config.js';import {Store}from'../server/db.js';import {ACTIVITY_FRAME_ANCESTORS,hash}from'../server/security.js';
+import {createApp}from'../server/main.js';import {ACTIVITY_FRAME_ANCESTORS,hash}from'../server/security.js';import {HIGH}from'./helpers.js';
 const APP='123456789012345678',ACTIVITY=`https://${APP}.discordsays.com`,calls=[];let discordFails=false,app,base;
 async function discordFetch(url,options){
  calls.push({url:String(url),body:options?.body?String(options.body):null});
@@ -7,21 +7,22 @@ async function discordFetch(url,options){
  if(String(url).endsWith('/users/@me'))return new Response(JSON.stringify({id:'223344556677889900',username:'player',global_name:'Player One',avatar:null}),{headers:{'Content-Type':'application/json'}});
  throw new Error(`unexpected fetch ${url}`);
 }
-before(async()=>{const config={...loadConfig({PORT:'0',HOST:'127.0.0.1'}),disableScheduler:true,discordClientId:APP,discordClientSecret:'fixture-secret'};app=await createApp({config,store:new Store(':memory:'),fetchImpl:discordFetch});base=await app.listen();});
+before(async()=>{app=await createApp({env:{PORT:'0',...HIGH,DISCORD_CLIENT_ID:APP,DISCORD_CLIENT_SECRET:'fixture-secret',FETCH:discordFetch}});base=await app.listen();});
 after(async()=>await app.close());
 const post=(path,{origin=ACTIVITY,body={},headers={}}={})=>fetch(base+path,{method:'POST',headers:{...(origin?{origin}:{}),'content-type':'application/json',...headers},body:JSON.stringify(body)});
 async function signIn(){const r=await post('/api/activity/session',{body:{code:'sdk-code'}});assert.equal(r.status,200);return r.json();}
 const bearer=s=>({authorization:`Bearer ${s.token}`});
+const row=async token=>app.database.raw.prepare('SELECT 1 AS x FROM sessions WHERE token_hash=?').get(token);
 test('activity config exposes only the public client id',async()=>{const r=await fetch(base+'/api/activity/config');assert.equal(r.status,200);assert.deepEqual(await r.json(),{clientId:APP});});
-test('activity config needs Discord configured',async()=>{const bare=await createApp({config:{...loadConfig({PORT:'0',HOST:'127.0.0.1'}),disableScheduler:true},store:new Store(':memory:')}),origin=await bare.listen();try{assert.equal((await fetch(origin+'/api/activity/config')).status,503);}finally{await bare.close();}});
+test('activity config needs Discord configured',async()=>{const bare=await createApp({env:{PORT:'0',DISCORD_CLIENT_ID:'',DISCORD_CLIENT_SECRET:''}}),origin=await bare.listen();try{assert.equal((await fetch(origin+'/api/activity/config')).status,503);}finally{await bare.close();}});
 test('an SDK code becomes a bearer session: exchanged without a redirect uri, raw token not stored',async()=>{
  calls.length=0;const r=await post('/api/activity/session',{body:{code:'sdk-code'}});assert.equal(r.status,200);const s=await r.json();
  assert.match(s.token,/^[A-Za-z0-9_-]{43}$/);assert.equal(s.accessToken,'fixture-access');assert.equal(s.user.displayName,'Player One');assert.ok(s.csrfToken);
  const exchange=new URLSearchParams(calls[0].body);assert.equal(exchange.get('grant_type'),'authorization_code');assert.equal(exchange.get('code'),'sdk-code');assert.equal(exchange.has('redirect_uri'),false);
  assert.equal(r.headers.get('set-cookie'),null,'no cookie is set inside an Activity');
- assert.equal(app.store.get('SELECT 1 AS x FROM sessions WHERE token_hash=?',s.token),undefined,'the raw token must not be stored');
- assert.ok(app.store.get('SELECT 1 AS x FROM sessions WHERE token_hash=?',hash(s.token)));
- assert.ok(!JSON.stringify(app.store.all('SELECT * FROM sessions')).includes('fixture-access'),'the Discord access token is not stored');
+ assert.equal(await row(s.token),undefined,'the raw token must not be stored');
+ assert.ok(await row(await hash(s.token)));
+ assert.ok(!JSON.stringify(app.database.raw.prepare('SELECT * FROM sessions').all()).includes('fixture-access'),'the Discord access token is not stored');
 });
 test('the bearer session works for reads and for mutations from the activity origin',async()=>{
  const s=await signIn(),me=await (await fetch(base+'/api/me',{headers:bearer(s)})).json();assert.equal(me.user.displayName,'Player One');assert.equal(me.csrfToken,s.csrfToken);
