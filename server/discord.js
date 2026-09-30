@@ -7,20 +7,32 @@ export function loginUrl(store, config, session, now = Date.now()) {
   const url = new URL('https://discord.com/oauth2/authorize');
   url.search = new URLSearchParams({client_id: config.discordClientId, response_type: 'code', redirect_uri: `${config.origin}/api/auth/discord/callback`, scope: 'identify', state}).toString(); return url.toString();
 }
-export async function oauthCallback({store, config, session, params, res, fetchImpl = fetch, now = Date.now()}) {
-  if (!session || !session.data.oauth || session.data.oauth.expiresAt < now || !equal(session.data.oauth.stateHash, hash(params.get('state') || ''))) throw httpError(403, 'oauth_state_rejected');
-  delete session.data.oauth; saveSession(store, session);
-  const code = params.get('code'); if (!code || code.length > 4096 || params.has('error')) throw httpError(400, 'oauth_authorization_denied');
-  const reply = await fetchImpl('https://discord.com/api/v10/oauth2/token', {method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'}, body: new URLSearchParams({client_id: config.discordClientId, client_secret: config.discordClientSecret, grant_type: 'authorization_code', code, redirect_uri: `${config.origin}/api/auth/discord/callback`}), signal: AbortSignal.timeout(10000)});
+// Exchanges an authorization code for the player's Discord identity. The redirect URI is sent only for the browser OAuth flow;
+// an Embedded App SDK code is exchanged without one. The access token is returned to the caller and never persisted here.
+export async function discordIdentity(config, code, redirectUri, fetchImpl = fetch) {
+  const form = {client_id: config.discordClientId, client_secret: config.discordClientSecret, grant_type: 'authorization_code', code};
+  if (redirectUri) form.redirect_uri = redirectUri;
+  const reply = await fetchImpl('https://discord.com/api/v10/oauth2/token', {method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'}, body: new URLSearchParams(form), signal: AbortSignal.timeout(10000)});
   if (!reply.ok) throw httpError(502, 'oauth_token_exchange_failed');
   const access = await reply.json(); if (typeof access.access_token !== 'string') throw httpError(502, 'oauth_invalid_token_response');
   const identity = await fetchImpl('https://discord.com/api/v10/users/@me', {headers: {'Authorization': `Bearer ${access.access_token}`}, signal: AbortSignal.timeout(10000)});
   if (!identity.ok) throw httpError(502, 'discord_identity_failed');
   const user = await identity.json(); if (!validId(user.id)) throw httpError(502, 'discord_identity_invalid');
+  return {user, accessToken: access.access_token};
+}
+export function upsertDiscordUser(store, user, now = Date.now()) {
   const displayName = String(user.global_name || user.username || 'Discord player').slice(0, 80);
   const avatar = typeof user.avatar === 'string' && /^(a_)?[a-f0-9]{32}$/.test(user.avatar) ? user.avatar : null;
+  store.run('INSERT INTO users(discord_id,display_name,avatar_hash,created_at,last_seen_at) VALUES(?,?,?,?,?) ON CONFLICT(discord_id) DO UPDATE SET display_name=excluded.display_name,avatar_hash=excluded.avatar_hash,last_seen_at=excluded.last_seen_at', user.id, displayName, avatar, now, now);
+  return {id: user.id, displayName};
+}
+export async function oauthCallback({store, config, session, params, res, fetchImpl = fetch, now = Date.now()}) {
+  if (!session || !session.data.oauth || session.data.oauth.expiresAt < now || !equal(session.data.oauth.stateHash, hash(params.get('state') || ''))) throw httpError(403, 'oauth_state_rejected');
+  delete session.data.oauth; saveSession(store, session);
+  const code = params.get('code'); if (!code || code.length > 4096 || params.has('error')) throw httpError(400, 'oauth_authorization_denied');
+  const {user} = await discordIdentity(config, code, `${config.origin}/api/auth/discord/callback`, fetchImpl);
   const fresh = store.transaction(() => {
-    store.run('INSERT INTO users(discord_id,display_name,avatar_hash,created_at,last_seen_at) VALUES(?,?,?,?,?) ON CONFLICT(discord_id) DO UPDATE SET display_name=excluded.display_name,avatar_hash=excluded.avatar_hash,last_seen_at=excluded.last_seen_at', user.id, displayName, avatar, now, now);
+    upsertDiscordUser(store, user, now);
     store.run('DELETE FROM sessions WHERE token_hash=?', session.token_hash);
     return createSession(store, config, user.id, {}, now);
   });
