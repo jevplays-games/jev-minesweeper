@@ -6,8 +6,9 @@ import {loadConfig, gameConfig, competitionKey} from './config.js';
 import {Store} from './db.js';
 import {Workers} from './workers.js';
 import {Matches} from './matches.js';
-import {getSession, ownerKey, csrf, httpError, equal, securityHeaders, RateLimiter, writeCookie} from './security.js';
+import {getSession, ownerKey, csrf, httpError, equal, securityHeaders, allowDiscordFraming, hasBearerSession, RateLimiter, writeCookie} from './security.js';
 import {discordReady, loginUrl, oauthCallback, interaction, resolveContext, authorizeScope} from './discord.js';
+import {activityConfig, createActivitySession} from './activity.js';
 import {aggregateMatches, csv} from '../shared/analytics.js';
 import {PRESETS, RuleError} from '../shared/engine.js';
 function send(res, status, body, contentType = 'application/json; charset=utf-8', filename = null) {
@@ -67,7 +68,7 @@ export async function createApp({config = loadConfig(), store = null, workers = 
   store ??= new Store(config.database); workers ??= new Workers(2);
   const manager = new Matches(store, config, workers, {chooser}); await manager.recover();
   const limiter = new RateLimiter(), root = new URL('../', import.meta.url);
-  const assets = new Map([['/', ['public/index.html','text/html; charset=utf-8']], ['/index.html',['public/index.html','text/html; charset=utf-8']], ['/game.css',['public/game.css','text/css; charset=utf-8']], ['/game.js',['public/game.js','text/javascript; charset=utf-8']], ['/api.js',['public/api.js','text/javascript; charset=utf-8']], ['/offline.js',['public/offline.js','text/javascript; charset=utf-8']], ['/brand/icon.svg',['public/brand/icon.svg','image/svg+xml']], ['/brand/mark.svg',['public/brand/mark.svg','image/svg+xml']], ['/brand/brand.css',['public/brand/brand.css','text/css; charset=utf-8']], ['/brand/brand.js',['public/brand/brand.js','text/javascript; charset=utf-8']], ['/brand/inter-var.woff2',['public/brand/inter-var.woff2','font/woff2']], ['/brand/OFL.txt',['public/brand/OFL.txt','text/plain; charset=utf-8']]]);
+  const assets = new Map([['/', ['public/index.html','text/html; charset=utf-8']], ['/index.html',['public/index.html','text/html; charset=utf-8']], ['/game.css',['public/game.css','text/css; charset=utf-8']], ['/game.js',['public/game.js','text/javascript; charset=utf-8']], ['/api.js',['public/api.js','text/javascript; charset=utf-8']], ['/offline.js',['public/offline.js','text/javascript; charset=utf-8']], ['/activity.js',['public/activity.js','text/javascript; charset=utf-8']], ['/vendor/discord-embedded-app-sdk.js',['public/vendor/discord-embedded-app-sdk.js','text/javascript; charset=utf-8']], ['/brand/icon.svg',['public/brand/icon.svg','image/svg+xml']], ['/brand/mark.svg',['public/brand/mark.svg','image/svg+xml']], ['/brand/brand.css',['public/brand/brand.css','text/css; charset=utf-8']], ['/brand/brand.js',['public/brand/brand.js','text/javascript; charset=utf-8']], ['/brand/inter-var.woff2',['public/brand/inter-var.woff2','font/woff2']], ['/brand/OFL.txt',['public/brand/OFL.txt','text/plain; charset=utf-8']]]);
   for (const name of ['engine','solver','decisions','replay','analytics']) assets.set(`/shared/${name}.js`, [`shared/${name}.js`, 'text/javascript; charset=utf-8']);
   const server = createServer(async (req, res) => {
     securityHeaders(res, config); const began = performance.now(); let session = null, matchId = null, route = '', ownedMatch = false;
@@ -80,7 +81,9 @@ export async function createApp({config = loadConfig(), store = null, workers = 
       if (!limiter.take(`ip:${ip}`, 3000, 60000)) throw httpError(429, 'rate_limit');
       if (req.method === 'GET' && route === '/api/health') return send(res, 200, {ok: true, version: '1.0.0'});
       if (req.method === 'GET' && assets.has(route)) {
-        const [path, type] = assets.get(route); return send(res, 200, await readFile(new URL(path, root)), type);
+        const [path, type] = assets.get(route);
+        if (type.startsWith('text/html') && url.searchParams.has('frame_id')) allowDiscordFraming(res);
+        return send(res, 200, await readFile(new URL(path, root)), type);
       }
       if (!route.startsWith('/api/')) throw httpError(404, 'not_found');
       if (req.method === 'POST' && route === '/api/discord/interactions') {
@@ -91,8 +94,14 @@ export async function createApp({config = loadConfig(), store = null, workers = 
         const since = Date.now() - 86400000;
         return send(res, 200, {window: 'last 24 hours for audit metrics; all retained matches for result metrics', activeMatches: manager.active.size, workerQueue: workers.queue.length, results: store.all('SELECT outcome,verification,eligible,count(*) AS count FROM matches GROUP BY outcome,verification,eligible'), auditTypes24h: store.all('SELECT type,count(*) AS count FROM audit_events WHERE at>=? GROUP BY type', since), rejections24h: store.all("SELECT json_extract(data_json,'$.code') AS reason,count(*) AS count FROM audit_events WHERE type='action_rejected' AND at>=? GROUP BY reason", since), decisions: store.all("SELECT json_extract(event_json,'$.decision.source') AS source,count(*) AS count,avg(json_extract(event_json,'$.decision.latencyMs')) AS mean_latency_ms FROM match_events WHERE json_extract(event_json,'$.actor')='jev' GROUP BY source"), measuredUsage: store.get("SELECT coalesce(sum(json_extract(event_json,'$.decision.response.usage.input_tokens')),0) AS successful_input_tokens,coalesce(sum(json_extract(event_json,'$.decision.response.usage.output_tokens')),0) AS successful_output_tokens FROM match_events"), privacy: 'No names, IP addresses, OAuth codes, session secrets, or active layouts included.'});
       }
+      if (req.method === 'GET' && route === '/api/activity/config') return send(res, 200, activityConfig(config));
+      if (req.method === 'POST' && route === '/api/activity/session') {
+        if (!limiter.take(`activity-session:${ip}`, 60, 600000)) throw httpError(429, 'session_creation_rate_limit');
+        const body = jsonBody(await readBody(req), req); keysOnly(body, ['code']);
+        return send(res, 200, await createActivitySession({store, config, origin: req.headers.origin, code: body.code, fetchImpl}));
+      }
       const create = route === '/api/me' || route === '/api/auth/discord';
-      if (create && !req.headers.cookie && !limiter.take(`sessions:${ip}`, 60, 600000)) throw httpError(429, 'session_creation_rate_limit');
+      if (create && !req.headers.cookie && !hasBearerSession(req, store) && !limiter.take(`sessions:${ip}`, 60, 600000)) throw httpError(429, 'session_creation_rate_limit');
       session = getSession(req, res, store, config, {create});
       if (req.method === 'GET' && route === '/api/me') {
         const user = session.user_id ? store.get('SELECT discord_id AS id,display_name AS displayName,avatar_hash AS avatar FROM users WHERE discord_id=?', session.user_id) : null;

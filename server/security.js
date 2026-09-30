@@ -20,11 +20,16 @@ export function createSession(store, config, userId = null, data = {}, now = Dat
   store.run('INSERT INTO sessions(token_hash,user_id,csrf_token,data_json,created_at,last_seen_at,expires_at) VALUES(?,?,?,?,?,?,?)', session.token_hash, userId, session.csrf_token, JSON.stringify(data), now, now, session.expires_at);
   return {raw, session};
 }
+// Inside a Discord Activity the browser will not send our SameSite cookie, so the game holds the session token in memory and sends it as a bearer.
+export const activityOrigin = config => /^\d{5,25}$/.test(config.discordClientId || '') ? `https://${config.discordClientId}.discordsays.com` : null;
+export function bearerToken(req) { const m = /^Bearer ([A-Za-z0-9_-]{43})$/.exec(req.headers.authorization || ''); return m ? m[1] : null; }
+export function hasBearerSession(req, store) { const raw = bearerToken(req); return Boolean(raw && store.get('SELECT 1 AS ok FROM sessions WHERE token_hash=?', hash(raw))); }
 export function getSession(req, res, store, config, {create = false, now = Date.now()} = {}) {
-  const raw = cookies(req.headers.cookie)[cookieName(config)];
+  const bearer = bearerToken(req), raw = bearer ?? cookies(req.headers.cookie)[cookieName(config)];
   let s = typeof raw === 'string' && /^[A-Za-z0-9_-]{43}$/.test(raw) ? store.get('SELECT * FROM sessions WHERE token_hash=?', hash(raw)) : null;
   if (s && (s.expires_at <= now || s.last_seen_at + config.sessionIdleMs <= now)) { store.run('DELETE FROM sessions WHERE token_hash=?', s.token_hash); s = null; }
   if (!s && create) { const created = createSession(store, config, null, {}, now); s = created.session; writeCookie(res, config, created.raw); }
+  if (s && bearer) s.via = 'bearer';
   if (s) { s.data ??= JSON.parse(s.data_json); if (now - s.last_seen_at > 10000) { store.run('UPDATE sessions SET last_seen_at=? WHERE token_hash=?', now, s.token_hash); s.last_seen_at = now; } }
   return s;
 }
@@ -32,7 +37,8 @@ export const ownerKey = session => session.user_id ? `u:${session.user_id}` : `s
 export function saveSession(store, session) { store.run('UPDATE sessions SET data_json=? WHERE token_hash=?', JSON.stringify(session.data), session.token_hash); }
 export function csrf(req, session, config) {
   if (!session) throw httpError(401, 'session_required');
-  if (req.headers.origin !== config.origin || !equal(req.headers['x-csrf-token'], session.csrf_token)) throw httpError(403, 'csrf_rejected');
+  const framed = session.via === 'bearer' ? activityOrigin(config) : null;
+  if ((req.headers.origin !== config.origin && !(framed && req.headers.origin === framed)) || !equal(req.headers['x-csrf-token'], session.csrf_token)) throw httpError(403, 'csrf_rejected');
 }
 export function verifyDiscordSignature(raw, headers, publicKeyHex, now = Date.now()) {
   const timestamp = headers['x-signature-timestamp'], signature = headers['x-signature-ed25519'];
@@ -51,6 +57,12 @@ export class RateLimiter {
     if (this.buckets.size > this.maxKeys) { for (const [k, v] of this.buckets) if (now >= v.reset) this.buckets.delete(k); if (this.buckets.size > this.maxKeys) this.buckets.delete(this.buckets.keys().next().value); }
     return true;
   }
+}
+// Discord shows an Activity inside its own iframe. Only the HTML document loaded with Discord's frame_id may be framed, and only by Discord.
+export const ACTIVITY_FRAME_ANCESTORS = 'frame-ancestors https://discord.com https://ptb.discord.com https://canary.discord.com';
+export function allowDiscordFraming(res) {
+  res.removeHeader('X-Frame-Options');
+  res.setHeader('Content-Security-Policy', String(res.getHeader('Content-Security-Policy')).replace("frame-ancestors 'none'", ACTIVITY_FRAME_ANCESTORS));
 }
 export function securityHeaders(res, config) {
   res.setHeader('Content-Security-Policy', "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' https://cdn.discordapp.com; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'");

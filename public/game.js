@@ -1,4 +1,4 @@
-import {request,setCsrf,subscribe,download,downloadEndpoint} from './api.js';
+import {request,setCsrf,setBearer,subscribe,download,downloadEndpoint} from './api.js';
 import {PRESETS,createMatch,observeMatch} from '/shared/engine.js';
 import {applyRecordedEvent} from '/shared/replay.js';
 import {csv} from '/shared/analytics.js';
@@ -206,6 +206,7 @@ window.addEventListener('resize',()=>{drawLive();if(report&&!$('panel-report').h
 setInterval(()=>{const elapsed=snapshot?.phase==='running'?receivedElapsed+performance.now()-receivedAt:receivedElapsed;text('clock',time(elapsed));},100);
 render();
 let serverUp=false;
+if(new URLSearchParams(location.search).has('frame_id')){try{setBearer((await (await import('./activity.js')).signInWithDiscord(request)).token);}catch(e){notify(`Could not sign in through Discord. ${e.message}`,'error');}}
 try{await refreshMe();serverUp=true;connection(true);if(me.activeMatchId){update(await request(`/api/matches/${me.activeMatchId}`));unsubscribe=subscribe(me.activeMatchId,update,connection);}else if(launch)notify(me.user?'Discord launch detected. Create a match to redeem this channel context.':'Discord launch detected. Sign in with the account that invoked /jev play.');else if(!me.features.jev)notify('Local heuristic mode: no TypeSafe key is configured. Click your opening square to play an unofficial race.');render();}
 catch(e){connection(false);notify('Server connection unavailable. Starting offline practice in this already-loaded page.','error');}
 await autoStart();
