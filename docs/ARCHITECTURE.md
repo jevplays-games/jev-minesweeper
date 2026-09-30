@@ -12,7 +12,7 @@ Guest and Discord-authenticated players use the same single-page interface. New 
 
 ## C. Rules engine
 
-`shared/engine.js` owns deterministic state transitions. `createMatch`, `generateBoard`, `startMatch`, `getLegalActions`, `applyBoardAction`, `applyMatchAction`, `adjudicate`, and observation projectors are independent of DOM and network. Private state stores dimensions, seeds, commitments, mine/adjacency arrays, flags/reveals, revisions, counts/status, shared time, and outcome. Public projections contain only revealed numbers, covered/flagged states, and public counters. Revealing a mine is a legal losing action. Unsafe chording explodes even when it simultaneously reveals the last safe cell.
+`public/shared/engine.js` owns deterministic state transitions. `createMatch`, `generateBoard`, `startMatch`, `getLegalActions`, `applyBoardAction`, `applyMatchAction`, `adjudicate`, and observation projectors are independent of DOM and network. Private state stores dimensions, seeds, commitments, mine/adjacency arrays, flags/reveals, revisions, counts/status, shared time, and outcome. Public projections contain only revealed numbers, covered/flagged states, and public counters. Revealing a mine is a legal losing action. Unsafe chording explodes even when it simultaneously reveals the last safe cell.
 
 ## D. JEV decision model
 
@@ -37,35 +37,44 @@ Readable covered/flagged/revealed grid, dimensions/mine count, computed constrai
 
 ## F. Runtime architecture
 
+Production is a Cloudflare Worker with D1 and Static Assets (Workers Free plan: 10 ms CPU per invocation, no background threads, no long-lived connections, no cron). The application is one `handle(request, env, ctx)` written against Web APIs (`server/worker.js`); `env.DB` is D1, `env.ASSETS` is `public/`. Locally `server/main.js` adapts Node's `http` to the same function and gives it `node:sqlite` behind a D1-compatible wrapper (`server/local-db.js`), so the tests run against real SQLite.
+
 ```mermaid
 flowchart LR
   subgraph B[Untrusted browser]
-    U[Vanilla single-page UI]
-    P[Explicit local practice]
+    U[Vanilla single-page UI, polls the match]
+    A[Analytics derived from the verified replay]
   end
-  subgraph T[Trusted application host]
-    H[Native Node HTTP / SSE]
-    M[Match coordinator]
-    E[Rules engine / safe projection]
-    W[Worker threads: solver, replay, analytics]
-    D[(SQLite)]
-    A[JEV adapter]
-    O[Discord auth/context]
+  subgraph W[Cloudflare Worker, one invocation per request]
+    H[handle: routing, CSRF, quotas]
+    M[advance: apply what is due, one CAS commit]
+    P[prepareJev: one decision, under a lease]
+    V[verifyStep: bounded slice, resumable]
+    E[Rules engine / solver, shared with the browser]
   end
-  U -->|CSRF-protected actions| H
-  H -->|Public snapshots| U
-  H --> M
+  D[(D1)]
+  U -->|CSRF-protected commands, 600 ms polls| H
+  H --> M --> D
+  H -. waitUntil .-> P --> D
+  H -. waitUntil .-> V --> D
   M --> E
-  M <--> D
-  M <--> W
-  M --> A
-  A <-->|Server-side key| J[TypeSafe API]
-  H --> O
-  O <--> X[Discord OAuth / signed interactions]
-  U --> P
+  P --> E
+  P <-->|server-side key| J[TypeSafe API]
+  H <--> O[Discord OAuth / signed interactions]
+  D -->|paged sealed replay| A
 ```
 
-Caddy is optional same-origin HTTPS termination. The Node server also serves a strict allowlist of static files. Native SQLite replaces the earlier proposed third-party SQLite package; this removes all production npm dependencies. The Node 22.16 runtime used in tests marks SQLite experimental, so newer-runtime deployment still needs its own smoke test.
+**No coordinator.** The old process kept matches in memory with a 50 ms timer, an SSE stream and worker threads. None of that exists on Workers, so time is applied lazily. Every owner request first runs `advance()`: the opponent's one-per-second moves, 100 ms clear adjudication, both-exploded/deadline draws, ready expiry (2 min), abandonment (30 s without owner contact) and the action limit are replayed in time order, each event stamped at the instant it was due (not when the request arrived), and appended with the request's own command in **one compare-and-swap commit** (`UPDATE matches ... WHERE version=?`, dependent inserts guarded by a unique write tag inside a D1 batch). A concurrent invocation makes the guard match nothing and the loser retries on the new state. Idempotency keys are unique per match and carry a body hash; changed bodies conflict.
+
+**Opponent decisions run ahead of the clock.** The opponent's board never depends on the human's, so `prepareJev()` (run with `waitUntil`, under a durable D1 lease so only one runs) speculatively applies the already-queued moves to a private copy of the opponent's board, asks the solver/model for the next decision from that board's *public observation only*, and queues it in `jev_decisions` (default depth 3). `advance()` applies a queued decision at `max(its due time, when it became ready)`; a decision late by more than 100 ms, or a slot that passed with nothing ready (for example because the client stopped polling), marks the match `scheduling_miss` and unranks it. Stale queue entries (observation hash or revision mismatch) are discarded and unrank the match. `local`, `forced` and `fallback` decisions keep their labels; `source: "jev"` only follows a validated real model response. After two consecutive failed attempts at one position (a killed invocation, for example CPU limit) the next attempt uses the cheapest solver budget, is recorded `cpu_guard`, is never ranked, and is replayed under the same reduced budget by the verifier.
+
+**One heavy thing per invocation.** Commands never carry background work; a poll that already applied opponent moves defers the next decision to the following poll unless the queue would run dry; a finished match's verification is advanced only by polls (and by maintenance for orphaned matches).
+
+**Verification is resumable.** The finished journal is verified by the same `ReplayVerifier` as `verifyReplay()`, a slice at a time (`VERIFY_STEP_UNITS` budget, always at least one event), with a persisted cursor and a lease. A bad journal rejects the match; a database error only retries. Eligibility is written only when the whole journal verifies.
+
+**Analytics are derived in the browser.** Recomputing the solver for every action of both boards (the analytics do) is far beyond 10 ms, and it does not affect ranking, so the server serves the sealed, verified replay (paged) plus its own operational audit rows, and `public/shared/analytics.js` produces the dashboard and CSV/JSON exports client-side, as offline practice already did. The metrics are unchanged; the analytics version is `ms-analytics-1.1.0`.
+
+**Housekeeping without cron.** One 20 s-guarded maintenance job (rotating: prune, settle idle matches, verify an orphaned match) rides on `/api/me`, `/api/health` and `/api/leaderboard`.
 
 ## G. Security boundaries
 
@@ -107,11 +116,11 @@ World is public; Server and Channel require the corresponding unexpired context 
 
 ## L. Persistent schema
 
-`server/schema.sql` is the executable concrete schema. Six tables: users, sessions, launch tickets, matches, match events, and audit events. Match rows contain configuration, private state, eligibility/reasons, verification, outcome, timings, sealed head hash, and cached analytics. Journal rows have ordered events, unique request IDs, and request-body hashes. Audit rows are operational evidence separate from accepted moves. Indexes cover active-owner uniqueness, player history, scope standings, and audit retention. SQLite foreign keys, WAL, prepared parameters, busy timeout, and transactions are enabled. Schema version is 1; no multi-version migration framework is included.
+`migrations/0001_init.sql` is the schema (D1 migrations; the local shim applies the same file). Tables: users, sessions, launch_tickets, matches, match_events, jev_decisions (queued opponent decisions), audit_events, counters (durable quotas and the maintenance tick). Match rows carry configuration, private state, eligibility/reasons, verification and its cursor, outcome, timings, sealed head hash, the CAS `version`/`write_tag`, journal head (`event_count`, `head_hash`), owner contact time, the opponent schedule and provider-call count, and the prepare/verify leases. There is no cached analytics column. Indexes cover active-owner uniqueness, player history, scope standings, pending verification, live matches and retention. D1 enforces foreign keys and runs each batch as one transaction.
 
 ## M. API
 
-`API.md` defines every route and payload. Native HTTP handles commands and export reads; SSE carries public snapshots. No browser score-submission endpoint exists. A duplicate command ID with an identical body returns the original acceptance sequence plus a current snapshot without reapplying it. Changed bodies conflict. Human revisions are independent of opponent revisions.
+`API.md` defines every route. Commands are POSTs; the match is read by polling `GET /api/matches/:id`. There is no score-submission endpoint. A duplicate command ID with an identical body returns the original acceptance sequence plus a current snapshot; changed bodies conflict. Human revisions are independent of opponent revisions.
 
 ## N. Result verification
 
@@ -131,7 +140,7 @@ A legal replay alone would not stop a browser that already knew the mines. There
 
 ## O. Replay format
 
-Versioned JSON contains engine/generator/policy, config, two seeds/commitments, ordered hash-chained events, structured applied decisions, final head hash, result, and metadata. Seeds are released only after sealing. Reproduction uses recorded decisions, never a fresh model answer. Owner-only exports have no public sharing token. Event JSONL supports analysis but does not independently replace the full replay envelope.
+Versioned JSON contains engine/generator/policy, config, two seeds/commitments, ordered hash-chained events, structured applied decisions, final head hash, result, and metadata. Seeds are released only after sealing. Reproduction uses recorded decisions, never a fresh model answer. Owner-only exports have no public sharing token. The server serves the replay in pages (a long match is megabytes) that the client concatenates back into the exact document. Event JSONL supports analysis but does not independently replace the full replay envelope.
 
 ## P. User interface
 
@@ -139,31 +148,31 @@ Desktop: side-by-side human/opponent boards and a structured decision panel, the
 
 ## Q. File structure
 
-`public/` contains presentation/network/offline modules. `shared/` holds rules, solver, decision schema, replay, and analytics. `server/` holds trusted routing/coordinator, security/Discord, SQLite and workers. `tests/`, `bench/`, `scripts/`, `deploy/`, `docs/`, and `reports/` have explicit responsibilities. There is no generalized plugin bus, dependency-injection framework, frontend bundler, or ORM.
+`public/` holds the presentation, network and offline modules **and** `public/shared/` (rules, solver, decision schema, replay, analytics), which the Worker imports and the browser loads from the same files. `server/` holds `worker.js` (entry and routing), `matches.js` (lifecycle), `security.js`, `discord.js`, `activity.js`, `jev.js`, `db.js` (async D1 layer), `config.js`, plus the local-only `main.js` and `local-db.js`. `migrations/`, `wrangler.jsonc`, `tests/`, `bench/`, `scripts/`, `docs/` and `reports/` have explicit responsibilities. There is no bundler, ORM or plugin bus.
 
 ## R. Dependencies
 
-Production: supported Node runtime with native HTTP, crypto, fetch, workers, and SQLite; actual JEV uses TypeSafe service and authentication uses Discord. Optional Caddy provides HTTPS. Browser has no third-party runtime scripts. Python Playwright/Chromium are optional development-only UI-test tools. No font/image/CDN dependency. Native browser APIs cannot securely hold trusted secrets or persist authoritative shared results, hence the server.
+Production: Cloudflare Workers, D1 and Static Assets (Web APIs and Web Crypto only; no `nodejs_compat`). Actual JEV uses the TypeSafe service; authentication uses Discord. Local development needs Node 22.16+ (built-in `node:sqlite`). The browser has no third-party runtime scripts. Wrangler is fetched by `npx` at deploy time and is not a project dependency. Python Playwright/Chromium are optional development-only UI-test tools.
 
 ## S. Tests
 
-Rules, deterministic generation vectors, actions/chords/race boundaries, observations, solver proofs/exact probabilities, candidate caps, response parsing, malformed/timeout/fallback handling, OAuth mocks, real cryptographic signature fixtures, ownership/CSRF, HTTP/SSE, replay tampering, SQL transactions, CSV defenses, aggregation, and leaderboards are automated. Chromium UI checks cover desktop/mobile/local offline and exports. `TESTING.md` states execution conditions and the DOM-bridge limitation.
+Rules, deterministic generation vectors, actions/chords/race boundaries, observations, solver proofs/exact probabilities, candidate caps, response parsing, malformed/timeout/fallback handling, OAuth mocks, real cryptographic signature fixtures, ownership/CSRF, HTTP/SSE, replay tampering, SQL transactions, CSV defenses, aggregation, and leaderboards are automated. Scheduler, verification, quota, degradation and Workers-compatibility tests run the real handler on real SQLite through the D1 wrapper with a controllable clock and provider. Chromium UI checks (not re-run for the Workers port) cover desktop/mobile/local offline and exports. `TESTING.md` states execution conditions and the DOM-bridge limitation.
 
 ## T. Benchmarking
 
-`bench/run.js` runs identical committed board inputs across deterministic random, easy-local, normal-local, hard-local, and jev-local policies. Independent-board race comparisons pair and swap layouts. Logical one-second action time is separate from measured computation latency. Explicit `--remote` adds real provider calls only with a supplied key. Output includes every game/action trace, summary CSV/JSON, Wilson clear intervals, and race tables. The bundled run is 500 **local** games; do not relabel it as JEV strength.
+`bench/run.js` runs identical committed board inputs across deterministic random, easy-local, normal-local, hard-local, and jev-local policies. Independent-board race comparisons pair and swap layouts. Logical one-second action time is separate from measured computation latency. Explicit `--remote` adds real provider calls only with a supplied key. Output includes every game/action trace, summary CSV/JSON, Wilson clear intervals, and race tables. The bundled run is 500 **local** games; do not relabel it as JEV strength. `bench/cpu.js` (`npm run bench:cpu`) measures the CPU of each hot request path against the 10 ms Workers budget and writes `reports/cpu/`.
 
 ## U. Deployment
 
-One persistent Node process, one SQLite file, two worker threads, optional Caddy. Default admission cap eight active matches and bounded provider calls per match. Single host, not a distributed system. Back up with the included VACUUM INTO utility and integrity check; never casually copy only a live WAL database file. Restarted matches are voided. See DEPLOYMENT.md for host/container examples and pre-launch gates.
+Cloudflare Workers Free + D1 + Static Assets at `minesweeper.jevplay.games`; see `DEPLOYMENT.md` for the operator steps, the Free-plan budget and the CPU measurements. It is not a distributed tournament platform: capacity is bounded by 100 k Worker requests/day, D1's write allowance and the 10 ms CPU limit, with durable daily caps in front of them.
 
 ## V. Implementation phases delivered
 
-Core engine; local UI; authoritative coordinator and persistence; solver/JEV boundary; replay verification; detailed analytics and exports; Discord identity/context; scoped standings; browser/HTTP regression checks; local baseline benchmark; deployment documentation. These are implemented in the package. Live credential, public TLS, real browser direct-navigation integration, and production load validation are **deployment gates still to run**, not completed release claims.
+Core engine; local UI; authoritative coordinator and persistence; solver/JEV boundary; replay verification; detailed analytics and exports; Discord identity/context; scoped standings; browser/HTTP regression checks; local baseline benchmark; deployment documentation. These are implemented in the package. Live credential, Cloudflare deployment, real browser direct-navigation integration, and production load validation are **deployment gates still to run**, not completed release claims.
 
 ## W. Risks and open questions
 
-Actual remote JEV strength/latency is unmeasured here. Layout randomness affects individual races. Browser assistance cannot be ruled out. Provider availability/schema changes need smoke testing. SQLite and a single process bound scale. Applied-decision token usage is not a complete billing ledger. Audit retention and cached operational reports have explicit coverage limits. Guild context does not provide continuous membership revocation. No external security certification or production load test was performed.
+Actual remote JEV strength/latency is unmeasured here. Layout randomness affects individual races. Browser assistance cannot be ruled out. Provider availability/schema changes need smoke testing. The Free plan bounds scale (requests/day, D1 writes, 500 MB database); CPU measurements are from Node's V8, not workerd, and a cold isolate is slower than a warm one. Applied-decision token usage is not a complete billing ledger. Audit retention and cached operational reports have explicit coverage limits. Guild context does not provide continuous membership revocation. No external security certification or production load test was performed.
 
 ## X. Simplification pass
 

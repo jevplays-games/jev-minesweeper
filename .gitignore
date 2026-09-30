@@ -1,6 +1,8 @@
 .env
 .env.*
 !.env.example
+.dev.vars
+.wrangler/
 data/
 backups/
 node_modules/

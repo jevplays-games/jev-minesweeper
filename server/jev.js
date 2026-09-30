@@ -1,23 +1,31 @@
-import {randomUUID} from 'node:crypto';
-import {digest} from '../shared/engine.js';
-import {decisionSurface, POLICY_VERSION} from '../shared/solver.js';
-import {buildRequest, validateResponse, selectCandidate} from '../shared/decisions.js';
+import {digest} from '../public/shared/engine.js';
+import {decisionSurface, POLICY_VERSION} from '../public/shared/solver.js';
+import {buildRequest, validateResponse, selectCandidate} from '../public/shared/decisions.js';
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+const utf8Length = text => new TextEncoder().encode(text).length;
 function error(code) { return Object.assign(new Error(code), {code}); }
 async function boundedJson(response, maxBytes = 262144) {
   if (!response.body?.getReader) return response.json(); // Injectable mock Response support.
   const reader = response.body.getReader(); const chunks = []; let length = 0;
   try { while (true) { const {done, value} = await reader.read(); if (done) break; length += value.length; if (length > maxBytes) throw error('invalid_response_size'); chunks.push(value); } }
   finally { reader.releaseLock(); }
-  try { return JSON.parse(Buffer.concat(chunks).toString('utf8')); } catch { throw error('invalid_json'); }
+  const all = new Uint8Array(length); let offset = 0; for (const c of chunks) { all.set(c, offset); offset += c.length; }
+  try { return JSON.parse(new TextDecoder().decode(all)); } catch { throw error('invalid_json'); }
 }
-export async function chooseJevAction({observation, difficulty, config, workers = null, fetchImpl = fetch, forceLocal = false}) {
+/**
+ * Picks the opponent's action for one public observation. The model only chooses among candidates the solver supplied and its answer is
+ * validated against them; it never receives hidden state. `source` is 'jev' only when a real, validated model response was used.
+ *  - forceLocal: the per-match or daily provider budget is spent -> local ranking, flagged as a fallback.
+ *  - degraded:   an earlier attempt at this position died (e.g. exceeded the host's CPU limit) -> cheapest solver budget, never ranked.
+ */
+export async function chooseJevAction({observation, difficulty, config, fetchImpl = (...a) => fetch(...a), forceLocal = false, degraded = false}) {
   const began = performance.now(), solverStart = performance.now();
-  const surface = workers ? await workers.run('surface', {observation, difficulty}) : decisionSurface(observation, difficulty);
+  const surface = decisionSurface(observation, difficulty, degraded ? {variables: 0, nodes: 0} : {});
   const solverMs = performance.now() - solverStart;
   const {request, candidates} = buildRequest(observation, surface, config.model);
-  const decision = {id: randomUUID(), policyVersion: POLICY_VERSION, model: config.model, boardRevision: observation.revision, observationHash: await digest(observation), candidates, legalCount: surface.legalCount, solver: {nodes: surface.analysis.nodes, exactComplete: surface.analysis.exactComplete, cutoffReason: surface.analysis.cutoffReason, components: surface.analysis.components, largestComponent: surface.analysis.largestComponent ?? 0, safeCount: surface.analysis.safe.length}, solverMs, requestBytes: Buffer.byteLength(JSON.stringify(request)), source: 'local', fallback: false, errorCode: null, attempts: [], response: null, selected: null, latencyMs: 0};
-  if (candidates.length === 1) decision.source = 'forced';
+  const decision = {id: crypto.randomUUID(), policyVersion: POLICY_VERSION, model: config.model, boardRevision: observation.revision, observationHash: await digest(observation), candidates, legalCount: surface.legalCount, solver: {nodes: surface.analysis.nodes, exactComplete: surface.analysis.exactComplete, cutoffReason: surface.analysis.cutoffReason, components: surface.analysis.components, largestComponent: surface.analysis.largestComponent ?? 0, safeCount: surface.analysis.safe.length}, solverMs, requestBytes: utf8Length(JSON.stringify(request)), source: 'local', fallback: false, errorCode: null, attempts: [], response: null, selected: null, latencyMs: 0};
+  if (degraded) { decision.errorCode = 'cpu_guard'; decision.fallback = true; }
+  else if (candidates.length === 1) decision.source = 'forced';
   else if (!config.jevKey || forceLocal) { decision.errorCode = forceLocal ? 'provider_budget' : 'not_configured'; decision.fallback = Boolean(config.jevKey); }
   else {
     const end = performance.now() + config.providerTimeoutMs;

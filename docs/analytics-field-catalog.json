@@ -1,7 +1,7 @@
 {
   "format": "analytics-observed-field-catalog",
   "version": 1,
-  "analyticsVersion": "ms-analytics-1.0.0",
+  "analyticsVersion": "ms-analytics-1.1.0",
   "scope": "Structural index generated from the bundled synthetic match; not a full JSON Schema and not a promise that every optional provider field occurs in this local-only fixture. See ANALYTICS.md for definitions and provider schemas.",
   "fieldCount": 423,
   "fields": [

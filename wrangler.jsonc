@@ -1,0 +1,30 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "jev-minesweeper",
+  "main": "server/worker.js",
+  "compatibility_date": "2026-09-22",
+  "routes": [{ "pattern": "minesweeper.jevplay.games", "custom_domain": true }],
+  // Only the API and the HTML document (which needs security headers and Discord Activity framing) run the Worker; every other
+  // static file is served straight from public/ by Cloudflare and does not count as a Worker request.
+  "assets": { "directory": "./public", "binding": "ASSETS", "run_worker_first": ["/api/*", "/", "/index.html"] },
+  // Create the database, then paste its id here:  npx wrangler d1 create jev-minesweeper
+  "d1_databases": [{ "binding": "DB", "database_name": "jev-minesweeper", "database_id": "REPLACE_WITH_D1_ID", "migrations_dir": "migrations" }],
+  // No cron triggers: the account's five are used up, so housekeeping runs lazily from requests (see docs/ARCHITECTURE.md).
+  // No limits.cpu_ms: Workers Free allows 10 ms of CPU per invocation and does not accept a custom limit.
+  // Secrets (wrangler secret put): TYPESAFE_API_KEY, RATE_LIMIT_SALT, DISCORD_CLIENT_ID, DISCORD_CLIENT_SECRET, DISCORD_PUBLIC_KEY, ANALYTICS_ADMIN_TOKEN (optional).
+  "vars": {
+    "APP_ORIGIN": "https://minesweeper.jevplay.games",
+    "JEV_MODEL": "jev-1.13.0",
+    "JEV_TIMEOUT_MS": "3000",
+    "JEV_PIPELINE_DEPTH": "3",
+    "MAX_ACTIVE_MATCHES": "8",
+    "MAX_JEV_CALLS_PER_MATCH": "250",
+    "MAX_JEV_CALLS_PER_DAY": "5000",
+    "MAX_MATCHES_PER_DAY": "300",
+    "MATCHES_PER_HOUR": "30",
+    "SESSIONS_PER_10_MIN": "60",
+    "RETENTION_DAYS": "30",
+    "EVENT_RETENTION_DAYS": "30"
+  },
+  "observability": { "enabled": false }
+}

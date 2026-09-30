@@ -1,20 +1,20 @@
 # Minesweeper benchmark
 
-Generated 2026-09-30T13:30:09.158Z. Runtime v24.18.0.
+Generated 2026-09-30T13:30:51.529Z. Runtime v24.18.0.
 
 **LOCAL BASELINES ONLY. No live TypeSafe/JEV calls were made.**
 
 Same seeds and opening for each standalone policy. Independent-board race pairs swap seed allocation. One action = 1000 logical ms; compute/service latency reported separately.
 
-Seed namespace: `heldout-ms-v1`. Board preset: `beginner`.
+Seed namespace: `heldout-ms-v1`. Board preset: `expert`.
 
 | Policy | Boards | Clears | Clear rate | Invalid | Fallback | Decision p95 (ms) |
 |---|---:|---:|---:|---:|---:|---:|
-| random | 100 | 1 | 1.0% | 0 | 0 | 0.01 |
-| easy-local | 100 | 72 | 72.0% | 0 | 0 | 0.13 |
-| normal-local | 100 | 92 | 92.0% | 0 | 0 | 0.16 |
-| hard-local | 100 | 95 | 95.0% | 0 | 0 | 0.20 |
-| jev-local | 100 | 95 | 95.0% | 0 | 0 | 0.17 |
+| random | 40 | 0 | 0.0% | 0 | 0 | 0.04 |
+| easy-local | 40 | 2 | 5.0% | 0 | 0 | 0.49 |
+| normal-local | 40 | 8 | 20.0% | 0 | 0 | 2.01 |
+| hard-local | 40 | 13 | 32.5% | 0 | 0 | 2.64 |
+| jev-local | 40 | 16 | 40.0% | 0 | 0 | 3.09 |
 
 See summary.json for Wilson intervals, actual clear-only logical times, and swapped independent-board race results. runs.jsonl and traces.jsonl retain every measured game and selected action.
 

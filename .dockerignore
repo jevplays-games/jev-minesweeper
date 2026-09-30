@@ -1,8 +1,0 @@
-.env
-.env.*
-data
-backups
-reports
-.git
-node_modules
-__pycache__

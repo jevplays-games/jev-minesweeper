@@ -1,0 +1,7 @@
+# Static-asset response headers (Cloudflare Workers Static Assets). The HTML document and every /api/* response get their full
+# security headers (CSP, framing rules) from the Worker itself; these cover the files that never reach the Worker.
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: no-referrer
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Cross-Origin-Opener-Policy: same-origin

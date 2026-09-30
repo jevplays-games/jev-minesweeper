@@ -2,7 +2,7 @@
   "name": "jev-minesweeper",
   "version": "1.0.0",
   "private": true,
-  "description": "Server-authoritative two-board Minesweeper with JEV, Discord and replay-derived analytics.",
+  "description": "Server-authoritative two-board Minesweeper with JEV, Discord and replay-derived analytics, on Cloudflare Workers + D1.",
   "type": "module",
   "engines": {
     "node": ">=22.16.0"
@@ -12,9 +12,14 @@
     "test": "node --test",
     "test:coverage": "node --experimental-test-coverage --test",
     "bench": "node --env-file-if-exists=.env bench/run.js",
+    "bench:cpu": "node --no-warnings bench/cpu.js",
     "verify": "node scripts/verify-replay.js",
+    "manifest": "node scripts/manifest.js",
     "discord:register": "node --env-file-if-exists=.env scripts/register-command.js",
-    "backup": "node --env-file-if-exists=.env scripts/backup.js"
+    "backup": "node --env-file-if-exists=.env scripts/backup.js",
+    "deploy": "npx wrangler@4.68.0 deploy",
+    "db:local": "npx wrangler@4.68.0 d1 migrations apply jev-minesweeper --local",
+    "db:remote": "npx wrangler@4.68.0 d1 migrations apply jev-minesweeper --remote"
   },
   "license": "UNLICENSED"
 }

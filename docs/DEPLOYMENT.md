@@ -1,94 +1,93 @@
 # Setup, deployment, and recovery
 
+Production is **Cloudflare Workers (Free plan) + D1 + Static Assets** at `https://minesweeper.jevplay.games`. There is no container, no long-lived process and no cron trigger. Local development uses a small Node shim over the same Worker code.
+
 ## 1. Local start
 
-Install a compatible Node runtime. The package was exercised on Node22.16.0, including native SQLite. Node24 LTS is the recommended target for a new deployment based on the official release schedule consulted September22,2026; the Docker/systemd templates have not themselves been deployed here. See SOURCES.md. No `npm install` or bundler is necessary.
+Node.js **22.16 or later** (built-in `node:sqlite`; Node prints an experimental-SQLite warning). No `npm install` is needed.
 
-Run `npm start` from the project directory and use `http://localhost:3000`. On macOS/Linux copy `.env.example` with `cp`; on PowerShell use `Copy-Item`. Hostname consistency matters: cookies and Origin checks distinguish localhost from127.0.0.1. Set APP_ORIGIN to the exact origin you actually open, without a path.
+```sh
+npm start        # http://localhost:3000 ; SQLite file under data/
+npm test         # real SQLite through the D1-compatible wrapper
+```
 
-## 2. TypeSafe
+`server/main.js` adapts Node's `http` to the Worker's `handle(request, env, ctx)` and builds the same `env` the Worker gets: `DB` (node:sqlite behind `prepare().bind().first()/all()/run()` and `batch()`, in `server/local-db.js`, applying `migrations/*.sql`) and `ASSETS` (`public/` only). It binds loopback and refuses a non-loopback `APP_ORIGIN`. Browse at exactly the host in `APP_ORIGIN` (`localhost` and `127.0.0.1` are different origins for cookies and CSRF). `DEV_LOCAL=1` is set by the shim; it relaxes `RATE_LIMIT_SALT` and allows an http origin.
 
-Place an authorized API key in TYPESAFE_API_KEY. Keep it on the server. The pinned JEV_MODEL is initially `jev-1.13.0`; pinning records the actual competition configuration but does not guarantee the provider will retain a model indefinitely. No key produces a fully playable, clearly labeled local opponent. A key is required for actual TypeSafe calls.
+A `data/minesweeper.sqlite` from the earlier standalone build is refused with an explanatory error; move it aside.
 
-JEV_TIMEOUT_MS defaults3000; MAX_JEV_CALLS_PER_MATCH250; MAX_ACTIVE_MATCHES8. Ranked cadence remains one second; a miss beyond100ms tolerance marks the game unofficial. These defaults require live latency and load validation. A per-match counter is not a global provider spend limit. Use the provider account's own controls as appropriate and monitor measured usage. Keep JEV_INPUT_PRICE_PER_MILLION blank unless a reviewed input-token price is intentionally configured; the UI is an estimate, not a bill.
+## 2. Cloudflare resources (operator steps)
 
-## 3. Discord application
+Nothing here has been run from this repository; `database_id` in `wrangler.jsonc` is the placeholder `REPLACE_WITH_D1_ID`.
 
-Create/configure the operator's Discord application. Copy its application ID, client secret, and public verification key to DISCORD_CLIENT_ID, DISCORD_CLIENT_SECRET, and DISCORD_PUBLIC_KEY. Do not confuse the public key with a bot token.
+```sh
+npx wrangler d1 create jev-minesweeper          # paste the returned id into wrangler.jsonc
+npm run db:remote                               # applies migrations/0001_init.sql
+npx wrangler secret put TYPESAFE_API_KEY
+npx wrangler secret put RATE_LIMIT_SALT         # 32+ random bytes; required in production
+npx wrangler secret put DISCORD_CLIENT_ID
+npx wrangler secret put DISCORD_CLIENT_SECRET
+npx wrangler secret put DISCORD_PUBLIC_KEY
+npx wrangler secret put ANALYTICS_ADMIN_TOKEN   # optional; blank disables /api/admin/analytics
+npm run deploy
+```
 
-For an origin `https://games.example.com`, register:
+`routes` attaches the custom domain `minesweeper.jevplay.games`, which requires the `jevplay.games` zone to be on the same Cloudflare account. The Worker refuses `/api/*` requests whose host is not `APP_ORIGIN` (a `*.workers.dev` URL will answer 400 for API calls unless `APP_ORIGIN` is changed to match).
+
+Non-secret settings are `vars` in `wrangler.jsonc`:
+
+| Var | Default | Meaning |
+|---|---|---|
+| `APP_ORIGIN` | `https://minesweeper.jevplay.games` | Exact origin: CSRF, cookies (`__Host-`), OAuth redirect, Activity origin |
+| `JEV_MODEL`, `JEV_TIMEOUT_MS` | `jev-1.13.0`, `3000` | Pinned model id and provider deadline |
+| `JEV_PIPELINE_DEPTH` | `3` | Opponent decisions computed ahead of the one-move-per-second schedule |
+| `MAX_ACTIVE_MATCHES` | `8` | Live matches admitted at once |
+| `MAX_JEV_CALLS_PER_MATCH` / `_PER_DAY` | `250` / `5000` | Provider ceilings; reserved before each call, then the opponent falls back visibly (unranked) |
+| `MAX_MATCHES_PER_DAY`, `MATCHES_PER_HOUR`, `SESSIONS_PER_10_MIN` | `300`, `30`, `60` | Durable (D1) quotas that keep one client from spending the free allowance |
+| `API_REQUESTS_PER_MINUTE` | `3000` | Per-isolate best-effort burst limit |
+| `RETENTION_DAYS`, `EVENT_RETENTION_DAYS` | `30`, `30` | Audit rows; event journals and queued decisions (result rows stay) |
+| `JEV_INPUT_PRICE_PER_MILLION` | blank | Optional cost estimate shown in analytics |
+
+Nothing else is needed: no `nodejs_compat` flag (the Worker imports no `node:` module; `tests/workers-compat.test.js` enforces this), no `limits.cpu_ms` (not allowed on Free), no `triggers`.
+
+`run_worker_first` is `["/api/*", "/", "/index.html"]`: only the API and the HTML document (CSP, Discord Activity framing) invoke the Worker. Every other file is served straight from `public/` and does not count as a Worker request; `public/_headers` sets baseline headers for those.
+
+## 3. TypeSafe
+
+`TYPESAFE_API_KEY` stays a Worker secret. No key gives a fully playable, clearly labeled local opponent (unofficial). The model is asked only to choose among solver-supplied candidates from the opponent's own public observation; it never receives a layout, seed, or the human's history or result. Per-match and per-day call ceilings are durable D1 counters reserved before each call (two attempts) and refunded when unused; they are not a substitute for the provider's own spend controls.
+
+## 4. Discord application
+
+Copy the application ID, client secret and public key into `DISCORD_CLIENT_ID`, `DISCORD_CLIENT_SECRET`, `DISCORD_PUBLIC_KEY`. Register:
 
 ```text
-OAuth redirect: https://games.example.com/api/auth/discord/callback
-Interactions:  https://games.example.com/api/discord/interactions
+OAuth redirect: https://minesweeper.jevplay.games/api/auth/discord/callback
+Interactions:   https://minesweeper.jevplay.games/api/discord/interactions
+Activity URL mapping: / -> minesweeper.jevplay.games
 ```
 
-The application must be reachable by Discord over public HTTPS for interaction verification. Login requests only `identify`. Enable guild installation with `applications.commands`; no bot message permissions or Gateway are needed by this implementation. Keep ordinary guild text channels as the supported context; DMs and threads deliberately return explanatory messages.
+Interaction signatures are verified with Web Crypto Ed25519 over the exact raw bytes and timestamp (falling back to the older `NODE-ED25519` algorithm name if the runtime requires it). Login requests only `identify`. Run `npm run discord:register` locally with `DISCORD_CLIENT_ID`/`DISCORD_CLIENT_SECRET` in `.env` (optionally `DISCORD_TEST_GUILD_ID`); it upserts only `/jev`. Activity mode (`docs/ACTIVITY.md`) needs nothing extra on the Worker. Live Discord setup has not been exercised; the integration is tested with controlled OAuth responses and signed fixture interactions.
 
-Set DISCORD_TEST_GUILD_ID during staging to register only in a test guild, or leave blank for global registration. Run:
+## 5. How it fits the Free plan
 
-```sh
-npm run discord:register
-```
+The limits assumed (Cloudflare documentation, checked 2026-09-30): 100,000 Worker requests/day, **10 ms CPU per invocation**, 128 MB memory, 50 subrequests and 50 D1 queries per invocation, `waitUntil` up to 30 s, five cron triggers per account (all used, so none are added), D1 500 MB per database and 2 MB per row. D1's daily read/write allowances (5 M rows read, 100 k rows written on Free) are from Cloudflare's pricing page and were not re-fetched.
 
-The operator-run script exchanges client credentials with scope `applications.commands.update`, then POST-upserts only `/jev`. It does not bulk-delete the application's other commands. A preexisting `/jev` in the same scope is updated, so review application ownership before running. Neither the temporary credential token nor a bot token is stored by the game.
+Design consequences (details in `ARCHITECTURE.md` section F):
 
-Install the application into the authorized guild. Run `/jev play`, open the private link within ten minutes, sign in as the invoking user, and create the game. The capability is consumed by authenticated POST, not preview GET. Context lasts thirty minutes. Test a copied link under another account: it must fail. Test a new launch after expiry. Test Channel/Server access while World remains publicly readable.
+- **Polling, no push.** The browser polls its match every 600 ms while running. Each poll also advances the server-side schedule, so a running game costs about 100 requests a minute. 100 k requests/day is therefore roughly 16 hours of play per day in total. Static files do not count.
+- **Lazy time.** Opponent moves, 100 ms adjudication, ready expiry and 30 s abandonment are applied at the instant they were due, by whichever request next touches the match; nothing runs in the background. Maintenance (session/audit pruning, settling idle matches, advancing verification of orphaned matches) runs one small job per 20 s from `/api/me`, `/api/health` and `/api/leaderboard`, guarded by a D1 counter.
+- **Bounded CPU.** The solver was made about 10x cheaper without changing its output and given hard caps (policy `ms-policy-1.1.0`); verification runs as resumable steps; replays are paged; the leaderboard ranks in SQL; the analytics dashboard is derived in the browser from the verified replay. Measured costs are in `reports/cpu/report.md` (regenerate with `npm run bench:cpu`) and summarised in `ARCHITECTURE.md`.
+- **Write budget.** A match costs on the order of 500 D1 row writes (each opponent decision is a queue row, an event row and a state update); the free 100 k/day therefore admits roughly 150-200 matches a day, and `MAX_MATCHES_PER_DAY` (300) is a ceiling, not a promise. Decision-bearing journals are large (about 25 KB per opponent event): a beginner match is a few hundred KB and an expert match a few MB, so `EVENT_RETENTION_DAYS` matters for the 500 MB database cap. Watch D1 usage in the dashboard.
 
-Live Discord setup was not completed for this delivery; the integration was tested with controlled OAuth responses and cryptographically signed fixture interactions.
+## 6. Backup, restore and retention
 
-## 4. Single-host production
+Production data lives in D1. Export with `npx wrangler d1 export jev-minesweeper --remote --output backup.sql` and protect the file: it contains private game state and session hashes. Restore into a new database with `wrangler d1 execute ... --file`. `npm run backup` only backs up the **local** development SQLite file. A production restore drill has not been performed.
 
-Use a dedicated non-root service account. Copy the project to `/opt/jev-arcade`; create a writable private `/var/lib/jev-arcade` owned by that account. Keep code read-only to the service where feasible. Put environment values in `/etc/jev-arcade.env`, readable only by the service/admin, for example:
+Sessions, launch tickets, quota counters and audit rows are pruned lazily. After `EVENT_RETENTION_DAYS` a match's journal and any queued decisions are deleted and the match is marked `events_pruned_at`; its result, public summary and leaderboard standing remain, but its replay/export return 410. Nothing deletes user profiles or results automatically. Publish the retention policy you actually run.
 
-```text
-HOST=127.0.0.1
-PORT=3000
-APP_ORIGIN=https://games.example.com
-NODE_ENV=production
-DATABASE_PATH=/var/lib/jev-arcade/minesweeper.sqlite
-TRUST_PROXY=1
-```
+## 7. Monitoring
 
-Add the actual provider/application secrets privately. Install/adapt `deploy/jev-arcade.service`; confirm the real Node binary path and service user exist. Install/adapt `deploy/Caddyfile` with the same domain; point DNS to the host and allow the required HTTPS certificate/network paths. Caddy terminates HTTPS and proxies same-origin API and static assets to Node. Do not publicly expose the native3000 port. Do not log OAuth callback query strings or raw bodies.
+`ANALYTICS_ADMIN_TOKEN` unlocks `GET /api/admin/analytics` (aggregate JSON, including matches pending verification). Watch Workers CPU-limit errors (error 1102) and D1 usage in the Cloudflare dashboard. A match whose opponent computation repeatedly dies is degraded to the cheapest solver budget after two failed attempts (flagged `cpu_guard`, unranked); an `audit_events` row of type `jev_decision_ready` with `degraded: true` shows it happened.
 
-The systemd template assumes Linux, paths and a `jev` account prepared by the operator. It is a template, not an executed provisioning script. Validate permissions, restart behavior, certificate renewal, and reverse-proxy streaming on the destination host.
+## 8. Pre-launch gates (not run here)
 
-## 5. Optional container
-
-Dockerfile uses Node24-slim with a non-root runtime and no package installation. Before production, review/pin the image digest and run the tests against the chosen image. This environment did not pull/build the image.
-
-```sh
-docker build -t minesweeper-jev .
-docker volume create minesweeper-jev-data
-docker run --name minesweeper-jev --restart unless-stopped \
-  --env-file .env \
-  -e HOST=0.0.0.0 -e DATABASE_PATH=/app/data/minesweeper.sqlite \
-  -p 127.0.0.1:3000:3000 \
-  -v minesweeper-jev-data:/app/data \
-  minesweeper-jev
-```
-
-Keep APP_ORIGIN/NODE_ENV consistent with the external HTTPS proxy. Do not mount `.env` or backups under public/. A host bind mount requires appropriate UID/write permissions; a named volume avoids many first-run ownership mistakes. Container networking differs from a loopback native proxy: leave TRUST_PROXY=0 unless the peer/trusted-proxy logic has been validated for the specific container topology. Incorrect forwarded-IP trust must not be enabled just to silence a rate limit.
-
-## 6. Backup and restore
-
-Run from the project directory with DATABASE_PATH pointing at the live database:
-
-```sh
-npm run backup -- /restricted/backups/minesweeper-2026-09-22.sqlite
-```
-
-The script uses SQLite VACUUM INTO for a consistent snapshot, refuses overwrite, restricts output permissions, and checks `PRAGMA integrity_check`. It supports the tested Node22 runtime without relying on a newer native backup helper. The local backup/integrity operation passed. Store backups away from public files and protect them as private game/session data.
-
-To restore, stop the service, retain a separate safety copy of the existing database and WAL/SHM sidecars, then replace the database with the integrity-checked snapshot. Do not combine an unrelated old WAL with a restored database. Restore ownership/permissions, start the service, and inspect health/standings/private replay. Active matches in a recovered database are voided rather than resumed with invented timing. Revoke sessions if the recovery event warrants it. An actual production disaster-recovery drill was not performed here.
-
-## 7. Monitoring and retention
-
-Optional ANALYTICS_ADMIN_TOKEN unlocks a read-only JSON aggregate endpoint. Use a long random secret, never a client-side setting. Measure queue pressure, scheduling misses, error/fallback rates, HTTP rejections, disk size, worker failures and backups. The default audit retention is thirty days; match/replay/profile retention is not automatically thirty days. Decide and publish operator policies before public access.
-
-Live drafts of decisions that never apply are not an exhaustive billing ledger. TypeSafe invoice reconciliation is outside this package. Retention can remove older audit evidence; first-generated analytics caches reflect available audit coverage at that time.
-
-## 8. Pre-launch gates
-
-Run all automated tests on the target runtime. Through a normally navigating desktop/mobile browser, exercise login, signed launch, one complete real JEV race, unavailable-provider behavior, reconnect, unknown-owner denial, full private export/replay, and scoped standings. Measure real one-second scheduling viability at the intended concurrency, SQLite/worker load and long expert-board report latency. Confirm public HTTPS and secure cookies. Review security/retention and decide licensing. The included tests and templates do not substitute for these live checks.
+`wrangler d1 create`, migrations, secrets, deploy and DNS; a real signed Discord launch and Activity session; a complete real JEV match on each preset, including an expert match, watching for 1102 errors (the CPU figures are from Node, not workerd); provider-failure behaviour; `wrangler tail` during a full match; D1 write usage after a day of play; browser test (`tests/browser_smoke.py`, needs Python Playwright) against the deployed origin.

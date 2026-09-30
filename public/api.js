@@ -13,39 +13,37 @@ export async function request(path, {method = 'GET', body, retry = false} = {}) 
   if (!response.ok) throw Object.assign(new Error(data.error?.message || 'Request failed'), {code:data.error?.code,status:response.status});
   return data;
 }
-// EventSource cannot send an Authorization header, so an Activity reads the same event stream with fetch.
-function subscribeWithBearer(id, onSnapshot, onConnection) {
-  const controller = new AbortController();
-  (async () => {
-    while (!controller.signal.aborted) {
-      try {
-        const response = await fetch(`/api/matches/${id}/events`, {headers: authHeaders(), signal: controller.signal});
-        if (!response.ok) throw new Error('stream_rejected');
-        onConnection(true);
-        const reader = response.body.pipeThrough(new TextDecoderStream()).getReader(); let buffer = '';
-        for (;;) {
-          const {done, value} = await reader.read(); if (done) break;
-          buffer += value; let end;
-          while ((end = buffer.indexOf('\n\n')) >= 0) {
-            const block = buffer.slice(0, end); buffer = buffer.slice(end + 2);
-            const event = /^event: (.+)$/m.exec(block)?.[1], data = /^data: (.*)$/m.exec(block)?.[1];
-            if (event === 'snapshot' && data) { onConnection(true); onSnapshot(JSON.parse(data)); }
-            else if (event === 'auth-expired') { controller.abort(); onConnection(false, 'Session expired. Refresh and sign in again.'); return; }
-          }
-        }
-      } catch { if (controller.signal.aborted) return; }
-      onConnection(false); await new Promise(resolve => setTimeout(resolve, 3000));
-    }
-  })();
-  return () => controller.abort();
-}
+// There is no server push: the game runs on a host with no long-lived connections, so the client polls the match. Every poll also
+// applies whatever the schedule made due (opponent moves, adjudication) and tops up the opponent's next decisions on the server.
+const pollDelay = snapshot => snapshot.phase === 'running' ? 600 : snapshot.phase === 'ready' ? 3000 : snapshot.eligibility?.verification === 'pending' ? 350 : 0;
 export function subscribe(id, onSnapshot, onConnection) {
-  if (bearer) return subscribeWithBearer(id, onSnapshot, onConnection);
-  const stream = new EventSource(`/api/matches/${id}/events`);
-  stream.addEventListener('snapshot',event=>{onConnection(true);onSnapshot(JSON.parse(event.data));});
-  stream.addEventListener('auth-expired',()=>{stream.close();onConnection(false,'Session expired. Refresh and sign in again.');});
-  stream.onopen=()=>onConnection(true); stream.onerror=()=>onConnection(false);
-  return ()=>stream.close();
+  let stopped = false, timer = null, inFlight = false;
+  async function tick() {
+    if (stopped || inFlight) return;
+    inFlight = true; let next = 1500;
+    try {
+      const snapshot = await request(`/api/matches/${id}`);
+      if (stopped) return;
+      onConnection(true); onSnapshot(snapshot); next = pollDelay(snapshot);
+      if (!next) { stopped = true; return; } // finished and verified: nothing left to follow
+    } catch (error) {
+      if (stopped) return;
+      if (error.status === 401) { stopped = true; onConnection(false, 'Session expired. Refresh and sign in again.'); return; }
+      onConnection(false); next = 3000;
+    } finally { inFlight = false; }
+    timer = setTimeout(tick, next);
+  }
+  const visible = () => { if (!document.hidden && !stopped) { clearTimeout(timer); tick(); } };
+  document.addEventListener('visibilitychange', visible);
+  tick();
+  return () => { stopped = true; clearTimeout(timer); document.removeEventListener('visibilitychange', visible); };
+}
+/** The server serves a sealed replay in pages (a long match is megabytes); this stitches them back into the exact replay document. */
+export async function fetchReplay(id) {
+  let from = 1, header = null; const events = [];
+  while (from) { const page = await request(`/api/matches/${id}/replay?from=${from}`); header ??= page.header; events.push(...page.events); from = page.page.next; }
+  const {headHash, result, metadata, ...head} = header;
+  return {...head, events, headHash, result, metadata};
 }
 export function download(value, filename, type='application/json') {
   const blob = new Blob([typeof value==='string'?value:JSON.stringify(value,null,2)],{type});

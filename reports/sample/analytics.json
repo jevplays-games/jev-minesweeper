@@ -1,5 +1,5 @@
 {
-  "analyticsVersion": "ms-analytics-1.0.0",
+  "analyticsVersion": "ms-analytics-1.1.0",
   "matchId": "synthetic-sample-match",
   "generatedFrom": "sealed authoritative event replay",
   "metadata": {
@@ -21,7 +21,7 @@
     "preset": "beginner",
     "aiDifficulty": "normal",
     "model": "jev-1.13.0",
-    "policyVersion": "ms-policy-1.0.0",
+    "policyVersion": "ms-policy-1.1.0",
     "engineVersion": "ms-race-1.0.0",
     "lateToleranceMs": 100
   },
@@ -1101,15 +1101,15 @@
     "invalidResponseCount": 0,
     "latencyMs": {
       "count": 8,
-      "sum": 9.17232700000001,
-      "min": 0.6011560000000031,
-      "max": 2.6671809999999994,
-      "mean": 1.1465408750000012,
-      "p50": 0.9574935000000018,
-      "p90": 1.6822382999999999,
-      "p95": 2.174709649999999,
-      "p99": 2.568686729999999,
-      "populationStdDev": 0.6016365564721017
+      "sum": 5.983100000000007,
+      "min": 0.3552999999999997,
+      "max": 2.045900000000003,
+      "mean": 0.7478875000000009,
+      "p50": 0.6158000000000001,
+      "p90": 1.2474799999999986,
+      "p95": 1.6466900000000004,
+      "p99": 1.9660580000000023,
+      "populationStdDev": 0.522795204734847
     },
     "providerLatencyMs": {
       "count": 0,
@@ -1125,15 +1125,15 @@
     },
     "solverMs": {
       "count": 8,
-      "sum": 4.8270100000000085,
-      "min": 0.2486550000000065,
-      "max": 0.9265669999999986,
-      "mean": 0.6033762500000011,
-      "p50": 0.5743814999999977,
-      "p90": 0.905401800000002,
-      "p95": 0.9159844000000003,
-      "p99": 0.924450479999999,
-      "populationStdDev": 0.21576127158201283
+      "sum": 1.992599999999996,
+      "min": 0.12109999999999843,
+      "max": 0.39099999999999824,
+      "mean": 0.2490749999999995,
+      "p50": 0.23635000000000161,
+      "p90": 0.3794499999999978,
+      "p95": 0.385224999999998,
+      "p99": 0.38984499999999817,
+      "populationStdDev": 0.10046108388326283
     },
     "candidates": {
       "count": 8,
@@ -1753,7 +1753,7 @@
       "solverExactComplete": true,
       "solverCutoff": null,
       "opponentSource": "local",
-      "decisionLatencyMs": 2.6671809999999994
+      "decisionLatencyMs": 2.045900000000003
     },
     {
       "seq": 4,
@@ -1831,7 +1831,7 @@
       "solverExactComplete": true,
       "solverCutoff": null,
       "opponentSource": "local",
-      "decisionLatencyMs": 1.0529870000000017
+      "decisionLatencyMs": 0.9052999999999969
     },
     {
       "seq": 7,
@@ -1909,7 +1909,7 @@
       "solverExactComplete": true,
       "solverCutoff": null,
       "opponentSource": "local",
-      "decisionLatencyMs": 0.946507000000004
+      "decisionLatencyMs": 0.5550999999999959
     },
     {
       "seq": 10,
@@ -1961,7 +1961,7 @@
       "solverExactComplete": true,
       "solverCutoff": null,
       "opponentSource": "local",
-      "decisionLatencyMs": 1.2601200000000006
+      "decisionLatencyMs": 0.6944000000000017
     },
     {
       "seq": 12,
@@ -2039,7 +2039,7 @@
       "solverExactComplete": true,
       "solverCutoff": null,
       "opponentSource": "local",
-      "decisionLatencyMs": 0.870432000000001
+      "decisionLatencyMs": 0.6765000000000043
     },
     {
       "seq": 15,
@@ -2117,7 +2117,7 @@
       "solverExactComplete": true,
       "solverCutoff": null,
       "opponentSource": "local",
-      "decisionLatencyMs": 0.8054640000000006
+      "decisionLatencyMs": 0.37770000000000437
     },
     {
       "seq": 18,
@@ -2169,7 +2169,7 @@
       "solverExactComplete": true,
       "solverCutoff": null,
       "opponentSource": "local",
-      "decisionLatencyMs": 0.9684799999999996
+      "decisionLatencyMs": 0.37290000000000134
     },
     {
       "seq": 20,
@@ -2247,7 +2247,7 @@
       "solverExactComplete": true,
       "solverCutoff": null,
       "opponentSource": "local",
-      "decisionLatencyMs": 0.6011560000000031
+      "decisionLatencyMs": 0.3552999999999997
     },
     {
       "seq": 23,
@@ -2278,8 +2278,8 @@
   ],
   "decisionJournal": [
     {
-      "id": "97507735-6f0a-4afd-b0f3-7f320a87bd68",
-      "policyVersion": "ms-policy-1.0.0",
+      "id": "8564bb12-bb57-416d-a137-8717e4abced9",
+      "policyVersion": "ms-policy-1.1.0",
       "model": "jev-1.13.0",
       "boardRevision": 1,
       "observationHash": "cf57f3c905816de3abd56850a3dac74b059acfc0912eda03e86d203e1724fc81",
@@ -2546,7 +2546,7 @@
         "largestComponent": 6,
         "safeCount": 12
       },
-      "solverMs": 0.9265669999999986,
+      "solverMs": 0.3744999999999976,
       "requestBytes": 8479,
       "source": "local",
       "fallback": false,
@@ -2580,11 +2580,11 @@
         "continuation": 0.7,
         "choiceProbability": 0
       },
-      "latencyMs": 2.6671809999999994
+      "latencyMs": 2.045900000000003
     },
     {
-      "id": "ca75c83f-21ba-4a70-8cee-d6bdfcb7cc54",
-      "policyVersion": "ms-policy-1.0.0",
+      "id": "7b63625e-996a-4ae9-b18c-e696583abd21",
+      "policyVersion": "ms-policy-1.1.0",
       "model": "jev-1.13.0",
       "boardRevision": 2,
       "observationHash": "d40fa87b8f2ecc1191cf9d2ec2ad4d1e159f9820ed2f2b7f26722a1150845972",
@@ -2893,7 +2893,7 @@
         "largestComponent": 6,
         "safeCount": 14
       },
-      "solverMs": 0.6138660000000016,
+      "solverMs": 0.3335000000000008,
       "requestBytes": 9678,
       "source": "local",
       "fallback": false,
@@ -2927,11 +2927,11 @@
         "continuation": 0.7,
         "choiceProbability": 0
       },
-      "latencyMs": 1.0529870000000017
+      "latencyMs": 0.9052999999999969
     },
     {
-      "id": "16ff62a1-2d68-40f2-b305-076654cdd77c",
-      "policyVersion": "ms-policy-1.0.0",
+      "id": "d2de1eb1-9a3d-4b17-960c-332f9a4cb031",
+      "policyVersion": "ms-policy-1.1.0",
       "model": "jev-1.13.0",
       "boardRevision": 3,
       "observationHash": "a32212f3858dd3b9aea20a873ec8fc9ba5a10fd090b4c6942be30afedace0e4d",
@@ -3261,7 +3261,7 @@
         "largestComponent": 6,
         "safeCount": 15
       },
-      "solverMs": 0.40610300000000166,
+      "solverMs": 0.2616000000000014,
       "requestBytes": 10270,
       "source": "local",
       "fallback": false,
@@ -3295,11 +3295,11 @@
         "continuation": 0.5,
         "choiceProbability": 0
       },
-      "latencyMs": 0.946507000000004
+      "latencyMs": 0.5550999999999959
     },
     {
-      "id": "d440c8b6-3824-45d0-897f-f863c6bb0203",
-      "policyVersion": "ms-policy-1.0.0",
+      "id": "0b9ab164-ed41-469c-b49a-cba787c58094",
+      "policyVersion": "ms-policy-1.1.0",
       "model": "jev-1.13.0",
       "boardRevision": 4,
       "observationHash": "bf0a03a9ced1e19b5a02a2a31b4ceaa8e1bc53f79d44a5d11dcb4f9529030f9c",
@@ -3608,7 +3608,7 @@
         "largestComponent": 8,
         "safeCount": 14
       },
-      "solverMs": 0.8963310000000035,
+      "solverMs": 0.39099999999999824,
       "requestBytes": 9717,
       "source": "local",
       "fallback": false,
@@ -3642,11 +3642,11 @@
         "continuation": 0.4,
         "choiceProbability": 0
       },
-      "latencyMs": 1.2601200000000006
+      "latencyMs": 0.6944000000000017
     },
     {
-      "id": "3200965d-438d-45c3-91d4-a8f318aa905b",
-      "policyVersion": "ms-policy-1.0.0",
+      "id": "7ecc123a-3ea2-4104-b9fa-5e2a664521d3",
+      "policyVersion": "ms-policy-1.1.0",
       "model": "jev-1.13.0",
       "boardRevision": 5,
       "observationHash": "ce60dda234554dcd6c1c8d828a378f684c60d1fef1ca863793efe26bacbeebe7",
@@ -3976,7 +3976,7 @@
         "largestComponent": 7,
         "safeCount": 15
       },
-      "solverMs": 0.5209660000000014,
+      "solverMs": 0.21110000000000184,
       "requestBytes": 10310,
       "source": "local",
       "fallback": false,
@@ -4010,11 +4010,11 @@
         "continuation": 0.4,
         "choiceProbability": 0
       },
-      "latencyMs": 0.870432000000001
+      "latencyMs": 0.6765000000000043
     },
     {
-      "id": "1d7b7a85-f5e6-417a-b2d1-30a7c9d58972",
-      "policyVersion": "ms-policy-1.0.0",
+      "id": "de0692e5-1aca-4893-9139-47985ec5a4b1",
+      "policyVersion": "ms-policy-1.1.0",
       "model": "jev-1.13.0",
       "boardRevision": 6,
       "observationHash": "b79243d00ee86be82a4b2d1d97fb223030a384c6be8e47846f62e247b440c9cf",
@@ -4176,7 +4176,7 @@
         "largestComponent": 7,
         "safeCount": 7
       },
-      "solverMs": 0.5348969999999937,
+      "solverMs": 0.1565999999999974,
       "requestBytes": 5359,
       "source": "local",
       "fallback": false,
@@ -4210,11 +4210,11 @@
         "continuation": 0.3,
         "choiceProbability": 0
       },
-      "latencyMs": 0.8054640000000006
+      "latencyMs": 0.37770000000000437
     },
     {
-      "id": "7e8339c2-9dac-4f96-92ac-a53f3cee544e",
-      "policyVersion": "ms-policy-1.0.0",
+      "id": "1e45cb92-7bff-4f16-804d-cfffb9bbe0d5",
+      "policyVersion": "ms-policy-1.1.0",
       "model": "jev-1.13.0",
       "boardRevision": 7,
       "observationHash": "eca79e99b2cbdf34e2b92f05db819805a63022c11f1c0754255239757a235f3f",
@@ -4460,7 +4460,7 @@
         "largestComponent": 0,
         "safeCount": 11
       },
-      "solverMs": 0.6796250000000015,
+      "solverMs": 0.14320000000000022,
       "requestBytes": 7485,
       "source": "local",
       "fallback": false,
@@ -4494,11 +4494,11 @@
         "continuation": 0.3,
         "choiceProbability": 0
       },
-      "latencyMs": 0.9684799999999996
+      "latencyMs": 0.37290000000000134
     },
     {
-      "id": "f7d99670-8359-4181-b9ff-deabd0a1e1d7",
-      "policyVersion": "ms-policy-1.0.0",
+      "id": "89edbe76-c837-486b-a951-3d1de997e8c6",
+      "policyVersion": "ms-policy-1.1.0",
       "model": "jev-1.13.0",
       "boardRevision": 8,
       "observationHash": "af50996163ee34dfb63f9ce05ed8481a37aa5b98561aa62086bc6134977f5557",
@@ -4723,7 +4723,7 @@
         "largestComponent": 0,
         "safeCount": 10
       },
-      "solverMs": 0.2486550000000065,
+      "solverMs": 0.12109999999999843,
       "requestBytes": 6863,
       "source": "local",
       "fallback": false,
@@ -4757,7 +4757,7 @@
         "continuation": 0.3,
         "choiceProbability": 0
       },
-      "latencyMs": 0.6011560000000031
+      "latencyMs": 0.3552999999999997
     }
   ],
   "limitations": [

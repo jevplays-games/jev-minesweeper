@@ -1,7 +1,7 @@
 import test from 'node:test';import assert from 'node:assert/strict';
-import {boardFromMines,applyBoardAction,observeBoard,generateBoard} from '../shared/engine.js';
-import {analyzeObservation,decisionSurface,choose} from '../shared/solver.js';
-import {buildRequest} from '../shared/decisions.js';import {config,seeds} from './helpers.js';
+import {boardFromMines,applyBoardAction,observeBoard,generateBoard} from '../public/shared/engine.js';
+import {analyzeObservation,decisionSurface,choose} from '../public/shared/solver.js';
+import {buildRequest} from '../public/shared/decisions.js';import {config,seeds} from './helpers.js';
 test('binomial coefficient handles edge cases',()=>{assert.equal(choose(5,2),10n);assert.equal(choose(5,-1),0n);assert.equal(choose(5,6),0n);assert.equal(choose(0,0),1n);});
 test('flags are annotations, not assumed mines',()=>{const b=boardFromMines(3,3,[0,8]);applyBoardAction(b,{type:'reveal',cell:4},10);applyBoardAction(b,{type:'setFlag',cell:1,value:true},20);const a=analyzeObservation(observeBoard(b),'jev');assert.ok(!a.mines.includes(1));assert.ok(a.risks[1].value<1);});
 test('unconstrained exact probability uses global mine count',()=>{const b=boardFromMines(3,3,[0,8]);const a=analyzeObservation(observeBoard(b),'jev');assert.equal(a.exactComplete,true);assert.equal(a.risks[3].value,2/9);});

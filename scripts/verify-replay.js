@@ -1,5 +1,5 @@
 import {readFile} from 'node:fs/promises';
-import {verifyReplay, resultOf} from '../shared/replay.js';
+import {verifyReplay, resultOf} from '../public/shared/replay.js';
 try {
   const file = process.argv[2];
   if (!file) throw new Error('Usage: npm run verify -- path/to/replay.json');

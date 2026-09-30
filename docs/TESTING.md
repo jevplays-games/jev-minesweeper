@@ -2,13 +2,13 @@
 
 Run date: September22,2026. This records measurements, not promises of production readiness.
 
-## Automated Node suite
+## Automated Node suite (Workers port)
 
-**141 passed; 0 failed, canceled, skipped or TODO.** Actual runtime: Node22.16.0. Native SQLite was available and emitted its experimental-status warning. Commands: `npm test` and `npm run test:coverage`. Full outputs: `reports/tests.tap` and `reports/coverage.txt`.
+`npm test` (`node --test`, Node 22.16+) runs the whole suite on real SQLite through the D1-compatible wrapper; `tests/helpers.js` `direct()` drives the real Worker `handle()` with a controllable clock and provider stub, and `tests/api.test.js` / `activity.test.js` go over real HTTP through the local shim. Recorded output: `reports/tests.tap`, `reports/coverage.txt` (regenerated for this change).
 
-Tests cover deterministic generation and protected openings; reveal, flag and chord legality; row/edge behavior; explosion/completion precedence; two-board outcome/tie/deadline logic; privacy projections; replay/hash/result tampering; candidate/probability/model validation; provider retry/timeout mocks; observation-equivalence; independent small-board exact-probability enumeration; OAuth-state/session behavior; cryptographically valid/invalid Discord signatures; launch bindings; SQLite transactions; actual HTTP ownership/CSRF/static boundaries; native SSE snapshots and owner rejection; analytics count/ratio/calibration/CSV semantics; profile/standing scope separation and provisional ranks. Recorded mocked provider decisions are re-verified without another inference request.
+Beyond the original rules, solver, replay, analytics, OAuth, Discord signature (now Web Crypto Ed25519) and HTTP ownership/CSRF/static coverage, the port adds: lazy scheduling (opponent moves stamped at their due instants however late the poll, steady cadence without scheduling misses, lazy abandonment/ready expiry freeing the slot); compare-and-swap (simultaneous commands cannot both apply); idempotency; resumable verification (persisted cursor, several steps, tamper rejection, database failures retried rather than rejected); the `cpu_guard` degradation path (flagged, unranked, still verifies); stale queued decisions; the model request carries only public observation and candidates; durable quotas and daily provider reservation; rank eligibility only for verified, live, signed-in matches; lazy housekeeping and retention; paged replay reassembling into a document the shared verifier accepts; and `workers-compat.test.js` (the Worker's import graph has no `node:` module or Node global, `wrangler.jsonc` has the Free-plan shape, the migration applies).
 
-Selected instrumented module line coverage in the recorded coverage run: rules engine100%; JEV adapter100%; security100%; replay97.56%; analytics96.64%. These percentages are **line coverage**, not proof of all behaviors, branch coverage, correctness, security or service integration. The full report identifies unexecuted branches and excludes browser execution from its Node coverage. Its aggregate includes test/helper files and should not be relabeled application-only coverage.
+The Chromium checks below, the coverage percentages and the historical benchmark commentary describe the 1.0.0 standalone build; the browser suite was **not** re-run for the Workers port (Python Playwright is not installed in the environment that made this change; the script was updated for the new paths and polling).
 
 ## Chromium UI checks
 
@@ -43,9 +43,13 @@ python tests/browser_smoke.py --base http://localhost:3000 --dom-bridge
 
 Playwright/Python are development-only and are unnecessary to run the game. The test script uses an available system Chromium when present. Screenshots are observations of the implementation, not independently certified accessibility results. Keyboard/touch primitives and contrast choices were checked visually/functionally; no screen-reader-user study was performed.
 
+## CPU budget evidence
+
+`npm run bench:cpu` writes `reports/cpu/report.md` and `cpu.json`: per-request CPU of every hot path (start, polls that apply or prepare opponent moves, commands, verification steps, replay pages, leaderboard, Discord interaction) per preset and level, plus first-invocation samples from fresh processes. Read its caveats: it is Node's V8 not workerd, local SQLite time is included, and Workers clocks do not advance during CPU work, so production cannot self-time and uses static budgets instead.
+
 ## Benchmark evidence
 
-`reports/benchmark/report.md` records100 board seeds×5 local policies=500 game runs, zero invalid moves and zero live provider calls. Paired independent-board races also swap seed assignments. Raw records and traces are included. Clear percentages describe that deterministic seed corpus and those local policies only. They are not measured remote JEV capability, human skill estimates, or a claim that difficulty labels produce statistically distinct remote strength. `--remote` is available only after explicit key configuration.
+`reports/benchmark/report.md` (regenerated under policy `ms-policy-1.1.0`; beginner clear rates are unchanged from 1.0.0) records 100 board seeds×5 local policies=500 game runs. `reports/benchmark-expert/` adds 40 expert boards, zero invalid moves and zero live provider calls. Paired independent-board races also swap seed assignments. Raw records and traces are included. Clear percentages describe that deterministic seed corpus and those local policies only. They are not measured remote JEV capability, human skill estimates, or a claim that difficulty labels produce statistically distinct remote strength. `--remote` is available only after explicit key configuration.
 
 ## Replay and backup checks
 

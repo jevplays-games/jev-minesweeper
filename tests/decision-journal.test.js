@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createMatch,startMatch,observeBoard,applyMatchAction,adjudicate,finish} from '../shared/engine.js';
-import {makeEvent,exportReplay,eventHash,verifyReplay} from '../shared/replay.js';
-import {analyzeReplay} from '../shared/analytics.js';
+import {createMatch,startMatch,observeBoard,applyMatchAction,adjudicate,finish} from '../public/shared/engine.js';
+import {makeEvent,exportReplay,eventHash,verifyReplay} from '../public/shared/replay.js';
+import {analyzeReplay} from '../public/shared/analytics.js';
 import {chooseJevAction} from '../server/jev.js';
 import {config,seeds,validResponse} from './helpers.js';
 async function fixture(){
