@@ -8,7 +8,7 @@
   // static file is served straight from public/ by Cloudflare and does not count as a Worker request.
   "assets": { "directory": "./public", "binding": "ASSETS", "run_worker_first": ["/api/*", "/", "/index.html"] },
   // Create the database, then paste its id here:  npx wrangler d1 create jev-minesweeper
-  "d1_databases": [{ "binding": "DB", "database_name": "jev-minesweeper", "database_id": "REPLACE_WITH_D1_ID", "migrations_dir": "migrations" }],
+  "d1_databases": [{ "binding": "DB", "database_name": "jev-minesweeper", "database_id": "814d5c11-193c-4b01-be36-994f83b2c25a", "migrations_dir": "migrations" }],
   // No cron triggers: the account's five are used up, so housekeeping runs lazily from requests (see docs/ARCHITECTURE.md).
   // No limits.cpu_ms: Workers Free allows 10 ms of CPU per invocation and does not accept a custom limit.
   // Secrets (wrangler secret put): TYPESAFE_API_KEY, RATE_LIMIT_SALT, DISCORD_CLIENT_ID, DISCORD_CLIENT_SECRET, DISCORD_PUBLIC_KEY, ANALYTICS_ADMIN_TOKEN (optional).
