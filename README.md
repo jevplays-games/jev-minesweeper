@@ -1,3 +1,5 @@
+<p align="center"><img src="assets/banner.jpg" alt="Pixel-art robot Jev at a neon Minesweeper grid with red flags and a glowing mine in a purple arcade" width="100%"></p>
+
 # Minesweeper vs JEV
 
 A runnable, server-authoritative two-board Minesweeper race with a vanilla JavaScript interface, TypeSafe/JEV adapter, Discord identity and community context, verified leaderboards, deterministic replays, and detailed replay-derived analytics.
