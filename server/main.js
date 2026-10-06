@@ -12,7 +12,7 @@ import {localDatabase} from './local-db.js';
 import worker from './worker.js';
 export {weekStart, leaderboard} from './worker.js';
 const root = resolve(fileURLToPath(new URL('..', import.meta.url))), publicRoot = resolve(root, 'public');
-const mime = {'.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.svg': 'image/svg+xml', '.json': 'application/json', '.woff2': 'font/woff2', '.txt': 'text/plain; charset=utf-8'};
+const mime = {'.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.svg': 'image/svg+xml', '.png': 'image/png', '.json': 'application/json', '.woff2': 'font/woff2', '.txt': 'text/plain; charset=utf-8'};
 /** Static assets from public/ only; the resolved path must stay inside it (compared against path.sep, which is `\` on Windows). */
 export const assets = {
   async fetch(request) {
