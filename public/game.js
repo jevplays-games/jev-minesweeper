@@ -13,6 +13,7 @@ const percent=(v,digits=1)=>v===null||v===undefined?'—':`${number(v*100,digits
 const ms=v=>v===null||v===undefined?'—':v<1000?`${number(v)} ms`:`${number(v/1000,2)} s`;
 const time=v=>{const seconds=Math.max(0,v)/1000;return `${String(Math.floor(seconds/60)).padStart(2,'0')}:${(seconds%60).toFixed(1).padStart(4,'0')}`;};
 function notify(message,type=''){text('notice',message);$('notice').className=`notice ${type}`;}
+const PLAQUE={win:'success jv-plaque is-win',loss:'jv-plaque is-loss',draw:'jv-plaque is-draw',void:'jv-plaque is-draw'};
 function connection(ok,message){text('connection',offline?'Offline practice':ok?'Connected':'Reconnecting');$('connection').className=`connection ${ok?'online':'offline'}`;if(message)notify(message,'error');}
 function preferences(){try{return JSON.parse(localStorage.getItem('jev-ms-preferences')||'{}');}catch{return{};}}
 function savePreferences(){try{localStorage.setItem('jev-ms-preferences',JSON.stringify({preset:$('preset').value,difficulty:$('difficulty').value,analysis:$('analysisToggle').checked,cellSize:$('cellSize').value}));}catch{}}
@@ -24,7 +25,7 @@ function renderBoard(element,board,interactive=false){
   element.classList.toggle('large',$('cellSize').value==='large');
   const signature=`${board.width}x${board.height}:${interactive}`;
   if(element.dataset.signature!==signature){
-    element.replaceChildren();element.dataset.signature=signature;element.style.setProperty('--cols',board.width);element.setAttribute('aria-rowcount',board.height);element.setAttribute('aria-colcount',board.width);
+    element.replaceChildren();element.dataset.signature=signature;element.style.setProperty('--cols',board.width);element.style.setProperty('--rows',board.height);element.setAttribute('aria-rowcount',board.height);element.setAttribute('aria-colcount',board.width);
     for(let r=0;r<board.height;r++){const row=document.createElement('div');row.className='board-row';row.setAttribute('role','row');
       for(let c=0;c<board.width;c++){const cell=document.createElement(interactive?'button':'span');cell.className='cell';cell.dataset.cell=r*board.width+c;cell.setAttribute('role','gridcell');if(interactive){cell.type='button';cell.tabIndex=-1;}row.append(cell);}element.append(row);
     }
@@ -32,8 +33,13 @@ function renderBoard(element,board,interactive=false){
   focusCell=Math.min(focusCell,board.cells.length-1);
   for(const cell of element.querySelectorAll('[data-cell]')){
     const i=Number(cell.dataset.cell),v=board.cells[i];let label;
-    cell.className=`cell ${v>=0?'open n'+v:v===-2?'flagged':v===-3?'exploded':''}`;
-    cell.textContent=v===-1||v===0?'':v===-2?'⚑':v===-3?'✹':String(v);
+    const prev=cell.dataset.v===undefined?null:Number(cell.dataset.v);
+    if(prev!==v){
+      const motion=prev===null?'':v===-3?' boom':v>=0&&prev<0?' reveal':v===-2?' planted':'';
+      cell.className=`cell ${v>=0?'open n'+v:v===-2?'flagged':v===-3?'exploded':''}${motion}`;
+      cell.dataset.v=v;
+      cell.textContent=v>0?String(v):'';
+    }
     label=v===-1?'Covered':v===-2?'Flagged':v===-3?'Exploded mine':`Revealed. ${v} adjacent mines`;
     cell.setAttribute('aria-label',`Row ${Math.floor(i/board.width)+1}, column ${i%board.width+1}. ${label}.`);
     if(interactive){cell.tabIndex=i===focusCell?0:-1;cell.setAttribute('aria-disabled',String(board.status!=='active'&&board.status!=='ready'));}
@@ -72,7 +78,7 @@ function render(){
   renderDecision(snapshot?.decision);drawLive();
   if(phase==='complete'){
     const label={win:'You win',loss:'Opponent wins',draw:'Draw',void:'Match voided'}[snapshot.outcome];
-    notify(`${label} · ${snapshot.outcomeReason.replaceAll('_',' ')}. ${e.eligible?'Verified ranked result.':`Unofficial: ${e.reasons.join(', ').replaceAll('_',' ')}.`} Post-game analytics are available below.`,snapshot.outcome==='win'?'success':'');
+    notify(`${label} · ${snapshot.outcomeReason.replaceAll('_',' ')}. ${e.eligible?'Verified ranked result.':`Unofficial: ${e.reasons.join(', ').replaceAll('_',' ')}.`} Post-game analytics are available below.`,PLAQUE[snapshot.outcome]||'');
   }else if(phase==='running'){
     const message=h.status==='exploded'?'Your board exploded. The opponent must still clear; watch it finish or resign.':j.status==='exploded'?'The opponent exploded. Clear your board to win.':`Clear every safe cell. ${offline?'Offline practice is never ranked.':'Hidden layouts and official timing remain server-side.'}`;
     notify(message);
@@ -97,7 +103,7 @@ function drawLive(){
   if(!livePoints.length){ctx.fillStyle='#8ea0b8';ctx.font='12px system-ui';ctx.fillText('Start a match to see the race develop.',left+12,110);}
   table($('liveData'),['Event','Elapsed','Your safe cells','Opponent safe cells'],livePoints.map(p=>[p.seq,ms(p.atMs),p.humanSafe,p.jevSafe]));
 }
-function table(container,headers,rows){container.replaceChildren();if(!rows.length){const empty=document.createElement('p');empty.className='empty-state';empty.textContent='No records for this selection yet.';container.append(empty);return;}
+function table(container,headers,rows){container.replaceChildren();if(!rows.length){const empty=document.createElement('p');empty.className='empty-state jv-empty';empty.textContent='No records for this selection yet.';container.append(empty);return;}
   const t=document.createElement('table'),head=document.createElement('thead'),hr=document.createElement('tr');for(const h of headers){const th=document.createElement('th');th.textContent=h;th.scope='col';hr.append(th);}head.append(hr);t.append(head);const body=document.createElement('tbody');for(const values of rows){const tr=document.createElement('tr');for(const value of values){const td=document.createElement('td');if(value instanceof Node)td.append(value);else td.textContent=value===null||value===undefined?'—':String(value);tr.append(td);}body.append(tr);}t.append(body);container.append(t);
 }
 function stats(container,items){container.replaceChildren();for(const[label,value]of items){const d=document.createElement('div');d.className='stat';const l=document.createElement('span');l.textContent=label;const v=document.createElement('strong');v.textContent=value;d.append(l,v);container.append(d);}}

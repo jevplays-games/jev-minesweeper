@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+  <defs>
+    <linearGradient id="cloth" gradientUnits="userSpaceOnUse" x1="14" y1="8" x2="36" y2="26">
+      <stop offset="0" stop-color="#ffc2c2"/>
+      <stop offset="0.45" stop-color="#f87171"/>
+      <stop offset="1" stop-color="#c22b3a"/>
+    </linearGradient>
+    <linearGradient id="pole" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#aab1cb"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="25" cy="41" rx="11" ry="3.6" fill="#05060c" opacity="0.5"/>
+  <path d="M26 40L25 8" stroke="#05060c" stroke-opacity="0.5" stroke-width="5" stroke-linecap="round" transform="translate(1.5 1.5)"/>
+  <path d="M26 40L25 8" stroke="url(#pole)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M25 8L10 16L25 24Z" fill="#7a1220" stroke="#7a1220" stroke-width="4" stroke-linejoin="round" transform="translate(1.2 1.8)"/>
+  <path d="M25 8L10 16L25 24Z" fill="url(#cloth)" stroke="url(#cloth)" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M23 12L15 16" stroke="#ffffff" stroke-opacity="0.8" stroke-width="2" stroke-linecap="round"/>
+</svg>

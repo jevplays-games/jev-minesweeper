@@ -1,1 +1,28 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="JEV Arcade"><rect width="64" height="64" rx="15" fill="#0e1017"/><rect width="64" height="64" rx="15" fill="none" stroke="#63d4e7" stroke-width="1.5" opacity=".35"/><path d="M34 14v20.5c0 5.2-4.2 9.5-9.5 9.5S15 39.7 15 34.5" fill="none" stroke="#eef0f7" stroke-width="6" stroke-linecap="round"/><circle cx="44" cy="45" r="7" fill="#63d4e7"/><path d="M44 31v5M55 34l-3.5 3.5M58 45h-5M33 45h-5M36.5 37.5L33 34" stroke="#63d4e7" stroke-width="2.5" stroke-linecap="round"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="32" height="32" aria-hidden="true">
+  <defs>
+    <radialGradient id="ground" cx="0.28" cy="0.2" r="1">
+      <stop offset="0" stop-color="#22a85a"/>
+      <stop offset="0.45" stop-color="#0f4a2a"/>
+      <stop offset="1" stop-color="#0c0d17"/>
+    </radialGradient>
+    <linearGradient id="tile" gradientUnits="userSpaceOnUse" x1="10" y1="12" x2="50" y2="52">
+      <stop offset="0" stop-color="#c9ffdc"/>
+      <stop offset="0.5" stop-color="#4ade80"/>
+      <stop offset="1" stop-color="#1f9a52"/>
+    </linearGradient>
+    <radialGradient id="mine" cx="0.32" cy="0.28" r="0.85">
+      <stop offset="0" stop-color="#8d96b8"/>
+      <stop offset="0.4" stop-color="#3a4062"/>
+      <stop offset="1" stop-color="#0d0f1d"/>
+    </radialGradient>
+  </defs>
+  <rect width="64" height="64" rx="15" fill="url(#ground)"/>
+  <rect x="10" y="14" width="40" height="40" rx="9" fill="#0d5a30" transform="translate(1.5 2.5)"/>
+  <rect x="10" y="14" width="40" height="40" rx="9" fill="url(#tile)"/>
+  <g stroke="#1b2040" stroke-width="3.4" stroke-linecap="round">
+    <path d="M26 44V30M26 44V54M26 44H16M26 44H36M26 44L19 37M26 44L33 51M26 44L33 37M26 44L19 51" transform="translate(0 -2)"/>
+  </g>
+  <circle cx="26" cy="42" r="9" fill="url(#mine)"/>
+  <path d="M46 52L44 14" stroke="#eef0f7" stroke-width="3" stroke-linecap="round"/>
+  <path d="M45 13L32 19L45 25Z" fill="#f87171" stroke="#f87171" stroke-width="2.4" stroke-linejoin="round"/>
+</svg>

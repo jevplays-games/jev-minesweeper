@@ -1,7 +1,7 @@
 {
   "project": "jev-minesweeper",
   "version": "1.0.0",
-  "builtAt": "2026-09-30",
+  "builtAt": "2026-10-06",
   "artifact": "source code, documentation, tests and measured reports",
   "files": [
     {
@@ -15,9 +15,14 @@
       "sha256": "e91788634172125480e62693afaf0ceefe3a4dc583d153f4734b23817f28c4de"
     },
     {
+      "path": "LICENSE",
+      "bytes": 1070,
+      "sha256": "46a44db832d1fb433055af4ab7b6801bc87d134611e27fa9076173618ffe227e"
+    },
+    {
       "path": "README.md",
-      "bytes": 9387,
-      "sha256": "4f817fc4f45f38be8229901157fe1c0f02ea045be1907374b2004b378dd9af70"
+      "bytes": 9559,
+      "sha256": "f399cfb484ff61c5e42a8f2a2e47d6e03ab06d55ca98d4d18ae82486f2634a2e"
     },
     {
       "path": "START-HERE.md",
@@ -28,6 +33,11 @@
       "path": "THIRD_PARTY_NOTICES.md",
       "bytes": 627,
       "sha256": "df097422a041455f299de40b36c053b0056b6009a719c288aabf8f98e1dead3e"
+    },
+    {
+      "path": "assets/banner.jpg",
+      "bytes": 172783,
+      "sha256": "6de24c4db94df5270ccf3678f665eb893a7bed5a3fcac0b140e754186d24845d"
     },
     {
       "path": "bench/cpu.js",
@@ -120,14 +130,34 @@
       "sha256": "3e287dad5f06f9ed28ba3c263872e192255f5fcd1f2c769d38ed86e9dd770e5a"
     },
     {
+      "path": "public/art/burst.svg",
+      "bytes": 466,
+      "sha256": "025f868de9b4d88a788d124f9ac821c145e34de88b53cd09ca70016c1ba38805"
+    },
+    {
+      "path": "public/art/flag.svg",
+      "bytes": 1192,
+      "sha256": "acfc6a478e7437e781539aa6b5b095136bb1c528b57ad2250b1f11b826183fb5"
+    },
+    {
+      "path": "public/art/mine.svg",
+      "bytes": 993,
+      "sha256": "1fdfd7a7927fd0953f606d05f27890ab837a1dfae8afbfd40780c7ea65a82615"
+    },
+    {
       "path": "public/brand/OFL.txt",
       "bytes": 4380,
       "sha256": "262481e844521b326f5ecd053e59b98c8b2da78c8ee1bdbb6e8174305e54935a"
     },
     {
+      "path": "public/brand/apple-touch-icon.png",
+      "bytes": 20649,
+      "sha256": "3ee7b9cf13160405989f42762f492d00f459b6c8df395f978d6240dc07f74027"
+    },
+    {
       "path": "public/brand/brand.css",
-      "bytes": 17683,
-      "sha256": "47a9a1dd23a93d08d61bc1ff28cc84e64b07c3ddefb0e24506960e51ce6cbf65"
+      "bytes": 25412,
+      "sha256": "9138ab8bc31bcd47ec1cbf003925a993b1bb63e2cd0c2f6d15ab77b12db2b404"
     },
     {
       "path": "public/brand/brand.js",
@@ -135,34 +165,59 @@
       "sha256": "661ed9c0cc676363d01fb330533cc09f1dfb5aa388eff1bf59c8a61836bcba66"
     },
     {
+      "path": "public/brand/favicon-32.png",
+      "bytes": 2018,
+      "sha256": "b7876021296ebb5197c13dc3d5b6f547c99422db7eb0f931deb97d4309c8fc53"
+    },
+    {
       "path": "public/brand/icon.svg",
-      "bytes": 581,
-      "sha256": "fddcf21f0d45a0455e02b9e78cac6df6336f0f4ca303f4fa4ecfa5ed7885a522"
+      "bytes": 1507,
+      "sha256": "c51b818811998fbdf7a8ee95b35d7305f89f79ef910fe8c1aec514db1d89979f"
     },
     {
       "path": "public/brand/mark.svg",
-      "bytes": 314,
-      "sha256": "36302e2d29ca7b644799190de1af44727eb416d91e30648e10ff71f8571ddeb3"
+      "bytes": 1507,
+      "sha256": "c51b818811998fbdf7a8ee95b35d7305f89f79ef910fe8c1aec514db1d89979f"
+    },
+    {
+      "path": "public/brand/og.png",
+      "bytes": 186338,
+      "sha256": "f8914796a674b5ce009e27d93817141410fec65a92e7553f9fdf461b96cd9362"
+    },
+    {
+      "path": "public/brand/result-draw.svg",
+      "bytes": 1004,
+      "sha256": "c7c4069551fe2be380118c5379dd8f6ee0f80bc969d09c3b07c2e526a6609fe2"
+    },
+    {
+      "path": "public/brand/result-loss.svg",
+      "bytes": 1048,
+      "sha256": "7759d7a48baf9a7a1502320036df8d98e8be435dd37d4aa3fcd509ae6a25eedc"
+    },
+    {
+      "path": "public/brand/result-win.svg",
+      "bytes": 1203,
+      "sha256": "80a744fdca06775cfca12fd8e00044471f9e2dbf3d1245b992b0463d4c51208a"
     },
     {
       "path": "public/favicon.svg",
-      "bytes": 581,
-      "sha256": "fddcf21f0d45a0455e02b9e78cac6df6336f0f4ca303f4fa4ecfa5ed7885a522"
+      "bytes": 1507,
+      "sha256": "c51b818811998fbdf7a8ee95b35d7305f89f79ef910fe8c1aec514db1d89979f"
     },
     {
       "path": "public/game.css",
-      "bytes": 14600,
-      "sha256": "c95c2dcfacc6294a8876d4993f74a830992c4f3f473509150bc8a549938c20fe"
+      "bytes": 21012,
+      "sha256": "880059b8811803948199554b5d282476d2c7f831fd0874ef000d835b3b50a05d"
     },
     {
       "path": "public/game.js",
-      "bytes": 34112,
-      "sha256": "2db574cc4e28dbf0290a4daf43919a23e2c98714407da4d62ab4d75ce5ec1e25"
+      "bytes": 34473,
+      "sha256": "f1bfd2473710e64e5dce2b7bcf2e5402dbd1023766d3fd00ba6857c411ed3bc0"
     },
     {
       "path": "public/index.html",
-      "bytes": 18556,
-      "sha256": "0519dc6c47b2608a8a76a7e035df3a4425f730ea41120d6235724daa89ded85a"
+      "bytes": 19782,
+      "sha256": "bf1c080c02ba82205f8c1bb1f49e1def0d5b5529210c90666fe60f16f485fda4"
     },
     {
       "path": "public/offline.js",
@@ -411,8 +466,8 @@
     },
     {
       "path": "server/main.js",
-      "bytes": 5206,
-      "sha256": "69c5c821d614c50adc1737dc0d947d725548360357819ab7577b557b0a3c9a06"
+      "bytes": 5227,
+      "sha256": "81e525fd4751d2e947eaf5f02def7bfb96279d783f74e94b2e3f85d1d278c2b7"
     },
     {
       "path": "server/matches.js",
@@ -496,8 +551,8 @@
     },
     {
       "path": "wrangler.jsonc",
-      "bytes": 1687,
-      "sha256": "5bb194032923e109f1c0fb269ca1d243ecfe9cc5c6e8e160f20c620b53e96aa9"
+      "bytes": 1705,
+      "sha256": "9f0cbc9892bd9847388d97c9367719251c0b2b0dae58a866dcae3f9817f9f237"
     }
   ],
   "excluded": [
