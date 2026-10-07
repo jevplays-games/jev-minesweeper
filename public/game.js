@@ -119,6 +119,8 @@ async function createServerMatch(){
   update(next);unsubscribe=subscribe(next.id,update,connection);connection(true);return next;
 }
 async function newGame(useOffline=false){
+  // A new board always opens in Reveal mode: the opening cannot be a flag, and a toggle left on Flag from the last game only earns a notice.
+  setMode(false);
   const selected={preset:$('preset').value,difficulty:$('difficulty').value,mode:$('mode').value};
   if(snapshot&&snapshot.phase!=='complete'){
     if(snapshot.phase==='running'&&!confirm('End the current match? A started server match records resignation as a loss.'))return;

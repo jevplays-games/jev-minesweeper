@@ -1,7 +1,7 @@
 {
   "project": "jev-minesweeper",
   "version": "1.0.0",
-  "builtAt": "2026-10-06",
+  "builtAt": "2026-10-07",
   "artifact": "source code, documentation, tests and measured reports",
   "files": [
     {
@@ -206,13 +206,13 @@
     },
     {
       "path": "public/game.css",
-      "bytes": 21012,
-      "sha256": "880059b8811803948199554b5d282476d2c7f831fd0874ef000d835b3b50a05d"
+      "bytes": 21026,
+      "sha256": "b37cdb7d28b06017e8f133c3ac6f85f56dc67afe5931bdd70f65f8a6a93a2829"
     },
     {
       "path": "public/game.js",
-      "bytes": 34473,
-      "sha256": "f1bfd2473710e64e5dce2b7bcf2e5402dbd1023766d3fd00ba6857c411ed3bc0"
+      "bytes": 34633,
+      "sha256": "3cc0817c4074f12234c081bd2d8eb79c3d58bc8b76b68a2d92ff9ba85973a525"
     },
     {
       "path": "public/index.html",
