@@ -71,8 +71,8 @@
     },
     {
       "path": "docs/DEPLOYMENT.md",
-      "bytes": 13242,
-      "sha256": "71c1e1ea57cdd97e2201353dd2e78f64e08c91ba0ea64819787d9840598a2cfb"
+      "bytes": 13451,
+      "sha256": "b1813d59819369980fea82d9327b8cea373a847bc033bd7a86e47b1011f1148d"
     },
     {
       "path": "docs/SECURITY.md",
@@ -211,8 +211,8 @@
     },
     {
       "path": "public/game.js",
-      "bytes": 35360,
-      "sha256": "f3e4a792543119fa8f4a25197333733ffd68e91858a0f09275f63fca283ab0b9"
+      "bytes": 35392,
+      "sha256": "edee866612cbba647b536206db671123cd1180d904608e0944dd8841fa092f38"
     },
     {
       "path": "public/index.html",
@@ -356,8 +356,8 @@
     },
     {
       "path": "reports/coverage.txt",
-      "bytes": 16167,
-      "sha256": "b85f604945406bc780d40fa9bf4eccb2bf81a440d8d26862ffd95f30d9ecc831"
+      "bytes": 16383,
+      "sha256": "a579bc1f8c7e5f2ea3c9fd7badb82c91cf293d59b7d112a9fa1de4088190ce80"
     },
     {
       "path": "reports/cpu/cpu.json",
@@ -406,8 +406,8 @@
     },
     {
       "path": "reports/tests.tap",
-      "bytes": 35316,
-      "sha256": "ae2df9ab86e709e6ab90eb02b9fe3cb818870f6a6d85f7dc34421d5fc5d27b05"
+      "bytes": 35869,
+      "sha256": "b52a426a0f31281df2054ff6e662012fe5148ef95afc20ede38f88b9e165365b"
     },
     {
       "path": "scripts/backup.js",
@@ -441,8 +441,8 @@
     },
     {
       "path": "server/config.js",
-      "bytes": 5315,
-      "sha256": "fda19223e5ad5cc83ee749a096be6309b21b091972ee00006745cc769e813fd6"
+      "bytes": 6630,
+      "sha256": "1992cea457fbe839dfd11f436e946ea27965f63ee78ba453bf91462cb327a9d3"
     },
     {
       "path": "server/db.js",
@@ -531,8 +531,8 @@
     },
     {
       "path": "tests/rename.test.js",
-      "bytes": 6175,
-      "sha256": "1507242de8483410d85889df3dd73fa4bbb468d459ca9901cd0cf2b269215494"
+      "bytes": 8712,
+      "sha256": "e0dfaced4ea991b64acd2894a1d7bebd7ca860dd8101fc10908175a9e2dbcfb7"
     },
     {
       "path": "tests/replay-analytics.test.js",
@@ -574,8 +574,8 @@
     "font files"
   ],
   "validation": {
-    "nodeTests": 191,
-    "passed": 191,
+    "nodeTests": 193,
+    "passed": 193,
     "failed": 0,
     "browserWorkflows": 5,
     "browserMode": "not re-run for the Cloudflare Workers port (see docs/TESTING.md)",

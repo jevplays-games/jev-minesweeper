@@ -66,7 +66,7 @@ Non-secret settings are `vars` in `wrangler.jsonc`:
 | Var | Default | Meaning |
 |---|---|---|
 | `APP_ORIGIN` | `https://safesweep.jevplay.games` | Exact origin: CSRF, cookies (`__Host-`), OAuth redirect, Activity origin |
-| `LEGACY_APP_ORIGINS` | `https://minesweeper.jevplay.games` | Comma-separated pre-rename origins also served (same scheme as `APP_ORIGIN`); requests to them use their own origin. Empty after the cutover |
+| `LEGACY_APP_ORIGINS` | `https://minesweeper.jevplay.games` | Comma-separated pre-rename origins also served (same scheme as `APP_ORIGIN`); requests to them use their own origin. Each entry must be a bare origin (optionally one trailing `/`; no userinfo, path, `?`, `#` or `*`). A bad entry is skipped and logged once as `configuration_warning`, never fatal; a bad `APP_ORIGIN` still is. Empty after the cutover |
 | `JEV_MODEL`, `JEV_TIMEOUT_MS` | `jev-1.13.0`, `3000` | Pinned model id and provider deadline |
 | `JEV_PIPELINE_DEPTH` | `3` | Opponent decisions computed ahead of the one-move-per-second schedule |
 | `MAX_ACTIVE_MATCHES` | `8` | Live matches admitted at once |

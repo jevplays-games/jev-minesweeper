@@ -33,11 +33,48 @@ test('pre-rename leaderboard rows (game_id minesweeper) rank on the same SafeSwe
 
 const env=(over={})=>({APP_ORIGIN:NEW,LEGACY_APP_ORIGINS:OLD,RATE_LIMIT_SALT:'x'.repeat(32),DISCORD_CLIENT_ID:'1552421309139521628',DISCORD_CLIENT_SECRET:'test-only',DB:localDatabase(),ASSETS:assets,...over});
 const call=(e,url,init)=>worker.fetch(new Request(url,init),e,{waitUntil(){}});
-test('LEGACY_APP_ORIGINS is parsed, deduplicated and must match the APP_ORIGIN scheme',()=>{
- assert.deepEqual(loadConfig({APP_ORIGIN:NEW,LEGACY_APP_ORIGINS:` ${OLD} , ${NEW}`,RATE_LIMIT_SALT:'x'}).legacyOrigins,[OLD]);
- assert.deepEqual(loadConfig({APP_ORIGIN:NEW,RATE_LIMIT_SALT:'x'}).legacyOrigins,[]);
- assert.throws(()=>loadConfig({APP_ORIGIN:NEW,LEGACY_APP_ORIGINS:'http://minesweeper.jevplay.games',RATE_LIMIT_SALT:'x'}),/same scheme/);
- assert.throws(()=>loadConfig({APP_ORIGIN:NEW,LEGACY_APP_ORIGINS:OLD+'/path',RATE_LIMIT_SALT:'x'}),/bare HTTP/);
+test('LEGACY_APP_ORIGINS is parsed and deduplicated; a scheme mismatch or non-origin entry is skipped, never thrown',()=>{
+ const warn=console.warn;console.warn=()=>{};
+ try{
+  assert.deepEqual(loadConfig({APP_ORIGIN:NEW,LEGACY_APP_ORIGINS:` ${OLD} , ${NEW}, ${OLD}/`,RATE_LIMIT_SALT:'x'}).legacyOrigins,[OLD]);
+  assert.deepEqual(loadConfig({APP_ORIGIN:NEW,RATE_LIMIT_SALT:'x'}).legacyOrigins,[]);
+  for(const bad of['http://minesweeper.jevplay.games',OLD+'/path','nonsense','ftp://minesweeper.jevplay.games'])assert.deepEqual(loadConfig({APP_ORIGIN:NEW,LEGACY_APP_ORIGINS:`${bad},${OLD}`,RATE_LIMIT_SALT:'x'}).legacyOrigins,[OLD],bad);
+ }finally{console.warn=warn;}
+ // APP_ORIGIN keeps its hard failure, under the same bare-origin rule.
+ for(const bad of['https://:pw@evil.example','https://evil.example?','https://evil.example#','https://evil.example/path'])assert.throws(()=>loadConfig({APP_ORIGIN:bad,RATE_LIMIT_SALT:'x'}),/bare HTTP/,bad);
+ assert.equal(loadConfig({APP_ORIGIN:NEW+'/',RATE_LIMIT_SALT:'x'}).origin,NEW);
+});
+// Decision D9: the five shared strings plus the three found in review. None may admit evil.example as a served origin.
+const D9_REJECTED=['https://user:pw@evil.example','https://evil.example#@minesweeper.jevplay.games','https://evil.example/path','https://evil.example?q=1','https://*.jevplay.games','https://:pw@evil.example','https://evil.example?','https://evil.example#'];
+test('D9: non-bare legacy origins are skipped with one structured warning each and never admitted',async()=>{
+ const warnings=[],warn=console.warn;console.warn=m=>warnings.push(JSON.parse(m));
+ try{
+  for(const bad of D9_REJECTED){
+   warnings.length=0;
+   const config=loadConfig({APP_ORIGIN:NEW,LEGACY_APP_ORIGINS:`${OLD}, ${bad}`,RATE_LIMIT_SALT:'x'});
+   assert.deepEqual(config.legacyOrigins,[OLD],bad);
+   assert.equal(warnings.length,1,bad);assert.equal(warnings[0].event,'configuration_warning');assert.equal(warnings[0].action,'entry_skipped');
+   assert.ok(!JSON.stringify(warnings[0]).includes('pw'),'the warning must not echo a credential');
+   const e=env({LEGACY_APP_ORIGINS:`${OLD}, ${bad}`});
+   try{
+    for(const origin of[NEW,OLD])assert.equal((await call(e,origin+'/api/health')).status,200,`${origin} with ${bad}`);
+    const evil=await call(e,'https://evil.example/api/health');assert.equal(evil.status,400,bad);assert.equal((await evil.json()).error.code,'host_rejected');
+   }finally{e.DB.close();}
+  }
+ }finally{console.warn=warn;}
+});
+test('one malformed or mismatched legacy entry does not take the deployment down',async()=>{
+ const warn=console.warn;console.warn=()=>{};
+ try{
+  for(const legacy of[`${OLD}, https://user:pw@typo.example`,'http://minesweeper.jevplay.games','::not a url::']){
+   const e=env({LEGACY_APP_ORIGINS:legacy});
+   try{
+    const primary=await call(e,NEW+'/api/health');assert.equal(primary.status,200,legacy);
+    assert.equal((await call(e,NEW+'/')).status,200,legacy);
+    assert.equal((await call(e,OLD+'/api/health')).status,legacy.startsWith(OLD)?200:400,legacy);
+   }finally{e.DB.close();}
+  }
+ }finally{console.warn=warn;}
 });
 test('one deployment serves the new host and the pre-rename host, and nothing else',async()=>{
  const e=env();
