@@ -206,13 +206,13 @@
     },
     {
       "path": "public/game.css",
-      "bytes": 21408,
-      "sha256": "63d419cbd8301fc0cc7c20b1e0ec9519ca6ab2812b537d69945c89e613e1c45d"
+      "bytes": 21547,
+      "sha256": "c6fa00bd04b67b298eef6180a5183eec06561183901ef0dd512478f2bbd2367f"
     },
     {
       "path": "public/game.js",
-      "bytes": 35482,
-      "sha256": "563b5361b03f11288daab2bd5ccc99eeb9145d7d25b00e86359ce8bb905c904a"
+      "bytes": 35360,
+      "sha256": "f3e4a792543119fa8f4a25197333733ffd68e91858a0f09275f63fca283ab0b9"
     },
     {
       "path": "public/index.html",
@@ -356,8 +356,8 @@
     },
     {
       "path": "reports/coverage.txt",
-      "bytes": 16158,
-      "sha256": "1a5e2a9eaac33f5443fb250a72df67d492de899444433916a80c78ae92fb7d43"
+      "bytes": 16167,
+      "sha256": "b85f604945406bc780d40fa9bf4eccb2bf81a440d8d26862ffd95f30d9ecc831"
     },
     {
       "path": "reports/cpu/cpu.json",
@@ -406,8 +406,8 @@
     },
     {
       "path": "reports/tests.tap",
-      "bytes": 35344,
-      "sha256": "c8705d7c27fcffe4d456272f317439b9ee36e21af2f8ab45b858ef5fc3ff3675"
+      "bytes": 35316,
+      "sha256": "ae2df9ab86e709e6ab90eb02b9fe3cb818870f6a6d85f7dc34421d5fc5d27b05"
     },
     {
       "path": "scripts/backup.js",
