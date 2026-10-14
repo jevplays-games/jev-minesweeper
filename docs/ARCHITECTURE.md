@@ -164,7 +164,7 @@ Rules, deterministic generation vectors, actions/chords/race boundaries, observa
 
 ## U. Deployment
 
-Cloudflare Workers Free + D1 + Static Assets at `minesweeper.jevplay.games`; see `DEPLOYMENT.md` for the operator steps, the Free-plan budget and the CPU measurements. It is not a distributed tournament platform: capacity is bounded by 100 k Worker requests/day, D1's write allowance and the 10 ms CPU limit, with durable daily caps in front of them.
+Cloudflare Workers Free + D1 + Static Assets at `safesweep.jevplay.games` (and the pre-rename `minesweeper.jevplay.games` until the cutover); see `DEPLOYMENT.md` for the operator steps, the Free-plan budget and the CPU measurements. It is not a distributed tournament platform: capacity is bounded by 100 k Worker requests/day, D1's write allowance and the 10 ms CPU limit, with durable daily caps in front of them.
 
 ## V. Implementation phases delivered
 

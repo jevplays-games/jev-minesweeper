@@ -1,6 +1,8 @@
 # Setup, deployment, and recovery
 
-Production is **Cloudflare Workers (Free plan) + D1 + Static Assets** at `https://minesweeper.jevplay.games`. There is no container, no long-lived process and no cron trigger. Local development uses a small Node shim over the same Worker code.
+Production is **Cloudflare Workers (Free plan) + D1 + Static Assets** at `https://safesweep.jevplay.games`. There is no container, no long-lived process and no cron trigger. Local development uses a small Node shim over the same Worker code.
+
+The game was renamed from Minesweeper to SafeSweep. Until the cutover the same deployment also answers on the pre-rename host `https://minesweeper.jevplay.games` (`LEGACY_APP_ORIGINS`, section 2a); after it, that host 301-redirects to the new one.
 
 ## 1. Local start
 
@@ -13,14 +15,16 @@ npm test         # real SQLite through the D1-compatible wrapper
 
 `server/main.js` adapts Node's `http` to the Worker's `handle(request, env, ctx)` and builds the same `env` the Worker gets: `DB` (node:sqlite behind `prepare().bind().first()/all()/run()` and `batch()`, in `server/local-db.js`, applying `migrations/*.sql`) and `ASSETS` (`public/` only). It binds loopback and refuses a non-loopback `APP_ORIGIN`. Browse at exactly the host in `APP_ORIGIN` (`localhost` and `127.0.0.1` are different origins for cookies and CSRF). `DEV_LOCAL=1` is set by the shim; it relaxes `RATE_LIMIT_SALT` and allows an http origin.
 
-A `data/minesweeper.sqlite` from the earlier standalone build is refused with an explanatory error; move it aside.
+The local SQLite file defaults to `data/safesweep.sqlite`. A checkout that already has the pre-rename `data/minesweeper.sqlite` (and no `data/safesweep.sqlite`) keeps using it, so the rename does not orphan local data; `DATABASE_PATH` overrides both. A file from the earlier standalone (pre-Cloudflare) build is refused with an explanatory error; move it aside.
 
 ## 2. Cloudflare resources (operator steps)
 
-Nothing here has been run from this repository; `database_id` in `wrangler.jsonc` is the placeholder `REPLACE_WITH_D1_ID`.
+Nothing here has been run from this repository. The production D1 database already exists and its id is recorded in `wrangler.jsonc`.
+
+**D1 name (rename decision).** D1 cannot be renamed in place. The owner decided to keep the existing database `jev-minesweeper` (binding `DB`) rather than create `jev-safesweep` and export/import, so `database_name` stays `jev-minesweeper` and `npm run db:local` / `db:remote` address it by its binding. Stored rows keep `matches.game_id = 'minesweeper'` (the column default, never read by any query); the leaderboard keys on `competition_key`, so pre- and post-rename matches rank on one board (`tests/rename.test.js`).
 
 ```sh
-npx wrangler d1 create jev-minesweeper          # paste the returned id into wrangler.jsonc
+# Only for a fresh account: npx wrangler d1 create <name>, then paste the id into wrangler.jsonc
 npm run db:remote                               # applies migrations/0001_init.sql
 npx wrangler secret put TYPESAFE_API_KEY
 npx wrangler secret put RATE_LIMIT_SALT         # 32+ random bytes; required in production
@@ -31,13 +35,38 @@ npx wrangler secret put ANALYTICS_ADMIN_TOKEN   # optional; blank disables /api/
 npm run deploy
 ```
 
-`routes` attaches the custom domain `minesweeper.jevplay.games`, which requires the `jevplay.games` zone to be on the same Cloudflare account. The Worker refuses `/api/*` requests whose host is not `APP_ORIGIN` (a `*.workers.dev` URL will answer 400 for API calls unless `APP_ORIGIN` is changed to match).
+`routes` attaches the custom domains `safesweep.jevplay.games` and `minesweeper.jevplay.games`, which requires the `jevplay.games` zone to be on the same Cloudflare account. The Worker refuses `/api/*` requests whose host is neither `APP_ORIGIN` nor listed in `LEGACY_APP_ORIGINS` (a `*.workers.dev` URL will answer 400 for API calls unless `APP_ORIGIN` is changed to match).
+
+### 2a. Rename cutover (minesweeper -> safesweep)
+
+The Worker is now named `jev-safesweep`; the live one is `jev-minesweeper`. A request is served as the host it arrived on: the host check, CSRF origin, OAuth `redirect_uri`, post-login redirect and launch links all use that host, because the session cookie is host-only and must not be split across hosts. Order:
+
+1. Deploy `jev-safesweep` with the same secrets. Move the `minesweeper.jevplay.games` custom domain from the old Worker to it (both routes are in `wrangler.jsonc`), then retire `jev-minesweeper`.
+2. Register both OAuth redirects in Discord (section 4) and point the interactions endpoint and Activity URL mapping at `safesweep.jevplay.games`.
+3. When the new host is verified, replace the old route with a Cloudflare redirect rule `minesweeper.jevplay.games/*` -> `https://safesweep.jevplay.games/$1` (301), remove `minesweeper.jevplay.games` from `routes`, and empty `LEGACY_APP_ORIGINS`. Sessions on the old host end at that point (players sign in again).
+
+### 2b. Train (Cloudflare Tunnel)
+
+The hub repo's `deploy/train/` also runs this game as a container behind the `jevplay-games` Cloudflare Tunnel. Serve both hosts there too until the cutover; the old one is kept, not replaced. Tunnel ingress (`~/jevplay-games/cloudflared/config.yml` on Train, not in any repo):
+
+```yaml
+ingress:
+  - hostname: safesweep.jevplay.games
+    service: http://minesweeper:3000
+  - hostname: minesweeper.jevplay.games      # pre-rename host; keep until the 301 is live
+    service: http://minesweeper:3000
+  # ... sudoku / typedoku rules ...
+  - service: http_status:404
+```
+
+Then `cloudflared tunnel route dns jevplay-games safesweep.jevplay.games`. Container env (`minesweeper.env`; compose service and volume names stay `minesweeper` so the SQLite volume is not orphaned): `APP_ORIGIN=https://safesweep.jevplay.games`, `LEGACY_APP_ORIGINS=https://minesweeper.jevplay.games`, `DATABASE_PATH=/app/data/minesweeper.sqlite` (keep the existing file name). Note: the Node shim in this repo (`server/main.js`) binds loopback and refuses a non-loopback `APP_ORIGIN`, and the repo has no Dockerfile since the move to Workers, so whatever runs on Train today predates this tree; check which build it is before redeploying it there.
 
 Non-secret settings are `vars` in `wrangler.jsonc`:
 
 | Var | Default | Meaning |
 |---|---|---|
-| `APP_ORIGIN` | `https://minesweeper.jevplay.games` | Exact origin: CSRF, cookies (`__Host-`), OAuth redirect, Activity origin |
+| `APP_ORIGIN` | `https://safesweep.jevplay.games` | Exact origin: CSRF, cookies (`__Host-`), OAuth redirect, Activity origin |
+| `LEGACY_APP_ORIGINS` | `https://minesweeper.jevplay.games` | Comma-separated pre-rename origins also served (same scheme as `APP_ORIGIN`); requests to them use their own origin. Empty after the cutover |
 | `JEV_MODEL`, `JEV_TIMEOUT_MS` | `jev-1.13.0`, `3000` | Pinned model id and provider deadline |
 | `JEV_PIPELINE_DEPTH` | `3` | Opponent decisions computed ahead of the one-move-per-second schedule |
 | `MAX_ACTIVE_MATCHES` | `8` | Live matches admitted at once |
@@ -60,10 +89,13 @@ Nothing else is needed: no `nodejs_compat` flag (the Worker imports no `node:` m
 Copy the application ID, client secret and public key into `DISCORD_CLIENT_ID`, `DISCORD_CLIENT_SECRET`, `DISCORD_PUBLIC_KEY`. Register:
 
 ```text
-OAuth redirect: https://minesweeper.jevplay.games/api/auth/discord/callback
-Interactions:   https://minesweeper.jevplay.games/api/discord/interactions
-Activity URL mapping: / -> minesweeper.jevplay.games
+OAuth redirects: https://safesweep.jevplay.games/api/auth/discord/callback
+                 https://minesweeper.jevplay.games/api/auth/discord/callback   (until the cutover)
+Interactions:    https://safesweep.jevplay.games/api/discord/interactions
+Activity URL mapping: / -> safesweep.jevplay.games
 ```
+
+After changing the command text, re-run `npm run discord:register` so `/jev` describes SafeSweep. The application's own name and description are set in the Developer Portal.
 
 Interaction signatures are verified with Web Crypto Ed25519 over the exact raw bytes and timestamp (falling back to the older `NODE-ED25519` algorithm name if the runtime requires it). Login requests only `identify`. Run `npm run discord:register` locally with `DISCORD_CLIENT_ID`/`DISCORD_CLIENT_SECRET` in `.env` (optionally `DISCORD_TEST_GUILD_ID`); it upserts only `/jev`. Activity mode (`docs/ACTIVITY.md`) needs nothing extra on the Worker. Live Discord setup has not been exercised; the integration is tested with controlled OAuth responses and signed fixture interactions.
 
@@ -80,7 +112,7 @@ Design consequences (details in `ARCHITECTURE.md` section F):
 
 ## 6. Backup, restore and retention
 
-Production data lives in D1. Export with `npx wrangler d1 export jev-minesweeper --remote --output backup.sql` and protect the file: it contains private game state and session hashes. Restore into a new database with `wrangler d1 execute ... --file`. `npm run backup` only backs up the **local** development SQLite file. A production restore drill has not been performed.
+Production data lives in D1. Export with `npx wrangler d1 export jev-minesweeper --remote --output backup.sql` (the database keeps its pre-rename name) and protect the file: it contains private game state and session hashes. Restore into a new database with `wrangler d1 execute ... --file`. `npm run backup` only backs up the **local** development SQLite file. A production restore drill has not been performed.
 
 Sessions, launch tickets, quota counters and audit rows are pruned lazily. After `EVENT_RETENTION_DAYS` a match's journal and any queued decisions are deleted and the match is marked `events_pruned_at`; its result, public summary and leaderboard standing remain, but its replay/export return 410. Nothing deletes user profiles or results automatically. Publish the retention policy you actually run.
 

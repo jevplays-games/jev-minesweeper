@@ -4,7 +4,7 @@ The game can run as a Discord Activity (Embedded App SDK). Normal browser play, 
 
 ## Why it needs its own path
 
-Inside Discord the game runs in an iframe on `https://<DISCORD_CLIENT_ID>.discordsays.com`, which Discord proxies to `https://minesweeper.jevplay.games`. There the browser does not send the game's `SameSite=Lax` cookie, requests carry the discordsays `Origin`, and the page would otherwise be sent with `frame-ancestors 'none'`.
+Inside Discord the game runs in an iframe on `https://<DISCORD_CLIENT_ID>.discordsays.com`, which Discord proxies to `https://safesweep.jevplay.games` (before the rename: `minesweeper.jevplay.games`). There the browser does not send the game's `SameSite=Lax` cookie, requests carry the discordsays `Origin`, and the page would otherwise be sent with `frame-ancestors 'none'`.
 
 ## What changes in Activity mode
 
@@ -18,7 +18,7 @@ Ranked/leaderboard rules, idempotency, CAS revisions, leases and the Jev adapter
 ## Developer Portal settings
 
 - **Activities**: enable Activities for the application.
-- **URL Mappings**: prefix `/` -> target `minesweeper.jevplay.games`.
+- **URL Mappings**: prefix `/` -> target `safesweep.jevplay.games` (was `minesweeper.jevplay.games`; change it at the cutover, `DEPLOYMENT.md` section 2a).
 - OAuth2 needs no new redirect for Activity mode; the code is exchanged without one. Keep the existing redirect for browser login.
 - No new environment variables. `DISCORD_CLIENT_ID` must be the numeric application id.
 

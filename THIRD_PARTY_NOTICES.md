@@ -1,6 +1,6 @@
 # Third-party notices
 
-This project has no runtime dependencies. The following third-party asset is vendored into the repository.
+This project has no runtime dependencies. The following third-party assets are vendored into the repository.
 
 ## Inter
 
@@ -8,6 +8,13 @@ This project has no runtime dependencies. The following third-party asset is ven
 - Copyright (c) 2016 The Inter Project Authors
 - Vendored at: `public/brand/inter-var.woff2`
 - License text: `public/brand/OFL.txt`
+
+## VT323
+
+- License: SIL Open Font License 1.1
+- Copyright 2011, The VT323 Project Authors
+- Vendored at: `public/brand/vt323.woff2` (shared jevplay.games brand file)
+- License text: `public/brand/OFL-VT323.txt`
 
 ## @discord/embedded-app-sdk
 

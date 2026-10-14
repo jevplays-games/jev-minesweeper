@@ -1,8 +1,8 @@
 # Start here
 
-This is the implemented Minesweeper vs Jev project, not only a planning document.
+This is SafeSweep (formerly Minesweeper), a two-board minesweeper race against Jev, part of jevplay.games. It is the implemented game, not only a planning document.
 
-1. Open a terminal in this folder with Node.js22.16.0 or later installed.
+1. Open a terminal in this folder with Node.js 22.16.0 or later installed.
 2. Run `npm start` (a local development shim; production is Cloudflare Workers + D1, see docs/DEPLOYMENT.md).
 3. Open `http://localhost:3000`, select New game, and choose your starting cell.
 

@@ -1,4 +1,4 @@
-/** Pure Minesweeper rules. No DOM, network, wall clock, or unrecorded randomness. */
+/** Pure SafeSweep rules (classic minesweeper). No DOM, network, wall clock, or unrecorded randomness. */
 export const ENGINE_VERSION = 'ms-race-1.0.0';
 export const GENERATOR_VERSION = 'hmac-shuffle-1';
 export const PRESETS = Object.freeze({
