@@ -1,6 +1,6 @@
 # Setup, deployment, and recovery
 
-Production is **Cloudflare Workers (Free plan) + D1 + Static Assets** at `https://safesweep.jevplay.games`. There is no container, no long-lived process and no cron trigger. Local development uses a small Node shim over the same Worker code.
+Production is **Cloudflare Workers (Free plan) + D1 + Static Assets** at `https://safesweep.jevplay.games` from the rename cutover (until then it is served at `https://minesweeper.jevplay.games`). There is no container, no long-lived process and no cron trigger. Local development uses a small Node shim over the same Worker code.
 
 The game was renamed from Minesweeper to SafeSweep. Until the cutover the same deployment also answers on the pre-rename host `https://minesweeper.jevplay.games` (`LEGACY_APP_ORIGINS`, section 2a); after it, that host 301-redirects to the new one.
 

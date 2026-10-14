@@ -21,8 +21,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 13535,
-      "sha256": "5f47c69ce872077365520512e228ef2795f99ecaad14c6db36885535e74fdb2a"
+      "bytes": 13666,
+      "sha256": "b9ca00ca4883cce38b59ebf0b636ad114b1ee1a7f02555c175e459abbca335fa"
     },
     {
       "path": "START-HERE.md",
@@ -71,8 +71,8 @@
     },
     {
       "path": "docs/DEPLOYMENT.md",
-      "bytes": 13153,
-      "sha256": "65b5390c7cef3f5d6957d5f36799e30cdcf47782b24c3dfa1640c5127b1d913c"
+      "bytes": 13242,
+      "sha256": "71c1e1ea57cdd97e2201353dd2e78f64e08c91ba0ea64819787d9840598a2cfb"
     },
     {
       "path": "docs/SECURITY.md",
@@ -206,13 +206,13 @@
     },
     {
       "path": "public/game.css",
-      "bytes": 21314,
-      "sha256": "837ba16a094533eb5a17980438f8103913b3bcbcec969604c8033f3c783d763a"
+      "bytes": 21408,
+      "sha256": "63d419cbd8301fc0cc7c20b1e0ec9519ca6ab2812b537d69945c89e613e1c45d"
     },
     {
       "path": "public/game.js",
-      "bytes": 34621,
-      "sha256": "bf69a451e142dca8ba83c7d08e39d48ccbc4439504830de74274ca205a155efb"
+      "bytes": 35482,
+      "sha256": "563b5361b03f11288daab2bd5ccc99eeb9145d7d25b00e86359ce8bb905c904a"
     },
     {
       "path": "public/index.html",
@@ -266,28 +266,28 @@
     },
     {
       "path": "reports/benchmark/report.md",
-      "bytes": 1401,
-      "sha256": "6bf50054084fa190e46d17b28ac2d1d165fe8fb473b20521128df4f3ea61a6de"
+      "bytes": 1399,
+      "sha256": "4a4263ac3e010e50030a39d18e7d26d6a76abe70c25eafbdbf99095eb3d77028"
     },
     {
       "path": "reports/benchmark/runs.jsonl",
-      "bytes": 320145,
-      "sha256": "97df6f78e3555462576945eb6bee40fad2e2a1e008fc7df49a822d72d27a8179"
+      "bytes": 321262,
+      "sha256": "1aa933799601d444de96a8daf22df12690365c9a1a2c6fc1abd54ba9b4d314fc"
     },
     {
       "path": "reports/benchmark/summary.csv",
-      "bytes": 3085,
-      "sha256": "1dc1cb1e7869489c20ac461f69150a1e887d544db2e2fe7132b4dbef565c5977"
+      "bytes": 3088,
+      "sha256": "a1279a24241fb0cdc192f49c4c62756cc41ecc7c23dc90cca2fb17fe6373fff3"
     },
     {
       "path": "reports/benchmark/summary.json",
-      "bytes": 8165,
-      "sha256": "4189c374c1ec2a98033be8df1798c6327b02f6b835b18e4428c80ce4289997bc"
+      "bytes": 8168,
+      "sha256": "aae01f27bc0313c7fbd10d1447e4800bcd1f8a1eb501fb7794e48f24be54c266"
     },
     {
       "path": "reports/benchmark/traces.jsonl",
-      "bytes": 1505928,
-      "sha256": "e4ff0a3ad42e235ac381297ec50a6aa83eaff1e67fa7bdeea7e5deac391aa6e7"
+      "bytes": 1507336,
+      "sha256": "37109d7915471441f930da7f61ee6202b0e8f9c78734e652f7c51a22305c95ce"
     },
     {
       "path": "reports/benchmark-expert/races.csv",
@@ -296,28 +296,28 @@
     },
     {
       "path": "reports/benchmark-expert/report.md",
-      "bytes": 1391,
-      "sha256": "0d1af24534cf5d3a7d79b332fff29bb592158a1d68d85620faf6b20fa2cd8ba7"
+      "bytes": 1389,
+      "sha256": "7587035cd9cda1daf12c999d14e0405057ae3777a547af27bfb0d945e276ee89"
     },
     {
       "path": "reports/benchmark-expert/runs.jsonl",
-      "bytes": 126993,
-      "sha256": "ab3f178a81852e8c4bf7d13495f40c7ec7d5f4fadd4c822e5a487cca4fd004ae"
+      "bytes": 127533,
+      "sha256": "c5102dcb21eac0f6f5313518d9202598dd19d6c186d603bb667ecf35b6202632"
     },
     {
       "path": "reports/benchmark-expert/summary.csv",
-      "bytes": 2911,
-      "sha256": "999fc59e4a3b402d6c2d37a61d19955f78d998f8741107e1931087cb80f9818a"
+      "bytes": 2919,
+      "sha256": "c07203bdd1bb4ae0480c88e4bf017ada5d5ddc09182eda0ab238a3421926d216"
     },
     {
       "path": "reports/benchmark-expert/summary.json",
-      "bytes": 7979,
-      "sha256": "8cc2976017360892faa6cd3beb0c26c6ffce8697d52b18b618e93636c6efa9e1"
+      "bytes": 7987,
+      "sha256": "8729b12bda2ead2fb73d6625a35546987d6c54b44bd9f3c6577fde64afb74e80"
     },
     {
       "path": "reports/benchmark-expert/traces.jsonl",
-      "bytes": 6790557,
-      "sha256": "d049d9148ecd7406be95ef1ce31d246368ae88f60ef002006975b1fb702aff9c"
+      "bytes": 6800451,
+      "sha256": "384b9f517f55aa74b86638ca386dccbde215fe56ddb66c228479ada3253ecb26"
     },
     {
       "path": "reports/browser/browser-analytics.json",
@@ -356,8 +356,8 @@
     },
     {
       "path": "reports/coverage.txt",
-      "bytes": 16155,
-      "sha256": "144a0be027a5b3b125c037231c842f0c9e2f76334c717bd95947221437bb6d73"
+      "bytes": 16158,
+      "sha256": "1a5e2a9eaac33f5443fb250a72df67d492de899444433916a80c78ae92fb7d43"
     },
     {
       "path": "reports/cpu/cpu.json",
@@ -371,23 +371,23 @@
     },
     {
       "path": "reports/sample/actions.csv",
-      "bytes": 2226,
-      "sha256": "03002f3473c3bbc0f26e15880d454d51b3e5681b5a0815eade164889d3cb2d34"
+      "bytes": 2225,
+      "sha256": "d02492285cbf50eb5fb98120347486279f6cb8972790706898a5df733d0feea3"
     },
     {
       "path": "reports/sample/analytics.json",
-      "bytes": 104455,
-      "sha256": "be723818c89a004943deced83322aa2bf9c08b572eee4a6cc1998c03f2101eca"
+      "bytes": 104462,
+      "sha256": "1405b9bcae15f0de7dac231a99debfeb415c93100a3807bfd9e32c16a892bca4"
     },
     {
       "path": "reports/sample/events.jsonl",
-      "bytes": 35661,
-      "sha256": "dd3bd9a723ece7ad5dfdc9a4c3325618a1c93a856b868144ea054cede8c791ea"
+      "bytes": 35660,
+      "sha256": "40907edfc2775b6f862fa07392f70ebfc515cdb3837d76cd3aa18431ad2c5b30"
     },
     {
       "path": "reports/sample/replay.json",
-      "bytes": 74028,
-      "sha256": "ebab3c9a09de1b3c1460c417aec229fbea44558ef29c4e243dd04775d3754d29"
+      "bytes": 74027,
+      "sha256": "0cac3ca01a0d3daac336864fd5ff44c15b486793a1367127337c506984e32ec5"
     },
     {
       "path": "reports/sample/timeline.csv",
@@ -406,8 +406,8 @@
     },
     {
       "path": "reports/tests.tap",
-      "bytes": 35345,
-      "sha256": "84c8ef4f982b647c1efaddca4e01eed6052de156b16af5e442f86ed4ab3a9ecb"
+      "bytes": 35344,
+      "sha256": "c8705d7c27fcffe4d456272f317439b9ee36e21af2f8ab45b858ef5fc3ff3675"
     },
     {
       "path": "scripts/backup.js",

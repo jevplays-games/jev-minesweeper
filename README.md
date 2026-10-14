@@ -20,7 +20,7 @@
 SafeSweep is a server-authoritative two-board minesweeper race against Jev. Both players open the same coordinate on independently generated boards, and the first to reveal every safe cell wins. Every match produces a deterministic, hash-linked replay, a verified leaderboard entry when it qualifies, and detailed replay-derived analytics. It is part of [jevplay.games](https://jevplay.games) and was called Minesweeper before the rename.
 
 > [!NOTE]
-> **What is shipped and measured.** The game is implemented and locally tested, and is hosted on Cloudflare Workers (Free plan) + D1 at `safesweep.jevplay.games` (`docs/DEPLOYMENT.md`). Real TypeSafe credentials, Discord authorization and the Cloudflare deployment itself were not exercised in this environment. Without credentials the game plays against an explicitly labeled local solver, and those games are unofficial. The bundled benchmark contains local baselines only (zero live Jev calls). See [Operational boundaries](#operational-boundaries).
+> **What is shipped and measured.** The game is implemented and locally tested. It is served today at the pre-rename address `minesweeper.jevplay.games`; `safesweep.jevplay.games` (Cloudflare Workers Free plan + D1) goes live at the rename cutover, after which the old address redirects to it (`docs/DEPLOYMENT.md`). Real TypeSafe credentials, Discord authorization and the Cloudflare deployment itself were not exercised in this environment. Without credentials the game plays against an explicitly labeled local solver, and those games are unofficial. The bundled benchmark contains local baselines only (zero live Jev calls). See [Operational boundaries](#operational-boundaries).
 
 ## Quick start
 
