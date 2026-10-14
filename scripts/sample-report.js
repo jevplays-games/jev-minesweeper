@@ -22,7 +22,7 @@ for(let step=0;step<500&&state.phase==='running';step++){
  if(actor==='human')humanDue+=600;else jevDue+=1000;
 }
 if(state.phase!=='complete')throw new Error('Sample did not terminate.');
-const replay=exportReplay(state,events,{fixture:true,eligible:false,verification:'verified',eligibilityReasons:['synthetic_regression_fixture'],note:'Both players are scripted local policies. No human performance or live JEV result is represented.'});
+const replay=exportReplay(state,events,{fixture:true,eligible:false,verification:'verified',eligibilityReasons:['synthetic_regression_fixture'],note:'Both players are scripted local policies. No human performance or live Jev result is represented.'});
 await verifyReplay(replay);const analytics=await analyzeReplay(replay);
 await mkdir('reports/sample',{recursive:true});
 await writeFile('reports/sample/replay.json',JSON.stringify(replay,null,2));

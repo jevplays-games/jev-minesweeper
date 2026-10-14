@@ -1,10 +1,17 @@
 /** Local, test-only implementation of the Cloudflare D1 binding on node:sqlite (Node >= 22.16). It is deliberately the same shape the
  *  Worker sees (`prepare().bind().first()/all()/run()`, `batch()`), so the application code and the tests exercise real SQLite. Not a second backend. */
 import {DatabaseSync} from 'node:sqlite';
-import {readFileSync, readdirSync, mkdirSync} from 'node:fs';
+import {readFileSync, readdirSync, mkdirSync, existsSync} from 'node:fs';
 import {dirname, resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 const migrationsDir = resolve(dirname(fileURLToPath(import.meta.url)), '../migrations');
+/** Default local SQLite file. A checkout that already has the pre-rename `data/minesweeper.sqlite` (and no `data/safesweep.sqlite`) keeps
+ *  using it, so renaming the game does not orphan local data. DATABASE_PATH always wins. */
+export function defaultDatabasePath(env = process.env, cwd = process.cwd()) {
+  if (env.DATABASE_PATH) return resolve(cwd, env.DATABASE_PATH);
+  const current = resolve(cwd, 'data/safesweep.sqlite'), legacy = resolve(cwd, 'data/minesweeper.sqlite');
+  return !existsSync(current) && existsSync(legacy) ? legacy : current;
+}
 export function localDatabase(path = ':memory:') {
   if (path !== ':memory:') mkdirSync(dirname(resolve(path)), {recursive: true, mode: 0o700});
   const db = new DatabaseSync(path);

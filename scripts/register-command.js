@@ -14,8 +14,8 @@ try {
     headers: {Authorization: `Basic ${Buffer.from(`${id}:${secret}`).toString('base64')}`, 'Content-Type': 'application/x-www-form-urlencoded'},
     body: new URLSearchParams({grant_type: 'client_credentials', scope: 'applications.commands.update'})
   }), 'Token exchange');
-  const command = {name: 'jev', description: 'Play against JEV', type: 1,
-    options: [{type: 1, name: 'play', description: 'Race JEV on independent Minesweeper boards'}]};
+  const command = {name: 'jev', description: 'Play SafeSweep against Jev', type: 1,
+    options: [{type: 1, name: 'play', description: 'Race Jev on independent SafeSweep boards'}]};
   if (!guild) { command.integration_types = [0]; command.contexts = [0]; }
   const path = guild ? `/applications/${id}/guilds/${guild}/commands` : `/applications/${id}/commands`;
   const result = await json(await fetch(api + path, {method: 'POST', signal: AbortSignal.timeout(15000),

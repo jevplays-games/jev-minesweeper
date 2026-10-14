@@ -5,6 +5,19 @@ function number(env, key, fallback, min = 0, max = Number.MAX_SAFE_INTEGER) {
   const n = env[key] === undefined || env[key] === '' ? fallback : Number(env[key]);
   if (!Number.isFinite(n) || n < min || n > max) throw new Error(`Invalid ${key}`); return n;
 }
+function bareOrigin(value, key) {
+  const parsed = new URL(value);
+  if (!['http:', 'https:'].includes(parsed.protocol) || parsed.pathname !== '/' || parsed.search || parsed.hash || parsed.username) throw new Error(`${key} must be a bare HTTP(S) origin`);
+  return parsed;
+}
+/**
+ * The configuration for one request. A request to a legacy host is served as that host: its own origin for the host check, CSRF,
+ * the OAuth redirect_uri and launch links, so a player on the old address never gets bounced across hosts (cookies are host-only).
+ */
+export function forRequest(config, request) {
+  const origin = new URL(request.url).origin;
+  return config.legacyOrigins.includes(origin) ? {...config, origin} : config;
+}
 /** Wall clock. `env.CLOCK` lets tests drive the match clock deterministically; the Worker never sets it. */
 export const now = env => env.CLOCK ? env.CLOCK() : Date.now();
 /**
@@ -15,14 +28,16 @@ export function loadConfig(env = {}) {
   const dev = Boolean(env.DEV_LOCAL) && env.DEV_LOCAL !== '0';
   const origin = env.APP_ORIGIN || (dev ? 'http://localhost:3000' : '');
   if (!origin) throw new Error('APP_ORIGIN is required');
-  const parsed = new URL(origin);
-  if (!['http:', 'https:'].includes(parsed.protocol) || parsed.pathname !== '/' || parsed.search || parsed.hash || parsed.username) throw new Error('APP_ORIGIN must be a bare HTTP(S) origin');
+  const parsed = bareOrigin(origin, 'APP_ORIGIN');
   const production = parsed.protocol === 'https:' && !dev;
   if (!dev && parsed.protocol !== 'https:') throw new Error('Production requires an HTTPS APP_ORIGIN');
+  // Pre-rename hosts (minesweeper.jevplay.games) that this deployment still answers on until the 301 cutover. Comma-separated.
+  const legacyOrigins = String(env.LEGACY_APP_ORIGINS || '').split(',').map(s => s.trim()).filter(Boolean).map(o => bareOrigin(o, 'LEGACY_APP_ORIGINS'));
+  if (legacyOrigins.some(o => o.protocol !== parsed.protocol)) throw new Error('LEGACY_APP_ORIGINS must use the same scheme as APP_ORIGIN');
   const salt = env.RATE_LIMIT_SALT || (dev ? 'local-development-only' : '');
   if (!salt) throw new Error('RATE_LIMIT_SALT is required outside local development');
   return {
-    dev, production, origin: parsed.origin, rateLimitSalt: salt,
+    dev, production, origin: parsed.origin, legacyOrigins: legacyOrigins.map(o => o.origin).filter(o => o !== parsed.origin), rateLimitSalt: salt,
     jevKey: env.TYPESAFE_API_KEY || '', model: env.JEV_MODEL || MODEL, jevEndpoint: 'https://api.typesafe.ai/v1/systemone',
     discordClientId: env.DISCORD_CLIENT_ID || '', discordClientSecret: env.DISCORD_CLIENT_SECRET || '', discordPublicKey: env.DISCORD_PUBLIC_KEY || '',
     adminToken: env.ANALYTICS_ADMIN_TOKEN || '', pricePerMillion: env.JEV_INPUT_PRICE_PER_MILLION ? number(env, 'JEV_INPUT_PRICE_PER_MILLION', null, 0) : null,

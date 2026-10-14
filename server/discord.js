@@ -44,12 +44,12 @@ export async function interaction({raw, headers, store, config, now = Date.now()
   const uid = data.member?.user?.id;
   if (!validId(data.id) || !validId(uid) || !validId(data.guild_id) || !validId(data.channel_id) || data.channel?.type !== 0 || (data.context !== undefined && data.context !== 0)) return {type: 4, data: {flags: 64, content: 'Use /jev in a server text channel. Direct messages and threads are not supported.'}};
   const subcommand = data.data.options?.[0];
-  if (subcommand?.name !== 'play') return {type: 4, data: {flags: 64, content: 'Use /jev play to launch Minesweeper.'}};
+  if (subcommand?.name !== 'play') return {type: 4, data: {flags: 64, content: 'Use /jev play to launch SafeSweep.'}};
   const rawTicket = token(), expires = now + config.launchLifetimeMs;
   try { await store.run('INSERT INTO launch_tickets(token_hash,interaction_id,discord_user_id,guild_id,channel_id,created_at,expires_at) VALUES(?,?,?,?,?,?,?)', await hash(rawTicket), data.id, uid, data.guild_id, data.channel_id, now, expires); }
   catch (e) { if (String(e.message).includes('UNIQUE')) return {type: 4, data: {flags: 64, content: 'This launch was already issued. Run /jev play again for a new link.'}}; throw e; }
   // Fragment keeps the ticket out of HTTP request paths and access logs.
-  return {type: 4, data: {flags: 64, content: 'Your private launch expires in 10 minutes. Sign in with the Discord account that invoked this command.', components: [{type: 1, components: [{type: 2, style: 5, label: 'Play Minesweeper vs JEV', url: `${config.origin}/#launch=${rawTicket}`}]}]}};
+  return {type: 4, data: {flags: 64, content: 'Your private launch expires in 10 minutes. Sign in with the Discord account that invoked this command.', components: [{type: 1, components: [{type: 2, style: 5, label: 'Play SafeSweep vs Jev', url: `${config.origin}/#launch=${rawTicket}`}]}]}};
 }
 export async function resolveContext(store, session, body, config, now = Date.now()) {
   if (body.launchTicket) {

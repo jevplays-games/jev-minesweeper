@@ -8,7 +8,7 @@ A report is reconstructed from a **sealed, verified server event replay**, not f
 
 Live displays contain only public progress, accepted command counts, status, and approved structured opponent evidence. Full layout structure, flag correctness, mine-based hindsight, and model calibration are never returned for an active match. The detailed endpoint is owner-only; an opaque match ID is not authorization. World standings reveal public Discord display names and aggregate ranked performance, not raw replays.
 
-The synthetic sample uses two scripted local policies. It is regression material, not a human result or a live JEV evaluation. The machine-readable catalog indexes 423 normalized paths observed in that sample, including metadata, array members, counters, and distribution statistics. It is **not** a claim of 423 independent scientific metrics or a complete JSON Schema for every optional provider response.
+The synthetic sample uses two scripted local policies. It is regression material, not a human result or a live Jev evaluation. The machine-readable catalog indexes 423 normalized paths observed in that sample, including metadata, array members, counters, and distribution statistics. It is **not** a claim of 423 independent scientific metrics or a complete JSON Schema for every optional provider response.
 
 ## 2. Types, missing values, and populations
 
@@ -87,7 +87,7 @@ Risk source labels:
 
 - `proof`: established by logical constraints or the safe nature of a flag/unflag action.
 - `exact`: completed component enumeration with compatible global mine placements weighted combinatorially.
-- `model-estimate`: a validated JEV safety forecast converted to mine probability where the solver has no exact value.
+- `model-estimate`: a validated Jev safety forecast converted to mine probability where the solver has no exact value.
 - `heuristic`: a bounded fallback estimate, never described as an exact probability.
 
 Flags are annotations; the solver does not assume a human flag is correct. An incomplete enumeration cannot produce an exact label merely because its partial search has not found a counterexample.
@@ -115,7 +115,7 @@ A zero region is a connected component of zero-adjacent-mine cells with its neig
 
 `race.humanAheadMs`, `jevAheadMs`, and `tiedMs` integrate the stepwise progress lead between consecutive recorded events. They sum to match duration. `leadChanges` counts sign reversals ignoring intervening ties. `humanPeakLeadCells` / `jevPeakLeadCells` are maximum positive advantages. `humanLeadAreaCellMs` integrates `(human safe cells − opponent safe cells) × interval duration`; it is a descriptive quantity, not a ranking score.
 
-## 8. JEV decision and service analytics
+## 8. Jev decision and service analytics
 
 The `opponent` section is based on **decisions attached to applied actions**. `decisionJournal` retains their structured candidate surfaces and validated provider responses for replay. A request that finishes after a match seals may never be applied and is therefore not in this journal. Measured usage and costs must not be interpreted as an exhaustive provider billing ledger; the admin endpoint also explicitly reports successful/applied usage, not total invoices. A future provider-account billing reconciliation would be a separate source.
 

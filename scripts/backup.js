@@ -1,9 +1,10 @@
 import {DatabaseSync} from 'node:sqlite';
 import {existsSync, mkdirSync, chmodSync} from 'node:fs';
 import {resolve, dirname} from 'node:path';
+import {defaultDatabasePath} from '../server/local-db.js';
 try {
-  const source = resolve(process.env.DATABASE_PATH || 'data/minesweeper.sqlite');
-  const target = resolve(process.argv[2] || `backups/minesweeper-${new Date().toISOString().replaceAll(':','-')}.sqlite`);
+  const source = defaultDatabasePath();
+  const target = resolve(process.argv[2] || `backups/safesweep-${new Date().toISOString().replaceAll(':','-')}.sqlite`);
   if (!existsSync(source)) throw new Error('Source database does not exist; start the application first.');
   if (existsSync(target)) throw new Error('Backup destination already exists; refusing to overwrite.');
   mkdirSync(dirname(target), {recursive: true, mode: 0o700});

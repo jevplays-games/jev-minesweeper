@@ -1,8 +1,8 @@
 {
-  "name": "jev-minesweeper",
+  "name": "jev-safesweep",
   "version": "1.0.0",
   "private": true,
-  "description": "Server-authoritative two-board Minesweeper with JEV, Discord and replay-derived analytics, on Cloudflare Workers + D1.",
+  "description": "SafeSweep: a server-authoritative two-board minesweeper race against Jev, with Discord and replay-derived analytics, on Cloudflare Workers + D1.",
   "type": "module",
   "engines": {
     "node": ">=22.16.0"
@@ -18,8 +18,8 @@
     "discord:register": "node --env-file-if-exists=.env scripts/register-command.js",
     "backup": "node --env-file-if-exists=.env scripts/backup.js",
     "deploy": "npx wrangler@4.68.0 deploy",
-    "db:local": "npx wrangler@4.68.0 d1 migrations apply jev-minesweeper --local",
-    "db:remote": "npx wrangler@4.68.0 d1 migrations apply jev-minesweeper --remote"
+    "db:local": "npx wrangler@4.68.0 d1 migrations apply DB --local",
+    "db:remote": "npx wrangler@4.68.0 d1 migrations apply DB --remote"
   },
-  "license": "UNLICENSED"
+  "license": "MIT"
 }

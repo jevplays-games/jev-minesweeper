@@ -8,7 +8,7 @@ import {Readable} from 'node:stream';
 import {readFile} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
 import {resolve, extname, sep} from 'node:path';
-import {localDatabase} from './local-db.js';
+import {localDatabase, defaultDatabasePath} from './local-db.js';
 import worker from './worker.js';
 export {weekStart, leaderboard} from './worker.js';
 const root = resolve(fileURLToPath(new URL('..', import.meta.url))), publicRoot = resolve(root, 'public');
@@ -58,8 +58,8 @@ export async function createApp({env: source = {}, dbPath = ':memory:', host = '
     async close() { await this.idle(); server.closeAllConnections(); await new Promise(ok => server.close(ok)); database.close(); }};
 }
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  const app = await createApp({env: process.env, dbPath: resolve(process.env.DATABASE_PATH || 'data/minesweeper.sqlite')});
+  const app = await createApp({env: process.env, dbPath: defaultDatabasePath()});
   const origin = await app.listen();
-  console.log(JSON.stringify({event: 'server_started', origin, opponent: app.env.TYPESAFE_API_KEY ? 'JEV' : 'local heuristic (not JEV)', discordConfigured: Boolean(app.env.DISCORD_CLIENT_ID && app.env.DISCORD_CLIENT_SECRET)}));
+  console.log(JSON.stringify({event: 'server_started', origin, opponent: app.env.TYPESAFE_API_KEY ? 'Jev' : 'local heuristic (not Jev)', discordConfigured: Boolean(app.env.DISCORD_CLIENT_ID && app.env.DISCORD_CLIENT_SECRET)}));
   for (const signal of ['SIGINT', 'SIGTERM']) process.once(signal, async () => { await app.close(); process.exit(0); });
 }

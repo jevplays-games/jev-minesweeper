@@ -90,4 +90,4 @@ Sessions, launch tickets, quota counters and audit rows are pruned lazily. After
 
 ## 8. Pre-launch gates (not run here)
 
-`wrangler d1 create`, migrations, secrets, deploy and DNS; a real signed Discord launch and Activity session; a complete real JEV match on each preset, including an expert match, watching for 1102 errors (the CPU figures are from Node, not workerd); provider-failure behaviour; `wrangler tail` during a full match; D1 write usage after a day of play; browser test (`tests/browser_smoke.py`, needs Python Playwright) against the deployed origin.
+`wrangler d1 create`, migrations, secrets, deploy and DNS; a real signed Discord launch and Activity session; a complete real Jev match on each preset, including an expert match, watching for 1102 errors (the CPU figures are from Node, not workerd); provider-failure behaviour; `wrangler tail` during a full match; D1 write usage after a day of play; browser test (`tests/browser_smoke.py`, needs Python Playwright) against the deployed origin.
