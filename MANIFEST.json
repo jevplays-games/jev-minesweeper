@@ -231,23 +231,28 @@
     },
     {
       "path": "public/game.css",
-      "bytes": 23733,
-      "sha256": "e4e0a88c062be06a83041f65f645a416bc558a013ad9c6f6af2c4f10c3e091d0"
+      "bytes": 24042,
+      "sha256": "1f6b548ddead0770d488d2847b8e970315980763a7847d5dde7604b335dfe122"
     },
     {
       "path": "public/game.js",
-      "bytes": 36658,
-      "sha256": "9f243666c2772220e8e6b33144028ae7c6c3b2404ab79979a92bccca92d4bb7b"
+      "bytes": 37285,
+      "sha256": "9f08ed03fd8ec15b7a284a4a9bc1b958dafbd646f27a326e3f8679f417f30d95"
     },
     {
       "path": "public/index.html",
-      "bytes": 20070,
-      "sha256": "194935bb89ec1ae9e578f170a8efde795f28f99cc40d085d29df90033990d53f"
+      "bytes": 20093,
+      "sha256": "b1301de4c91377eba291ba0d126ed65529eb929718c299498818071800397e52"
     },
     {
       "path": "public/offline.js",
       "bytes": 4474,
       "sha256": "1c2066f25f456d52ab019112c945b0be2cb863a1bc8952e930686f66d2eb51ea"
+    },
+    {
+      "path": "public/opponent.js",
+      "bytes": 1597,
+      "sha256": "2eba93f786f92a3d73a5d25ada77c41f203108d5c17684c1dfaf7d8019ea4867"
     },
     {
       "path": "public/shared/analytics.js",
@@ -346,8 +351,8 @@
     },
     {
       "path": "reports/browser/browser-analytics.json",
-      "bytes": 50012,
-      "sha256": "0900c716454aaa30b555aae605cbc623e86b2596ffc8c74f0ac7b99d7458be0c"
+      "bytes": 41822,
+      "sha256": "9fcbf63b7c7c94470eae89a6bd982db545e626cc693319bfde31e107c7b08ae3"
     },
     {
       "path": "reports/browser/browser-results.json",
@@ -356,23 +361,23 @@
     },
     {
       "path": "reports/browser/desktop-analytics.png",
-      "bytes": 368182,
-      "sha256": "766b49b27dbf278981fe03db0bdaa6f8a56faf377f1b206be3fede608a4d12f1"
+      "bytes": 372704,
+      "sha256": "ec3e2fa616fa51f74b06e376df0dfa5b5196ea6377f11ed71046957282288689"
     },
     {
       "path": "reports/browser/desktop-ready.png",
-      "bytes": 152482,
-      "sha256": "7ad368f9e01ef6178d250962ae5968327dacb1f8143d1a6f7da60b65e5583c44"
+      "bytes": 154289,
+      "sha256": "9d883a86c51a516f9bd31fada4011bbb63e9ff5d600460398e9c54abb090911a"
     },
     {
       "path": "reports/browser/desktop-running.png",
-      "bytes": 164886,
-      "sha256": "b40df92b946014ef3e607dc014d8b394c179b61e1d6bd0b252cf16fa692900c0"
+      "bytes": 167881,
+      "sha256": "0c225cf11f7a519b5a0dcc948e7c4f617089d7ec9de8568795e731050411f7fa"
     },
     {
       "path": "reports/browser/mobile.png",
-      "bytes": 144714,
-      "sha256": "40addc5f0e7d55294976b497d282d402a0d23169c9a9fe20597aceaeff104b4a"
+      "bytes": 149476,
+      "sha256": "b293912bf4a2137d90b72a4b8fff5322e1c831f5200412da6a04c141a5e360ac"
     },
     {
       "path": "reports/clean-start.json",
@@ -381,8 +386,8 @@
     },
     {
       "path": "reports/coverage.txt",
-      "bytes": 16390,
-      "sha256": "bad4eb6808cce1aab941a4c07f38f8860c4ef6f51a325842814a045befc17444"
+      "bytes": 16910,
+      "sha256": "1b81a3ab01d8f357f7119553b10d08167f8694c353e7296a833f6b19717abcec"
     },
     {
       "path": "reports/cpu/cpu.json",
@@ -431,8 +436,8 @@
     },
     {
       "path": "reports/tests.tap",
-      "bytes": 35868,
-      "sha256": "8c2797deead828ddc8906be1b731d65d8495fa4f6ea2b8ba6042e380838e9482"
+      "bytes": 36870,
+      "sha256": "60a11a735559847039952b59c16c3030d485eefb56720ce17a78aa2e081ab015"
     },
     {
       "path": "scripts/backup.js",
@@ -555,6 +560,11 @@
       "sha256": "63e6e41d0dac8e51886f4b01270dc723f890f8c6622a316efdae3960f6d13707"
     },
     {
+      "path": "tests/opponent.test.js",
+      "bytes": 3112,
+      "sha256": "ae99632273366423ac52f88c85cdc2ca59ef2dce9e4363d53f6bda24c3105fd4"
+    },
+    {
       "path": "tests/rename.test.js",
       "bytes": 8712,
       "sha256": "e0dfaced4ea991b64acd2894a1d7bebd7ca860dd8101fc10908175a9e2dbcfb7"
@@ -599,8 +609,8 @@
     "font files"
   ],
   "validation": {
-    "nodeTests": 193,
-    "passed": 193,
+    "nodeTests": 197,
+    "passed": 197,
     "failed": 0,
     "browserWorkflows": 5,
     "browserMode": "not re-run for the Cloudflare Workers port (see docs/TESTING.md)",

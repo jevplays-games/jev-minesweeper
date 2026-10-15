@@ -4,6 +4,7 @@ import {applyRecordedEvent} from '/shared/replay.js';
 import {csv,analyzeReplay} from '/shared/analytics.js';
 import {MODEL} from '/shared/decisions.js';
 import {POLICY_VERSION} from '/shared/solver.js';
+import {opponentView,metricLabel,metricValue} from './opponent.js';
 const $=id=>document.getElementById(id);
 let me=null,snapshot=null,unsubscribe=null,offline=null,report=null,reportIsOffline=false,reportReplay=null,livePoints=[],focusCell=40,flagMode=false,actionQueue=Promise.resolve(),historyCursor=null,leaderboardCursor=null,frames=[],lastAutoReport=null;
 let receivedAt=performance.now(),receivedElapsed=0;
@@ -69,8 +70,8 @@ function render(){
   text('humanStatus',h.status==='ready'?'Choose your opening':h.status==='active'?'Board active':h.status==='cleared'?'All safe cells cleared':'Mine hit · board ended');
   text('jevStatus',j.status==='ready'?'Waiting for your opening':j.status==='active'?'One move per second':j.status==='cleared'?'All safe cells cleared':'Mine hit · board ended');
   text('flagCount',`${h.flagsPlaced} flags / ${h.mineCount} mines`);
-  const actualJev=me?.features.jev&&!offline;
-  text('opponentTitle',actualJev?'Jev':'Local opponent');text('opponentBadge',snapshot?.opponent||(actualJev?'Jev + constraint solver':'Local heuristic · not Jev'));
+  const opp=opponentView({jevConfigured:me?.features.jev,offline:Boolean(offline),snapshot});
+  text('opponentTitle',opp.title);text('opponentBadge',opp.badge);text('versus',opp.versus);
   text('liveCompletion',percent(h.revealedSafe/target));const lead=h.revealedSafe-j.revealedSafe;text('liveLead',`${lead>0?'+':''}${lead}`);
   text('liveActions',Math.max(0,h.revision-(h.status==='ready'?0:1)));text('liveJevActions',Math.max(0,j.revision-(j.status==='ready'?0:1)));
   const e=snapshot?.eligibility;
@@ -139,7 +140,7 @@ async function newGame(useOffline=false){
     try{await submit({type:'resign'});}catch(e){if(!useOffline)throw e;notify('The server match may continue and become an abandonment loss. Offline practice is separate.','error');}
   }
   $('preset').value=selected.preset;$('difficulty').value=selected.difficulty;$('mode').value=selected.mode;
-  if(useOffline){unsubscribe?.();unsubscribe=null;offline?.close();const {OfflineGame}=await import('./offline.js');offline=await OfflineGame.create({...PRESETS[$('preset').value],preset:$('preset').value,aiDifficulty:$('difficulty').value,model:MODEL,policyVersion:POLICY_VERSION,jevIntervalMs:1000,adjudicationMs:100,deadlineMs:900000},update);connection(false);notify('Offline practice. The local heuristic is not Jev, and these results cannot enter server leaderboards.');}
+  if(useOffline){unsubscribe?.();unsubscribe=null;offline?.close();const {OfflineGame}=await import('./offline.js');offline=await OfflineGame.create({...PRESETS[$('preset').value],preset:$('preset').value,aiDifficulty:$('difficulty').value,model:MODEL,policyVersion:POLICY_VERSION,jevIntervalMs:1000,adjudicationMs:100,deadlineMs:900000},update);render();connection(false);notify('Offline practice. The local heuristic is not Jev, and these results cannot enter server leaderboards.');}
   else{await createServerMatch();notify('Choose any square on your board. The same coordinate opens on both independent layouts.');}
 }
 async function submit(action){
@@ -206,11 +207,13 @@ function flatten(value,path='',out=[]){
   if(Array.isArray(value)&&value.length>12){out.push([path,`${value.length} entries — full values in JSON export`]);return out;}
   for(const[k,v]of Object.entries(value)){if(['decisionJournal','actions','timeline'].includes(k))continue;flatten(v,path?`${path}.${k}`:k,out);}return out;
 }
-function renderMetricExplorer(){if(!report)return;const q=$('metricSearch').value.toLowerCase();table($('metricExplorer'),['Field','Value'],flatten(report).filter(([k])=>k.toLowerCase().includes(q)));}
+// Field names are shown as display labels (players.jev → opponent); the stored keys in the report and its exports are unchanged.
+function renderMetricExplorer(){if(!report)return;const q=$('metricSearch').value.toLowerCase(),remoteJev=(report.opponent?.remoteDecisions??0)>0;table($('metricExplorer'),['Field','Value'],flatten(report).map(([k,v])=>[k,metricLabel(k,{remoteJev}),metricValue(k,v,{remoteJev})]).filter(([k,label])=>k.toLowerCase().includes(q)||label.toLowerCase().includes(q)).map(([,label,v])=>[label,v]));}
 $('metricSearch').oninput=renderMetricExplorer;
-function drawHeatmaps(){if(!report)return;const type=$('heatmapType').value;for(const actor of['human','jev']){const values=report.players[actor].heatmaps[type],w=report.configuration.width,h=report.configuration.height;const{ctx,width,height}=canvasContext($(actor+'Heatmap'),270);ctx.clearRect(0,0,width,height);const fill=token(actor==='human'?'--chart-human':'--chart-jev'),labelText=token('--text');const max=Math.max(1,...values.filter(v=>v!==null)),size=Math.min((width-20)/w,(height-18)/h),x=(width-size*w)/2,y=(height-size*h)/2;
-  for(let i=0;i<values.length;i++){const value=values[i],intensity=value===null?0:Math.max(.08,value/max);// Opacity tops out at .62: ink labels then hold >=5.38:1 (human) and >=5.56:1 (Jev) on the D8 fills over paper, a clear margin over 4.5:1.
-  ctx.fillStyle=rgba(fill,.07+intensity*.55);ctx.fillRect(x+i%w*size+1,y+Math.floor(i/w)*size+1,size-2,size-2);if(size>=23){ctx.font='10px system-ui';ctx.textAlign='center';ctx.fillStyle=labelText;ctx.fillText(value===null?'·':type==='revealAtMs'?(value/1000).toFixed(0):String(value),x+(i%w+.5)*size,y+(Math.floor(i/w)+.5)*size+3);}}
+function drawHeatmaps(){if(!report)return;const type=$('heatmapType').value;for(const actor of['human','jev']){const values=report.players[actor].heatmaps[type],w=report.configuration.width,h=report.configuration.height;const{ctx,width,height}=canvasContext($(actor+'Heatmap'),270);ctx.clearRect(0,0,width,height);const fill=token(actor==='human'?'--chart-human':'--chart-jev'),labelText=token('--text'),paperText=token('--paper');const max=Math.max(1,...values.filter(v=>v!==null)),size=Math.min((width-20)/w,(height-18)/h),x=(width-size*w)/2,y=(height-size*h)/2;
+  for(let i=0;i<values.length;i++){const value=values[i],intensity=value===null?0:Math.max(.08,value/max);// Opacity runs from .07 to the full D8 colour, so the strongest cell is 7.42:1 (You) / 7.13:1 (opponent) against the paper panel. It skips
+  // .66-.86, where neither ink nor paper text reaches 4.5:1 on the fill: labels are ink up to .66 (>=4.9:1) and paper from .86 (>=5.1:1).
+  const span=intensity*.73,alpha=span<=.59?.07+span:.86+(span-.59),label=alpha<=.66?labelText:paperText;ctx.fillStyle=rgba(fill,alpha);ctx.fillRect(x+i%w*size+1,y+Math.floor(i/w)*size+1,size-2,size-2);if(size>=23){ctx.font='10px system-ui';ctx.textAlign='center';ctx.fillStyle=label;ctx.fillText(value===null?'·':type==='revealAtMs'?(value/1000).toFixed(0):String(value),x+(i%w+.5)*size,y+(Math.floor(i/w)+.5)*size+3);}}
 }}
 $('heatmapType').onchange=drawHeatmaps;
 async function exportReport(format){if(!report)return;const id=report.matchId;if(format==='json')download(report,`safesweep-${id}-analytics.json`);else if(format==='jsonl')download(reportReplay.events.map(e=>JSON.stringify(e)).join(String.fromCharCode(10))+String.fromCharCode(10),`safesweep-${id}-events.jsonl`,'application/x-ndjson');else download(csv(format==='csv'?report.actions:report.timeline),`safesweep-${id}-${format==='csv'?'actions':'timeline'}.csv`,'text/csv');}
