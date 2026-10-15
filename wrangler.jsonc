@@ -1,19 +1,21 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "jev-minesweeper",
+  "name": "jev-safesweep",
   "main": "server/worker.js",
   "compatibility_date": "2026-09-22",
-  "routes": [{ "pattern": "minesweeper.jevplay.games", "custom_domain": true }],
+  // Both hosts until the cutover: safesweep is the new name, minesweeper the pre-rename host (later a 301 to safesweep; see docs/DEPLOYMENT.md).
+  "routes": [{ "pattern": "safesweep.jevplay.games", "custom_domain": true }, { "pattern": "minesweeper.jevplay.games", "custom_domain": true }],
   // Only the API and the HTML document (which needs security headers and Discord Activity framing) run the Worker; every other
   // static file is served straight from public/ by Cloudflare and does not count as a Worker request.
   "assets": { "directory": "./public", "binding": "ASSETS", "run_worker_first": ["/api/*", "/", "/index.html"] },
-  // Create the database, then paste its id here:  npx wrangler d1 create jev-minesweeper
+  // The D1 database keeps its pre-rename name: D1 cannot be renamed in place, and the owner chose not to recreate or migrate it.
   "d1_databases": [{ "binding": "DB", "database_name": "jev-minesweeper", "database_id": "814d5c11-193c-4b01-be36-994f83b2c25a", "migrations_dir": "migrations" }],
   // No cron triggers: the account's five are used up, so housekeeping runs lazily from requests (see docs/ARCHITECTURE.md).
   // No limits.cpu_ms: Workers Free allows 10 ms of CPU per invocation and does not accept a custom limit.
   // Secrets (wrangler secret put): TYPESAFE_API_KEY, RATE_LIMIT_SALT, DISCORD_CLIENT_ID, DISCORD_CLIENT_SECRET, DISCORD_PUBLIC_KEY, ANALYTICS_ADMIN_TOKEN (optional).
   "vars": {
-    "APP_ORIGIN": "https://minesweeper.jevplay.games",
+    "APP_ORIGIN": "https://safesweep.jevplay.games",
+    "LEGACY_APP_ORIGINS": "https://minesweeper.jevplay.games",
     "JEV_MODEL": "jev-1.13.0",
     "JEV_TIMEOUT_MS": "3000",
     "JEV_PIPELINE_DEPTH": "3",

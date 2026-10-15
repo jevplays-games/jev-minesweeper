@@ -194,7 +194,7 @@ test('capacity and quota ceilings answer 429 instead of exhausting the free plan
 test('a missing configuration is reported instead of serving a half-working Worker',async()=>{
  const {default:worker}=await import('../server/worker.js');
  const bare=await worker.fetch(new Request(ORIGIN+'/api/health'),{},{waitUntil(){}});assert.equal(bare.status,503);
- const prod=await worker.fetch(new Request('https://minesweeper.jevplay.games/api/health'),{APP_ORIGIN:'https://minesweeper.jevplay.games'},{waitUntil(){}});assert.equal(prod.status,503);
+ const prod=await worker.fetch(new Request('https://safesweep.jevplay.games/api/health'),{APP_ORIGIN:'https://safesweep.jevplay.games'},{waitUntil(){}});assert.equal(prod.status,503);
 });
 test('a database failure during verification is retried, not mistaken for a bad journal',async()=>{
  const d=await direct({},{key:true});try{

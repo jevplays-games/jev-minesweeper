@@ -24,11 +24,11 @@ test('nothing served to the browser is server-side: public/ has no secrets, sche
  assert.ok(files.includes('index.html')&&files.includes('shared/engine.js')&&files.includes('_headers'));
  for(const f of files)assert.ok(!/\.(sql|sqlite|env|pem|key)$/.test(f)&&!f.startsWith('server/'),f);
 });
-test('wrangler.jsonc keeps the Free-plan shape: no cron, no cpu limit, D1 placeholder id, worker-first only for the API and the document',()=>{
+test('wrangler.jsonc keeps the Free-plan shape: no cron, no cpu limit, the recorded D1 id, worker-first only for the API and the document',()=>{
  const text=readFileSync(join(root,'wrangler.jsonc'),'utf8'),config=JSON.parse(text.replace(/^\s*\/\/.*$/gm,''));
- assert.equal(config.name,'jev-minesweeper');assert.equal(config.main,'server/worker.js');assert.equal(config.triggers,undefined);assert.equal(config.limits,undefined);
- assert.deepEqual(config.routes,[{pattern:'minesweeper.jevplay.games',custom_domain:true}]);assert.equal(config.vars.APP_ORIGIN,'https://minesweeper.jevplay.games');
- assert.equal(config.d1_databases[0].binding,'DB');assert.equal(config.d1_databases[0].database_id,'REPLACE_WITH_D1_ID');assert.equal(config.d1_databases[0].migrations_dir,'migrations');
+ assert.equal(config.name,'jev-safesweep');assert.equal(config.main,'server/worker.js');assert.equal(config.triggers,undefined);assert.equal(config.limits,undefined);
+ assert.deepEqual(config.routes,[{pattern:'safesweep.jevplay.games',custom_domain:true},{pattern:'minesweeper.jevplay.games',custom_domain:true}]);assert.equal(config.vars.APP_ORIGIN,'https://safesweep.jevplay.games');assert.equal(config.vars.LEGACY_APP_ORIGINS,'https://minesweeper.jevplay.games');
+ assert.equal(config.d1_databases[0].binding,'DB');assert.equal(config.d1_databases[0].database_name,'jev-minesweeper');assert.match(config.d1_databases[0].database_id,/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/);assert.equal(config.d1_databases[0].migrations_dir,'migrations');
  assert.equal(config.assets.binding,'ASSETS');assert.deepEqual(config.assets.run_worker_first,['/api/*','/','/index.html']);
  for(const secret of['TYPESAFE_API_KEY','RATE_LIMIT_SALT','DISCORD_CLIENT_SECRET','DISCORD_PUBLIC_KEY','ANALYTICS_ADMIN_TOKEN'])assert.equal(config.vars[secret],undefined,`${secret} must be a secret, not a var`);
 });

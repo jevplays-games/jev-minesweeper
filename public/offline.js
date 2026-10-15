@@ -12,7 +12,7 @@ export class OfflineGame {
   }
   serial(fn){const next=this.queue.catch(()=>{}).then(fn);this.queue=next;return next;}
   elapsed(){return this.state.phase==='ready'?0:this.state.phase==='complete'?this.state.finishedAtMs:Math.max(this.state.lastAtMs,Date.now()-this.startedAt);}
-  view(){return {...observeMatch(this.state),elapsedMs:this.elapsed(),lastEventAtMs:this.state.lastAtMs,serverNow:Date.now(),startedAt:this.startedAt,seq:this.events.length,eligibility:{requested:false,eligible:false,verification:this.state.phase==='complete'?'local-only':'pending',reasons:['offline_practice']},opponent:'Offline local heuristic — not JEV',decision:publicDecision(this.lastDecision),offline:true};}
+  view(){return {...observeMatch(this.state),elapsedMs:this.elapsed(),lastEventAtMs:this.state.lastAtMs,serverNow:Date.now(),startedAt:this.startedAt,seq:this.events.length,eligibility:{requested:false,eligible:false,verification:this.state.phase==='complete'?'local-only':'pending',reasons:['offline_practice']},opponent:'Offline local heuristic — not Jev',decision:publicDecision(this.lastDecision),offline:true};}
   emit(){this.onUpdate(this.view());}
   async event(type,actor,atMs,payload={},decision=null){this.events.push(await makeEvent(this.events,type,actor,atMs,payload,decision));this.emit();}
   async due(atMs){const next=clone(this.state);if(adjudicate(next,atMs)){this.state=next;await this.event('adjudicate','system',atMs);return true;}return false;}

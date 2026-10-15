@@ -49,7 +49,7 @@ Playwright/Python are development-only and are unnecessary to run the game. The 
 
 ## Benchmark evidence
 
-`reports/benchmark/report.md` (regenerated under policy `ms-policy-1.1.0`; beginner clear rates are unchanged from 1.0.0) records 100 board seeds×5 local policies=500 game runs. `reports/benchmark-expert/` adds 40 expert boards, zero invalid moves and zero live provider calls. Paired independent-board races also swap seed assignments. Raw records and traces are included. Clear percentages describe that deterministic seed corpus and those local policies only. They are not measured remote JEV capability, human skill estimates, or a claim that difficulty labels produce statistically distinct remote strength. `--remote` is available only after explicit key configuration.
+`reports/benchmark/report.md` (regenerated under policy `ms-policy-1.1.0`; beginner clear rates are unchanged from 1.0.0) records 100 board seeds×5 local policies=500 game runs. `reports/benchmark-expert/` adds 40 expert boards, zero invalid moves and zero live provider calls. Paired independent-board races also swap seed assignments. Raw records and traces are included. Clear percentages describe that deterministic seed corpus and those local policies only. They are not measured remote Jev capability, human skill estimates, or a claim that difficulty labels produce statistically distinct remote strength. `--remote` is available only after explicit key configuration.
 
 ## Replay and backup checks
 

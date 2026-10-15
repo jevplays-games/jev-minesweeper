@@ -8,7 +8,7 @@
  * queued in `jev_decisions`; result verification runs as bounded steps in `verifyStep()`.
  */
 import {createMatch, startMatch, clone, observeMatch, observeBoard, applyMatchAction, applyBoardAction, adjudicate, finish, digest} from '../public/shared/engine.js';
-import {makeEvent, resultOf, ReplayVerifier, REPLAY_VERSION} from '../public/shared/replay.js';
+import {makeEvent, resultOf, ReplayVerifier, REPLAY_VERSION, REPLAY_FORMATS} from '../public/shared/replay.js';
 import {publicDecision} from '../public/shared/decisions.js';
 import {chooseJevAction} from './jev.js';
 import {gameConfig, competitionKey} from './config.js';
@@ -42,7 +42,7 @@ export function view(app, m, now = app.now()) {
   const {row} = m, decision = row.last_decision_json ? JSON.parse(row.last_decision_json) : null;
   return {...observeMatch(m.state), elapsedMs: elapsed(m, now), lastEventAtMs: m.state.lastAtMs, serverNow: now, startedAt: row.started_at, seq: row.event_count,
     eligibility: {requested: Boolean(row.ranked_requested), eligible: Boolean(row.eligible), verification: row.verification, reasons: [...m.reasons]},
-    opponent: app.config.jevKey ? m.reasons.some(x => x === 'jev_fallback' || x === 'provider_budget') ? 'JEV with local fallback — unofficial' : 'JEV + visible-state constraint solver' : 'Local heuristic — not JEV',
+    opponent: app.config.jevKey ? m.reasons.some(x => x === 'jev_fallback' || x === 'provider_budget') ? 'Jev with local fallback — unofficial' : 'Jev + visible-state constraint solver' : 'Local heuristic — not Jev',
     decision, context: row.guild_id ? {guildId: row.guild_id, channelId: row.channel_id} : null};
 }
 async function queueMeta(app, m, w) {
@@ -351,7 +351,7 @@ export async function verifyStep(app, id) {
   try {
     const state = JSON.parse(row.private_state_json);
     const verifier = row.verify_cursor_json ? ReplayVerifier.restore(JSON.parse(row.verify_cursor_json))
-      : await judged(() => ReplayVerifier.create({format: 'jev-arcade-replay', version: REPLAY_VERSION, engineVersion: state.engineVersion, generatorVersion: state.generatorVersion, policyVersion: state.config.policyVersion, matchId: row.id, config: state.config, seeds: state.seeds, commitments: state.commitments}));
+      : await judged(() => ReplayVerifier.create({format: REPLAY_FORMATS[0], version: REPLAY_VERSION, engineVersion: state.engineVersion, generatorVersion: state.generatorVersion, policyVersion: state.config.policyVersion, matchId: row.id, config: state.config, seeds: state.seeds, commitments: state.commitments}));
     let spent = 0;
     while (verifier.count < row.event_count && spent < VERIFY_STEP_UNITS) {
       const rows = await store.all('SELECT event_json FROM match_events WHERE match_id=? AND seq>? ORDER BY seq LIMIT 6', id, verifier.count);
@@ -386,12 +386,12 @@ async function journalPage(app, m, from) {
 }
 /**
  * One page of the sealed replay. The stored event JSON is spliced in unparsed (no parse/stringify round trip), and every page carries the
- * small replay header, so the client rebuilds the exact `jev-arcade-replay` document by concatenating `events` across pages.
+ * small replay header, so the client rebuilds the exact replay document (format `jev-arcade-replay`, a pre-rename stored identifier) by concatenating `events` across pages.
  */
 export async function replayPage(app, m, from = 1) {
   if (m.state.phase !== 'complete') throw httpError(409, 'replay_available_after_match');
   const {row, state} = m, page = await journalPage(app, m, from);
-  const header = JSON.stringify({format: 'jev-arcade-replay', version: REPLAY_VERSION, engineVersion: state.engineVersion, generatorVersion: state.generatorVersion, policyVersion: state.config.policyVersion, matchId: state.id, config: state.config, seeds: state.seeds, commitments: state.commitments, headHash: row.head_hash, result: JSON.parse(row.result_json),
+  const header = JSON.stringify({format: REPLAY_FORMATS[0], version: REPLAY_VERSION, engineVersion: state.engineVersion, generatorVersion: state.generatorVersion, policyVersion: state.config.policyVersion, matchId: state.id, config: state.config, seeds: state.seeds, commitments: state.commitments, headHash: row.head_hash, result: JSON.parse(row.result_json),
     metadata: {createdAt: row.created_at, startedAt: row.started_at, finishedAt: row.finished_at, competitionKey: row.competition_key, eligible: Boolean(row.eligible), eligibilityReasons: m.reasons, verification: row.verification, scope: row.guild_id ? {guildId: row.guild_id, channelId: row.channel_id} : {world: true}}});
   return `{"page":{"from":${page.from},"count":${page.rows.length},"total":${row.event_count},"next":${page.next}},"header":${header},"events":[${page.rows.map(r => r.event_json).join(',')}]}`;
 }

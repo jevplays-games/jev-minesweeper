@@ -2,20 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="color-scheme" content="dark"><meta name="theme-color" content="#0e1017"><meta name="description" content="Two boards. One race. Play Minesweeper against JEV with inspectable decisions and detailed replay analytics.">
-  <title>Minesweeper · JEV Arcade</title>
+  <meta name="color-scheme" content="light"><meta name="theme-color" content="#F386A1"><meta name="description" content="Two boards. One race. Play SafeSweep against Jev with inspectable decisions and detailed replay analytics.">
+  <title>SafeSweep · jevplay.games</title>
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="JevPlay Arcade">
-  <meta property="og:title" content="Minesweeper · JEV Arcade">
-  <meta property="og:description" content="Two boards. One race. Play Minesweeper against JEV with inspectable decisions and detailed replay analytics.">
-  <meta property="og:url" content="https://minesweeper.jevplay.games/">
-  <meta property="og:image" content="https://minesweeper.jevplay.games/brand/og.png">
+  <meta property="og:site_name" content="jevplay.games">
+  <meta property="og:title" content="SafeSweep · jevplay.games">
+  <meta property="og:description" content="Two boards. One race. Play SafeSweep against Jev with inspectable decisions and detailed replay analytics.">
+  <meta property="og:url" content="https://safesweep.jevplay.games/">
+  <meta property="og:image" content="https://safesweep.jevplay.games/brand/og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Minesweeper on JevPlay Arcade: a spiked mine on a green tile with a red flag planted in it.">
+  <meta property="og:image:alt" content="SafeSweep on jevplay.games: a spiked mine on a green tile with a red flag planted in it.">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://minesweeper.jevplay.games/brand/og.png">
+  <meta name="twitter:image" content="https://safesweep.jevplay.games/brand/og.png">
   <link rel="preload" href="/brand/inter-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/brand/vt323.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="icon" type="image/png" sizes="32x32" href="/brand/favicon-32.png">
   <link rel="icon" type="image/svg+xml" href="/brand/icon.svg">
   <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png">
@@ -30,11 +31,11 @@
   <a class="jv-skip" href="#humanBoard">Skip to game</a>
   <div class="jv-app">
     <header class="jv-header">
-      <a class="jv-brand" href="/" aria-label="JEV Arcade home">
+      <a class="jv-brand" href="/" aria-label="jevplay.games home">
         <img class="jv-mark" src="/brand/mark.svg" alt="" width="32" height="32">
-        <span class="jv-wordmark">JEV ARCADE</span>
+        <span class="jv-wordmark">jevplay.games</span>
         <span class="jv-sep" aria-hidden="true"></span>
-        <span class="jv-title">Minesweeper</span>
+        <span class="jv-title">SafeSweep</span>
       </a>
       <span class="jv-status" aria-label="Shared race clock"><span class="jv-dot"></span><strong id="clock" class="clock">00:00.0</strong></span>
       <button class="jv-icon-btn jv-menu-btn" id="jv-menu" type="button" aria-expanded="false" aria-controls="jv-sheet" aria-label="Menu">
@@ -43,31 +44,31 @@
     </header>
     <main class="jv-main" id="main">
       <section class="hero jv-hero jv-pip-hide" aria-labelledby="gameTitle">
-        <div><p class="eyebrow">HUMAN VS STRUCTURED INTELLIGENCE</p><h1 id="gameTitle">Mine<span class="title-accent">sweeper</span><span class="versus">vs JEV</span></h1><p class="subtitle">Two independent boards. The same starting square. First to clear wins.</p></div>
+        <div><p class="eyebrow">HUMAN VS STRUCTURED INTELLIGENCE</p><h1 id="gameTitle">Safe<span class="title-accent">Sweep</span><span class="versus">vs Jev</span></h1><p class="subtitle">Two independent boards. The same starting square. First to clear wins.</p></div>
         <div class="hero-status"><span class="eyebrow">MATCH MODE</span><span id="matchMode" class="pill">Unofficial practice</span></div>
       </section>
       <section class="toolbar jv-pip-hide" aria-label="Game setup">
         <label>Board<select id="preset"><option value="beginner">Beginner · 9 × 9 / 10 mines</option><option value="intermediate">Intermediate · 16 × 16 / 40 mines</option><option value="expert">Expert · 30 × 16 / 99 mines</option></select></label>
-        <label>Opponent reasoning<select id="difficulty"><option value="easy">Easy</option><option value="normal">Normal</option><option value="hard">Hard</option><option value="jev" selected>JEV</option></select></label>
-        <label>Match mode<select id="mode"><option value="practice">Practice</option><option value="ranked">Ranked · Discord + JEV required</option></select></label>
+        <label>Opponent reasoning<select id="difficulty"><option value="easy">Easy</option><option value="normal">Normal</option><option value="hard">Hard</option><option value="jev" selected>Jev</option></select></label>
+        <label>Match mode<select id="mode"><option value="practice">Practice</option><option value="ranked">Ranked · Discord + Jev required</option></select></label>
         <label>Cell size<select id="cellSize"><option value="standard">Standard</option><option value="large">Large · 44 px</option></select></label>
         <label id="contextLabel" hidden>Community<select id="context"><option value="world">World only</option><option value="current">Discord launch context</option></select></label>
         <div class="toolbar-actions"><button id="newGame" class="button primary">New game</button><button id="resign" class="button" disabled>Resign</button><button id="offline" class="button quiet">Offline practice</button></div>
       </section>
       <div id="notice" class="notice" role="status" aria-live="polite">Click a square on your board to open the same starting coordinate on both boards.</div>
-      <section class="arena jv-first" aria-label="Two-board Minesweeper race">
+      <section class="arena jv-first" aria-label="Two-board SafeSweep race">
         <article class="jv-panel is-tight board-card is-human">
           <div class="board-header"><div class="player-title"><span class="player-token you-token">Y</span><div><h2>You</h2><span id="humanStatus" class="muted">Choose your opening</span></div></div><div class="board-count"><strong id="humanProgress">0 / 71</strong><span>safe cells</span></div></div>
           <progress id="humanMeter" value="0" max="71" aria-label="Your safe-cell progress"></progress>
-          <div class="board-scroll"><div id="humanBoard" class="board jv-tray" role="grid" aria-label="Your Minesweeper board"></div></div>
+          <div class="board-scroll"><div id="humanBoard" class="board jv-tray" role="grid" aria-label="Your SafeSweep board"></div></div>
           <div class="board-footer"><div class="segmented" aria-label="Touch action"><button id="revealMode" aria-pressed="true">Reveal</button><button id="flagMode" aria-pressed="false">Flag</button></div><span id="flagCount" class="muted">0 flags / 10 mines</span></div>
           <p class="board-help jv-pip-hide">Click: reveal · Right-click / F: flag · C / double-click: chord</p>
         </article>
         <article class="jv-panel is-tight board-card is-jev jv-pip-hide">
           <div class="board-header"><div class="player-title"><span class="player-token jev-token">J</span><div><h2 id="opponentTitle">Opponent</h2><span id="jevStatus" class="muted">Waiting for your opening</span></div></div><div class="board-count"><strong id="jevProgress">0 / 71</strong><span>safe cells</span></div></div>
           <progress id="jevMeter" value="0" max="71" aria-label="Opponent safe-cell progress"></progress>
-          <div class="board-scroll"><div id="jevBoard" class="board readonly jv-tray" role="grid" aria-label="Opponent Minesweeper board, read only"></div></div>
-          <div class="board-footer"><span id="opponentBadge" class="pill amber">Local heuristic · not JEV</span><span class="muted">Read-only board</span></div>
+          <div class="board-scroll"><div id="jevBoard" class="board readonly jv-tray" role="grid" aria-label="Opponent SafeSweep board, read only"></div></div>
+          <div class="board-footer"><span id="opponentBadge" class="pill amber">Local heuristic · not Jev</span><span class="muted">Read-only board</span></div>
           <p class="board-help">Independent mine layout. No hidden information is shared.</p>
         </article>
         <aside class="jv-panel is-tight decision-card jv-pip-hide" aria-labelledby="decisionTitle">
@@ -126,14 +127,14 @@
           <h2>Two boards. One race.</h2><p>Choose your first square. That coordinate opens on both boards, with no mines in its surrounding neighborhood. Layouts are independent, so an opponent reveal does not reveal your mines. Clear every safe cell first to win. Flags are optional annotations, not points.</p>
           <h3>Controls</h3><p>Click or press Enter/Space to reveal. Right-click or press F to set or remove a flag. Use the Reveal/Flag switch on touchscreens. Press C or double-click a revealed number to chord: its adjacent flag count must match that number. Incorrect flags can make a chord explode. Use arrow keys to move keyboard focus.</p>
           <h3>Race outcomes</h3><p>A mine ends that board, not automatically the race. The other player must still clear their board. Two clears in the same 100-millisecond finish interval are a draw. Two exploded boards, or neither board clearing by 15 minutes, are a draw. Resignation or 30 seconds disconnected from a started server match is a loss. Ready matches expire after two minutes.</p>
-          <h3>JEV and local play</h3><p>JEV receives visible board facts and bounded candidate actions, never hidden mines. The solver handles proofs and exact arithmetic; JEV supplies structured candidate judgments. Difficulty changes reasoning depth, not hidden information. Without a TypeSafe key, the opponent is explicitly a local heuristic. Offline practice is entirely browser-local and never ranked.</p>
-          <h3>Trust and rankings</h3><p>Server games keep seeds, mine layouts, official time, and outcomes on the server. Discord identifies the player; a verified slash-command launch establishes server and channel context. Ranked matches require Discord, configured JEV, verified replay, and no fallback or material scheduling miss. Clear-win rate is wins divided by all eligible matches, including draws. A loss or draw breaks the win streak.</p>
+          <h3>Jev and local play</h3><p>Jev receives visible board facts and bounded candidate actions, never hidden mines. The solver handles proofs and exact arithmetic; Jev supplies structured candidate judgments. Difficulty changes reasoning depth, not hidden information. Without a TypeSafe key, the opponent is explicitly a local heuristic. Offline practice is entirely browser-local and never ranked.</p>
+          <h3>Trust and rankings</h3><p>Server games keep seeds, mine layouts, official time, and outcomes on the server. Discord identifies the player; a verified slash-command launch establishes server and channel context. Ranked matches require Discord, configured Jev, verified replay, and no fallback or material scheduling miss. Clear-win rate is wins divided by all eligible matches, including draws. A loss or draw breaks the win streak.</p>
           <h3>Analytics and privacy</h3><p>The report records accepted commands, progress, timing, deduction coverage, flag precision and recall, action yield, board structure, 3BV, lead changes, heatmaps, provider reliability, token usage, and calibration where forecasts exist. It does not record keystrokes outside the game, device fingerprints, or mouse trails. Raw operational logs omit credentials and IP addresses. Post-game truth-derived metrics never appear in an active match.</p>
           <p class="integrity-note">A legal replay proves rule consistency, not unaided human play. Board randomness is not a guarantee of equal puzzle difficulty. “Uncertain” means unresolved by the bounded solver, not proof that guessing was logically unavoidable.</p>
         </div>
       </section>
     </main>
-    <footer class="jv-pip-hide"><span>JEV ARCADE / MINESWEEPER</span><span>Deterministic rules. Inspectable decisions. Verified outcomes.</span><span id="buildLabel">Build 1.0.0</span></footer>
+    <footer class="jv-pip-hide"><span>JEVPLAY.GAMES / SAFESWEEP</span><span>Deterministic rules. Inspectable decisions. Verified outcomes.</span><span id="buildLabel">Build 1.0.0</span></footer>
     <div class="jv-scrim" id="jv-scrim"></div>
     <div class="jv-sheet" id="jv-sheet" role="dialog" aria-modal="true" aria-label="Menu">
       <p class="jv-sheet-label" id="acctLabel">Account</p>

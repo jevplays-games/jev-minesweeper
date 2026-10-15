@@ -39,9 +39,12 @@ export async function applyRecordedEvent(state, event) {
 export function resultOf(state) {
   return {outcome: state.outcome, reason: state.outcomeReason, finishedAtMs: state.finishedAtMs, openingOnly: state.openingOnly, humanStatus: state.boards.human?.status ?? 'ready', jevStatus: state.boards.jev?.status ?? 'ready', humanRevealed: state.boards.human?.revealedSafe ?? 0, jevRevealed: state.boards.jev?.revealedSafe ?? 0, humanClearMs: state.boards.human?.status === 'cleared' ? state.boards.human.terminalAtMs : null, jevClearMs: state.boards.jev?.status === 'cleared' ? state.boards.jev.terminalAtMs : null};
 }
+/** Replay format names this verifier accepts. Exports still write the first: it is a stored identifier from before the jevplay.games
+ *  rename, kept so every replay sealed before or after it verifies the same way. `jevplay-replay` is accepted for a later switch. */
+export const REPLAY_FORMATS = ['jev-arcade-replay', 'jevplay-replay'];
 export function exportReplay(state, events, metadata = {}) {
   if (state.phase !== 'complete') throw new Error('replay_not_sealed');
-  return {format: 'jev-arcade-replay', version: REPLAY_VERSION, engineVersion: ENGINE_VERSION, generatorVersion: GENERATOR_VERSION, policyVersion: POLICY_VERSION, matchId: state.id, config: state.config, seeds: state.seeds, commitments: state.commitments, events, headHash: events.at(-1)?.hash ?? null, result: resultOf(state), metadata};
+  return {format: REPLAY_FORMATS[0], version: REPLAY_VERSION, engineVersion: ENGINE_VERSION, generatorVersion: GENERATOR_VERSION, policyVersion: POLICY_VERSION, matchId: state.id, config: state.config, seeds: state.seeds, commitments: state.commitments, events, headHash: events.at(-1)?.hash ?? null, result: resultOf(state), metadata};
 }
 /** Incremental replay verifier. Feeding events one at a time (with a JSON cursor between calls) lets a server with a small per-request
  *  CPU budget verify a long match across several requests, while verifyReplay() below stays the single-shot form used everywhere else. */
@@ -50,7 +53,7 @@ export class ReplayVerifier {
     this.header = header; this.state = state; this.checkDecisions = checkDecisions; this.previous = previous; this.count = count; this.requestIds = new Set();
   }
   static assertHeader(replay) {
-    if (!replay || replay.format !== 'jev-arcade-replay' || replay.version !== REPLAY_VERSION || replay.engineVersion !== ENGINE_VERSION || replay.generatorVersion !== GENERATOR_VERSION || replay.policyVersion !== POLICY_VERSION) throw new Error('unsupported_replay');
+    if (!replay || !REPLAY_FORMATS.includes(replay.format) || replay.version !== REPLAY_VERSION || replay.engineVersion !== ENGINE_VERSION || replay.generatorVersion !== GENERATOR_VERSION || replay.policyVersion !== POLICY_VERSION) throw new Error('unsupported_replay');
   }
   static async create(replay, options = {}) {
     ReplayVerifier.assertHeader(replay);

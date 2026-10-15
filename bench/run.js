@@ -1,4 +1,4 @@
-/** Same-engine, matched-seed benchmark. Local policies never masquerade as live JEV. */
+/** Same-engine, matched-seed benchmark. Local policies never masquerade as live Jev. */
 import {createHash} from 'node:crypto';
 import {mkdir, writeFile} from 'node:fs/promises';
 import {resolve} from 'node:path';
@@ -13,7 +13,7 @@ const count = Number(arg('--boards', '50')), preset = arg('--preset', 'beginner'
 const namespace = arg('--seed-set', 'heldout-ms-v1'), remote = args.includes('--remote'), remoteLevel = arg('--difficulty', 'jev');
 const config = loadConfig({...process.env, DEV_LOCAL: '1'});
 if (!Number.isInteger(count) || count < 2 || count > 10000 || !Object.hasOwn(PRESETS,preset) || !['easy','normal','hard','jev'].includes(remoteLevel)) throw new Error('Usage: npm run bench -- --boards 100 --preset beginner [--out path] [--remote --difficulty jev]');
-if (remote && !config.jevKey) throw new Error('--remote requires TYPESAFE_API_KEY. No local substitute will be reported as a live JEV benchmark.');
+if (remote && !config.jevKey) throw new Error('--remote requires TYPESAFE_API_KEY. No local substitute will be reported as a live Jev benchmark.');
 const policies = ['random','easy-local','normal-local','hard-local','jev-local', ...(remote ? [`remote-${remoteLevel}`] : [])];
 const rows = [], traces = [], started = new Date().toISOString();
 const hash = value => createHash('sha256').update(value).digest('hex');
@@ -60,7 +60,7 @@ for(let a=0;a<policies.length;a++)for(let b=a+1;b<policies.length;b++){
  }
  races.push({left:policies[a],right:policies[b],races:wins+losses+draws,wins,losses,draws});
 }
-const metadata={generatedAt:new Date().toISOString(),startedAt:started,seedSet:namespace,preset,boards:count,policies,engineVersion:ENGINE_VERSION,generatorVersion:GENERATOR_VERSION,policyVersion:POLICY_VERSION,model:config.model,remoteRequested:remote,runtime:process.version,method:'Same seeds and opening for each standalone policy. Independent-board race pairs swap seed allocation. One action = 1000 logical ms; compute/service latency reported separately.',limitations:['Local policy results are NOT live JEV results.','This is an implementation baseline, not proof of human-level ability or an externally certified benchmark.','Seed set is deterministic and tunable; do not tune on this held-out namespace and then call it held-out.','Remote failures remain in the results and are counted as fallback; remote calls may incur charges.','Latency depends on this host and run; logical race time deliberately excludes it.']};
+const metadata={generatedAt:new Date().toISOString(),startedAt:started,seedSet:namespace,preset,boards:count,policies,engineVersion:ENGINE_VERSION,generatorVersion:GENERATOR_VERSION,policyVersion:POLICY_VERSION,model:config.model,remoteRequested:remote,runtime:process.version,method:'Same seeds and opening for each standalone policy. Independent-board race pairs swap seed allocation. One action = 1000 logical ms; compute/service latency reported separately.',limitations:['Local policy results are NOT live Jev results.','This is an implementation baseline, not proof of human-level ability or an externally certified benchmark.','Seed set is deterministic and tunable; do not tune on this held-out namespace and then call it held-out.','Remote failures remain in the results and are counted as fallback; remote calls may incur charges.','Latency depends on this host and run; logical race time deliberately excludes it.']};
 await mkdir(output,{recursive:true});
 await writeFile(resolve(output,'runs.jsonl'),rows.map(x=>JSON.stringify(x)).join('\n')+'\n');
 await writeFile(resolve(output,'traces.jsonl'),traces.map(x=>JSON.stringify(x)).join('\n')+'\n');
@@ -68,5 +68,5 @@ await writeFile(resolve(output,'summary.json'),JSON.stringify({metadata,summary,
 await writeFile(resolve(output,'summary.csv'),csv(summary.map(x=>({...x,decisionLatencyMs:JSON.stringify(x.decisionLatencyMs),clearLogicalMs:JSON.stringify(x.clearLogicalMs)}))));
 await writeFile(resolve(output,'races.csv'),csv(races));
 const table=summary.map(x=>`| ${x.policy} | ${x.boards} | ${x.clears} | ${(100*x.clearRate).toFixed(1)}% | ${x.invalid} | ${x.fallback} | ${(x.decisionLatencyMs.p95??0).toFixed(2)} |`).join('\n');
-await writeFile(resolve(output,'report.md'),`# Minesweeper benchmark\n\nGenerated ${metadata.generatedAt}. Runtime ${process.version}.\n\n**${remote?'Includes explicitly requested live TypeSafe calls. Inspect fallbacks before interpreting results.':'LOCAL BASELINES ONLY. No live TypeSafe/JEV calls were made.'}**\n\n${metadata.method}\n\nSeed namespace: \`${namespace}\`. Board preset: \`${preset}\`.\n\n| Policy | Boards | Clears | Clear rate | Invalid | Fallback | Decision p95 (ms) |\n|---|---:|---:|---:|---:|---:|---:|\n${table}\n\nSee summary.json for Wilson intervals, actual clear-only logical times, and swapped independent-board race results. runs.jsonl and traces.jsonl retain every measured game and selected action.\n\n## Limitations\n${metadata.limitations.map(x=>'- '+x).join('\n')}\n`);
+await writeFile(resolve(output,'report.md'),`# SafeSweep benchmark\n\nGenerated ${metadata.generatedAt}. Runtime ${process.version}.\n\n**${remote?'Includes explicitly requested live TypeSafe calls. Inspect fallbacks before interpreting results.':'LOCAL BASELINES ONLY. No live TypeSafe/Jev calls were made.'}**\n\n${metadata.method}\n\nSeed namespace: \`${namespace}\`. Board preset: \`${preset}\`.\n\n| Policy | Boards | Clears | Clear rate | Invalid | Fallback | Decision p95 (ms) |\n|---|---:|---:|---:|---:|---:|---:|\n${table}\n\nSee summary.json for Wilson intervals, actual clear-only logical times, and swapped independent-board race results. runs.jsonl and traces.jsonl retain every measured game and selected action.\n\n## Limitations\n${metadata.limitations.map(x=>'- '+x).join('\n')}\n`);
 console.log(JSON.stringify({output,boards:count,policyRuns:rows.length,raceComparisons:races.length,liveProviderCalls:rows.reduce((s,r)=>s+r.providerAttempts,0)},null,2));

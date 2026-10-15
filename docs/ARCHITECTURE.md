@@ -14,9 +14,9 @@ Guest and Discord-authenticated players use the same single-page interface. New 
 
 `public/shared/engine.js` owns deterministic state transitions. `createMatch`, `generateBoard`, `startMatch`, `getLegalActions`, `applyBoardAction`, `applyMatchAction`, `adjudicate`, and observation projectors are independent of DOM and network. Private state stores dimensions, seeds, commitments, mine/adjacency arrays, flags/reveals, revisions, counts/status, shared time, and outcome. Public projections contain only revealed numbers, covered/flagged states, and public counters. Revealing a mine is a legal losing action. Unsafe chording explodes even when it simultaneously reveals the last safe cell.
 
-## D. JEV decision model
+## D. Jev decision model
 
-The observation-only solver supplies explicit legal candidates. Easy/Normal use direct or direct+subset deductions. Hard/JEV add bounded component enumeration. Exact component assignment distributions are convolved and weighted by compatible global placements. Flags are not assumed correct. Deterministic pruning, protected proofs, risk, continuation score, choice preference, and stable coordinate ordering determine the selected action.
+The observation-only solver supplies explicit legal candidates. Easy/Normal use direct or direct+subset deductions. Hard/Jev add bounded component enumeration. Exact component assignment distributions are convolved and weighted by compatible global placements. Flags are not assumed correct. Deterministic pruning, protected proofs, risk, continuation score, choice preference, and stable coordinate ordering determine the selected action.
 
 ```mermaid
 flowchart TD
@@ -24,14 +24,14 @@ flowchart TD
   L --> S[Bounded visible-state solver]
   S --> C[Finite candidate surface]
   C --> Q[Typed questions]
-  Q --> J[TypeSafe JEV]
+  Q --> J[TypeSafe Jev]
   J --> V[Strict response validation]
   V --> R[Deterministic candidate ranking]
   R --> E[Authoritative rules validation]
   E --> O
 ```
 
-## E. JEV state encoding
+## E. Jev state encoding
 
 Readable covered/flagged/revealed grid, dimensions/mine count, computed constraints, bounded candidates, and policy metadata go to TypeSafe. Never send mine locations, private seeds, hidden adjacency, Discord identity, credentials in state, or truth-derived flag correctness. Requests use Choice for candidate preference, Noul for unknown safety, and Score for continuation. The response is validated against expected keys, probabilities, model, schema, candidates, and revision/hash. Request size is capped at 24 KiB; at most 32 candidates. Selection confidence is not mine safety. Only explicit evidence templates are displayed.
 
@@ -108,7 +108,7 @@ A commands-only guild-installed application receives `/jev play` over signed HTT
 
 ## J. Scoring
 
-Native W/L/D, actual clears, time, command counts, and streaks; no arbitrary points or Elo. Clear-win rate includes draws in the denominator. A JEV explosion alone does not create a human win. First-opening-only clears are excluded from rank. Service-degraded results remain visible as unofficial.
+Native W/L/D, actual clears, time, command counts, and streaks; no arbitrary points or Elo. Clear-win rate includes draws in the denominator. A Jev explosion alone does not create a human win. First-opening-only clears are excluded from rank. Service-degraded results remain visible as unofficial.
 
 ## K. Leaderboards
 
@@ -152,7 +152,7 @@ Desktop: side-by-side human/opponent boards and a structured decision panel, the
 
 ## R. Dependencies
 
-Production: Cloudflare Workers, D1 and Static Assets (Web APIs and Web Crypto only; no `nodejs_compat`). Actual JEV uses the TypeSafe service; authentication uses Discord. Local development needs Node 22.16+ (built-in `node:sqlite`). The browser has no third-party runtime scripts. Wrangler is fetched by `npx` at deploy time and is not a project dependency. Python Playwright/Chromium are optional development-only UI-test tools.
+Production: Cloudflare Workers, D1 and Static Assets (Web APIs and Web Crypto only; no `nodejs_compat`). Actual Jev uses the TypeSafe service; authentication uses Discord. Local development needs Node 22.16+ (built-in `node:sqlite`). The browser has no third-party runtime scripts. Wrangler is fetched by `npx` at deploy time and is not a project dependency. Python Playwright/Chromium are optional development-only UI-test tools.
 
 ## S. Tests
 
@@ -160,19 +160,19 @@ Rules, deterministic generation vectors, actions/chords/race boundaries, observa
 
 ## T. Benchmarking
 
-`bench/run.js` runs identical committed board inputs across deterministic random, easy-local, normal-local, hard-local, and jev-local policies. Independent-board race comparisons pair and swap layouts. Logical one-second action time is separate from measured computation latency. Explicit `--remote` adds real provider calls only with a supplied key. Output includes every game/action trace, summary CSV/JSON, Wilson clear intervals, and race tables. The bundled run is 500 **local** games; do not relabel it as JEV strength. `bench/cpu.js` (`npm run bench:cpu`) measures the CPU of each hot request path against the 10 ms Workers budget and writes `reports/cpu/`.
+`bench/run.js` runs identical committed board inputs across deterministic random, easy-local, normal-local, hard-local, and jev-local policies. Independent-board race comparisons pair and swap layouts. Logical one-second action time is separate from measured computation latency. Explicit `--remote` adds real provider calls only with a supplied key. Output includes every game/action trace, summary CSV/JSON, Wilson clear intervals, and race tables. The bundled run is 500 **local** games; do not relabel it as Jev strength. `bench/cpu.js` (`npm run bench:cpu`) measures the CPU of each hot request path against the 10 ms Workers budget and writes `reports/cpu/`.
 
 ## U. Deployment
 
-Cloudflare Workers Free + D1 + Static Assets at `minesweeper.jevplay.games`; see `DEPLOYMENT.md` for the operator steps, the Free-plan budget and the CPU measurements. It is not a distributed tournament platform: capacity is bounded by 100 k Worker requests/day, D1's write allowance and the 10 ms CPU limit, with durable daily caps in front of them.
+Cloudflare Workers Free + D1 + Static Assets at `safesweep.jevplay.games` (and the pre-rename `minesweeper.jevplay.games` until the cutover); see `DEPLOYMENT.md` for the operator steps, the Free-plan budget and the CPU measurements. It is not a distributed tournament platform: capacity is bounded by 100 k Worker requests/day, D1's write allowance and the 10 ms CPU limit, with durable daily caps in front of them.
 
 ## V. Implementation phases delivered
 
-Core engine; local UI; authoritative coordinator and persistence; solver/JEV boundary; replay verification; detailed analytics and exports; Discord identity/context; scoped standings; browser/HTTP regression checks; local baseline benchmark; deployment documentation. These are implemented in the package. Live credential, Cloudflare deployment, real browser direct-navigation integration, and production load validation are **deployment gates still to run**, not completed release claims.
+Core engine; local UI; authoritative coordinator and persistence; solver/Jev boundary; replay verification; detailed analytics and exports; Discord identity/context; scoped standings; browser/HTTP regression checks; local baseline benchmark; deployment documentation. These are implemented in the package. Live credential, Cloudflare deployment, real browser direct-navigation integration, and production load validation are **deployment gates still to run**, not completed release claims.
 
 ## W. Risks and open questions
 
-Actual remote JEV strength/latency is unmeasured here. Layout randomness affects individual races. Browser assistance cannot be ruled out. Provider availability/schema changes need smoke testing. The Free plan bounds scale (requests/day, D1 writes, 500 MB database); CPU measurements are from Node's V8, not workerd, and a cold isolate is slower than a warm one. Applied-decision token usage is not a complete billing ledger. Audit retention and cached operational reports have explicit coverage limits. Guild context does not provide continuous membership revocation. No external security certification or production load test was performed.
+Actual remote Jev strength/latency is unmeasured here. Layout randomness affects individual races. Browser assistance cannot be ruled out. Provider availability/schema changes need smoke testing. The Free plan bounds scale (requests/day, D1 writes, 500 MB database); CPU measurements are from Node's V8, not workerd, and a cold isolate is slower than a warm one. Applied-decision token usage is not a complete billing ledger. Audit retention and cached operational reports have explicit coverage limits. Guild context does not provide continuous membership revocation. No external security certification or production load test was performed.
 
 ## X. Simplification pass
 
@@ -180,8 +180,8 @@ Removed third-party runtime packages, bundlers, ORMs, generic agent frameworks, 
 
 ## Y. Deployable functional scope
 
-Playable two-board races with three presets/four reasoning levels; clearly labeled local and actual-provider paths; private detailed analytics and exports; login/community launch; verified standings; local replay; tests and benchmark scripts. A host must configure and validate external services before advertising official remote-JEV rankings.
+Playable two-board races with three presets/four reasoning levels; clearly labeled local and actual-provider paths; private detailed analytics and exports; login/community launch; verified standings; local replay; tests and benchmark scripts. A host must configure and validate external services before advertising official remote-Jev rankings.
 
 ## Z. Next implementation step
 
-On the intended deployment runtime, start a staging instance with actual TypeSafe and Discord credentials. Complete one signed Discord launch, a real JEV match, a scoped leaderboard qualification fixture, a provider-timeout failure, and an owner-only export/replay check through a normally navigating browser. Record observed latency/usage and test results before enabling public ranked admission.
+On the intended deployment runtime, start a staging instance with actual TypeSafe and Discord credentials. Complete one signed Discord launch, a real Jev match, a scoped leaderboard qualification fixture, a provider-timeout failure, and an owner-only export/replay check through a normally navigating browser. Record observed latency/usage and test results before enabling public ranked admission.

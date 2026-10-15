@@ -4,7 +4,7 @@
  *   env.DB      D1 database            env.ASSETS  static assets (public/)
  *   env.FETCH   optional fetch override (tests)   env.CLOCK  optional clock override (tests)
  */
-import {loadConfig, gameConfig, competitionKey, now as clock} from './config.js';
+import {loadConfig, forRequest, gameConfig, competitionKey, now as clock} from './config.js';
 import {Store} from './db.js';
 import {getSession, ownerKey, csrf, httpError, equal, securityHeaders, allowDiscordFraming, hasBearerSession, RateLimiter, sessionCookie, hash} from './security.js';
 import {discordReady, loginUrl, oauthCallback, interaction, resolveContext, authorizeScope} from './discord.js';
@@ -140,12 +140,12 @@ async function route(app, request, url, out) {
   }
   if (method === 'GET' && route === '/api/exports/history.csv') {
     const rows = (await store.all(`SELECT ${HISTORY_COLUMNS} FROM matches WHERE owner_key=? ORDER BY created_at`, owner)).map(publicRow);
-    return file(200, csv(rows), 'text/csv; charset=utf-8', 'minesweeper-history.csv');
+    return file(200, csv(rows), 'text/csv; charset=utf-8', 'safesweep-history.csv');
   }
   if (method === 'GET' && route === '/api/exports/me.json') {
     const rows = (await store.all(`SELECT ${HISTORY_COLUMNS} FROM matches WHERE owner_key=? ORDER BY created_at`, owner)).map(publicRow);
     const user = session.user_id ? await store.get('SELECT discord_id,display_name,avatar_hash,created_at,last_seen_at FROM users WHERE discord_id=?', session.user_id) : null;
-    return file(200, JSON.stringify({exportVersion: 1, user, matches: rows, summary: aggregateMatches(rows), note: 'Full sealed replays and detailed per-match analytics have separate owner-only export endpoints. Active layouts and session secrets are never exported.'}), 'application/json; charset=utf-8', 'minesweeper-profile.json');
+    return file(200, JSON.stringify({exportVersion: 1, user, matches: rows, summary: aggregateMatches(rows), note: 'Full sealed replays and detailed per-match analytics have separate owner-only export endpoints. Active layouts and session secrets are never exported.'}), 'application/json; charset=utf-8', 'safesweep-profile.json');
   }
   if (method === 'POST' && route === '/api/matches') {
     const body = jsonBody(await readBody(request), request); keysOnly(body, ['requestId','boardPreset','aiDifficulty','mode','context','launchTicket']); requestId(body.requestId);
@@ -186,7 +186,7 @@ async function route(app, request, url, out) {
 }
 export async function handle(request, env, ctx) {
   let config;
-  try { config = loadConfig(env); if (!env.DB) throw new Error('DB binding missing'); }
+  try { config = forRequest(loadConfig(env), request); if (!env.DB) throw new Error('DB binding missing'); }
   catch (e) { console.error(JSON.stringify({event: 'configuration_error', message: e.message})); return json(503, {error: {code: 'server_configuration_required', message: 'The server is not configured.'}}); }
   const app = {env, config, store: new Store(env.DB), fetch: env.FETCH ?? ((...args) => fetch(...args)), now: () => clock(env), waitUntil: promise => { if (ctx?.waitUntil) ctx.waitUntil(promise); else promise.catch(() => {}); }};
   const out = {cookies: [], document: false}, url = new URL(request.url);

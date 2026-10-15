@@ -21,10 +21,10 @@ External documentation reviewed on **September22,2026**. These references suppor
 
 ## User-supplied basis
 
-`original-request.md` is an unchanged copy of the uploaded JEV single-page game architecture prompt. The user's follow-up requested an implementation ZIP with exhaustive analytics. The implementation preserves the two-board variant and separates server trust from client presentation. Differences from the earlier proposed plan are documented: built-in SQLite instead of a third-party package, opaque fragment launch tickets instead of JWTs, three board presets included, comprehensive analytic modules, and no production SDK dependencies.
+`original-request.md` is an unchanged copy of the uploaded Jev single-page game architecture prompt. The user's follow-up requested an implementation ZIP with exhaustive analytics. The implementation preserves the two-board variant and separates server trust from client presentation. Differences from the earlier proposed plan are documented: built-in SQLite instead of a third-party package, opaque fragment launch tickets instead of JWTs, three board presets included, comprehensive analytic modules, and no production SDK dependencies.
 
 ## Measurement evidence
 
-`reports/tests.tap` and `reports/coverage.txt` contain executed Node test output. `reports/browser/` contains the measured Chromium DOM-bridge report and screenshots; it is not evidence of a normally navigating browser's live OAuth or native SSE behavior. Node tests separately exercise native HTTP/SSE. `reports/benchmark/` records deterministic local-policy measurements only. `reports/sample/` is a labeled scripted regression fixture, never an actual player record or live JEV benchmark.
+`reports/tests.tap` and `reports/coverage.txt` contain executed Node test output. `reports/browser/` contains the measured Chromium DOM-bridge report and screenshots; it is not evidence of a normally navigating browser's live OAuth or native SSE behavior. Node tests separately exercise native HTTP/SSE. `reports/benchmark/` records deterministic local-policy measurements only. `reports/sample/` is a labeled scripted regression fixture, never an actual player record or live Jev benchmark.
 
 No real Discord or TypeSafe credentials were supplied or used. No image/font assets were fetched from the sources above. Model capability, production latency and successful third-party authorization remain unverified until the operator runs staging checks.

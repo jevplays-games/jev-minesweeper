@@ -1,3 +1,5 @@
+> Historical source prompt, kept unchanged. It predates the jevplay.games rebrand (JEV Arcade -> jevplay.games, Minesweeper -> SafeSweep, JEV -> Jev).
+
 # JEV Single-Page Game — Architecture & Implementation Planning Prompt
 
 You are a senior game engineer, web architect, security engineer, and JEV/TypeSafe AI integration engineer.
