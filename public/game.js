@@ -102,7 +102,11 @@ function drawLive(){
   const target=snapshot?snapshot.config.width*snapshot.config.height-snapshot.config.mineCount:71,maxTime=Math.max(1000,...livePoints.map(p=>p.atMs));
   const gridStroke=token('--line'),axisText=token('--muted');ctx.clearRect(0,0,width,height);ctx.font='10px system-ui';ctx.fillStyle=axisText;ctx.strokeStyle=gridStroke;ctx.lineWidth=1;
   for(let i=0;i<=4;i++){const y=Math.round(top+(height-top-bottom)*i/4)+.5;ctx.beginPath();ctx.moveTo(left,y);ctx.lineTo(width-right,y);ctx.stroke();ctx.fillText(String(Math.round(target*(1-i/4))),3,y+3);}
-  for(let i=0;i<=4;i++){const x=left+(width-left-right)*i/4;ctx.fillText(`${(maxTime*i/4000).toFixed(0)}s`,x-5,height-9);}
+  // Time ticks sit on a whole-second step at their true positions. Rounding equal quarters of the elapsed time repeated labels
+  // ("0s 1s 1s 2s") and printed each one away from the instant it marked. Steps of a minute or more are labelled in minutes.
+  const span=maxTime/1000,step=[1,2,3,5,10,15,20,30,60,120,180,300,600].find(s=>span/s<=6)??900;ctx.textAlign='center';
+  for(let s=0;s<=span;s+=step)ctx.fillText(step>=60?`${s/60}m`:`${s}s`,left+s*1000/maxTime*(width-left-right),height-9);
+  ctx.textAlign='start';
   for(const [key,color,dash]of[['humanSafe',token('--chart-human'),[]],['jevSafe',token('--chart-jev'),[6,4]]]){ctx.setLineDash(dash);ctx.strokeStyle=color;ctx.lineWidth=2;ctx.beginPath();livePoints.forEach((p,i)=>{const x=left+p.atMs/maxTime*(width-left-right),y=top+(1-p[key]/target)*(height-top-bottom);if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);});ctx.stroke();ctx.setLineDash([]);const last=livePoints.at(-1);if(last){ctx.fillStyle=color;ctx.beginPath();ctx.arc(left+last.atMs/maxTime*(width-left-right),top+(1-last[key]/target)*(height-top-bottom),3,0,Math.PI*2);ctx.fill();}}
   if(!livePoints.length){ctx.fillStyle=token('--text');ctx.font='12px system-ui';ctx.fillText('Start a match to see the race develop.',left+12,110);}
   table($('liveData'),['Event','Elapsed','Your safe cells','Opponent safe cells'],livePoints.map(p=>[p.seq,ms(p.atMs),p.humanSafe,p.jevSafe]));
