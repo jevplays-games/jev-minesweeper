@@ -9,6 +9,7 @@
     <path d="M23 17H35V21H39V25H43V29H35V33H23Z" fill="#F386A1"/>
     <rect x="39" y="25" width="4" height="4" fill="#E551BA"/>
     <rect x="31" y="35" width="20" height="16" fill="#1E1E1E"/>
-    <path d="M35 39H39V43H43V39H47V47H39V43H35Z" fill="#FEFEFE"/>
+    <!-- The og card's stepped check mark (assets/src/og.html), scaled 0.75 into the ink square. -->
+    <path transform="translate(31.625 33.625) scale(.75)" d="M3 10h5v5h4V7h5V3h5v9h-5v5h-5v5H8v-5H3z" fill="#FEFEFE"/>
   </g>
 </svg>

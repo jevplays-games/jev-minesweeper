@@ -28,11 +28,6 @@
       "gzipBytes": 1718
     },
     {
-      "file": "public/favicon.svg",
-      "bytes": 309,
-      "gzipBytes": 198
-    },
-    {
       "file": "shared/analytics.js",
       "bytes": 20235,
       "gzipBytes": 6536
@@ -58,7 +53,8 @@
       "gzipBytes": 3449
     }
   ],
-  "totalBytes": 126960,
-  "totalGzipBytes": 41434,
-  "runtimeNpmDependencies": 0
+  "totalBytes": 126651,
+  "totalGzipBytes": 41236,
+  "runtimeNpmDependencies": 0,
+  "note": "public/favicon.svg (309 bytes, 198 gzip) removed from this 2026-09-22 measurement on 2026-10-14: the file was deleted in the jevplay.games rebrand (it duplicated public/brand/icon.svg). Totals adjusted by subtraction; other entries not re-measured."
 }

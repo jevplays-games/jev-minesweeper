@@ -1,11 +1,11 @@
 {
   "analyticsVersion": "ms-analytics-1.1.0",
-  "matchId": "2885c517-71b1-4346-9a50-f0ee41f28e45",
+  "matchId": "7f9aeb76-9aea-4d5b-96cc-2f84dafc724d",
   "generatedFrom": "sealed authoritative event replay",
   "metadata": {
-    "createdAt": 1792022705832,
-    "startedAt": 1792022705930,
-    "finishedAt": 1792022709617,
+    "createdAt": 1792023570705,
+    "startedAt": 1792023570804,
+    "finishedAt": 1792023574758,
     "competitionKey": "ms-race-1.0.0|ms-policy-1.1.0|jev-1.13.0|beginner|jev|1000|100",
     "eligible": false,
     "eligibilityReasons": [
@@ -36,19 +36,19 @@
   "result": {
     "outcome": "loss",
     "reason": "resigned",
-    "finishedAtMs": 3687,
+    "finishedAtMs": 3954,
     "openingOnly": false,
     "humanStatus": "active",
     "jevStatus": "active",
-    "humanRevealed": 52,
-    "jevRevealed": 61,
+    "humanRevealed": 35,
+    "jevRevealed": 49,
     "humanClearMs": null,
     "jevClearMs": null
   },
   "match": {
-    "durationMs": 3687,
-    "acceptedEvents": 5,
-    "acceptedCommands": 3,
+    "durationMs": 3954,
+    "acceptedEvents": 6,
+    "acceptedCommands": 4,
     "mineDensity": 0.12345679012345678,
     "independentLayouts": true
   },
@@ -61,12 +61,12 @@
       "chords": 0,
       "safeChords": 0,
       "unsafeChords": 0,
-      "correctFlagPlacements": 0,
-      "incorrectFlagPlacements": 1,
-      "incorrectFlagsRemoved": 1,
-      "correctFlagsRemoved": 0,
+      "correctFlagPlacements": 1,
+      "incorrectFlagPlacements": 0,
+      "incorrectFlagsRemoved": 0,
+      "correctFlagsRemoved": 1,
       "safeCellsFromActions": 0,
-      "safeCellsFromOpening": 52,
+      "safeCellsFromOpening": 35,
       "zeroExpansionActions": 0,
       "zeroExpansionCells": 0,
       "uncertainRevealActions": 0,
@@ -164,8 +164,26 @@
         "revealAtMs": [
           null,
           null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
           0,
           0,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
           0,
           0,
           0,
@@ -173,30 +191,6 @@
           0,
           null,
           null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
           0,
           0,
           0,
@@ -219,12 +213,12 @@
           0,
           0,
           0,
+          0,
+          0,
+          0,
           null,
-          null,
-          null,
-          null,
-          null,
-          null,
+          0,
+          0,
           0,
           0,
           null,
@@ -234,8 +228,14 @@
           null,
           null,
           null,
-          0,
-          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
           null,
           null,
           null,
@@ -413,12 +413,12 @@
       },
       "terminalAtMs": null,
       "status": "active",
-      "activeMs": 3687,
-      "revealedSafe": 52,
-      "safeCompletionRate": 0.7323943661971831,
+      "activeMs": 3954,
+      "revealedSafe": 35,
+      "safeCompletionRate": 0.49295774647887325,
       "clearMs": null,
       "revealedMineCells": 0,
-      "unrevealedSafeCells": 19,
+      "unrevealedSafeCells": 36,
       "flagsAtEnd": 0,
       "correctFlagsAtEnd": 0,
       "incorrectFlagsAtEnd": 0,
@@ -426,11 +426,11 @@
       "flagPrecision": null,
       "flagRecall": 0,
       "flagF1": 0,
-      "flagPlacementPrecision": 0,
+      "flagPlacementPrecision": 1,
       "flagChurn": 1,
-      "firstActionMs": 1343,
-      "lastActionMs": 1652,
-      "commandsPerSecond": 0.5424464334147003,
+      "firstActionMs": 1344,
+      "lastActionMs": 1657,
+      "commandsPerSecond": 0.5058168942842691,
       "safeCellsPerAction": 0,
       "revealYield": {
         "count": 2,
@@ -446,17 +446,17 @@
       },
       "inputGapMs": {
         "count": 2,
-        "sum": 1652,
-        "min": 309,
-        "max": 1343,
-        "mean": 826,
-        "p50": 826,
-        "p90": 1239.6,
-        "p95": 1291.3,
-        "p99": 1332.6599999999999,
-        "populationStdDev": 517
+        "sum": 1657,
+        "min": 313,
+        "max": 1344,
+        "mean": 828.5,
+        "p50": 828.5,
+        "p90": 1240.9,
+        "p95": 1292.4499999999998,
+        "p99": 1333.69,
+        "populationStdDev": 515.5
       },
-      "maximumIdleGapMs": 1343,
+      "maximumIdleGapMs": 1344,
       "idleGapsOver2s": 0,
       "idleGapsOver5s": 0,
       "idleGapsOver10s": 0,
@@ -490,46 +490,46 @@
       },
       "frontierSize": {
         "count": 2,
-        "sum": 10,
-        "min": 5,
-        "max": 5,
-        "mean": 5,
-        "p50": 5,
-        "p90": 5,
-        "p95": 5,
-        "p99": 5,
+        "sum": 0,
+        "min": 0,
+        "max": 0,
+        "mean": 0,
+        "p50": 0,
+        "p90": 0,
+        "p95": 0,
+        "p99": 0,
         "populationStdDev": 0
       },
       "largestComponent": {
         "count": 2,
-        "sum": 6,
-        "min": 3,
-        "max": 3,
-        "mean": 3,
-        "p50": 3,
-        "p90": 3,
-        "p95": 3,
-        "p99": 3,
+        "sum": 0,
+        "min": 0,
+        "max": 0,
+        "mean": 0,
+        "p50": 0,
+        "p90": 0,
+        "p95": 0,
+        "p99": 0,
         "populationStdDev": 0
       },
       "provenSafeOptions": {
         "count": 2,
-        "sum": 14,
-        "min": 7,
-        "max": 7,
-        "mean": 7,
-        "p50": 7,
-        "p90": 7,
-        "p95": 7,
-        "p99": 7,
+        "sum": 34,
+        "min": 17,
+        "max": 17,
+        "mean": 17,
+        "p50": 17,
+        "p90": 17,
+        "p95": 17,
+        "p99": 17,
         "populationStdDev": 0
       },
       "threeBVPerSecondOnClear": null,
       "explodedCell": null
     },
     "jev": {
-      "actions": 1,
-      "reveals": 1,
+      "actions": 2,
+      "reveals": 2,
       "flagsPlaced": 0,
       "flagsRemoved": 0,
       "chords": 0,
@@ -539,18 +539,18 @@
       "incorrectFlagPlacements": 0,
       "incorrectFlagsRemoved": 0,
       "correctFlagsRemoved": 0,
-      "safeCellsFromActions": 1,
-      "safeCellsFromOpening": 60,
+      "safeCellsFromActions": 2,
+      "safeCellsFromOpening": 47,
       "zeroExpansionActions": 0,
       "zeroExpansionCells": 0,
       "uncertainRevealActions": 0,
-      "provenSafeRevealActions": 1,
+      "provenSafeRevealActions": 2,
       "knownMineRevealActions": 0,
       "uncertainSurvivals": 0,
       "uncertainExplosions": 0,
       "uncertainRevealsWhileProvenSafeAvailable": 0,
       "explodedWhileProvenSafeAvailable": 0,
-      "exactRiskCoveredActions": 1,
+      "exactRiskCoveredActions": 2,
       "heatmaps": {
         "commands": [
           0,
@@ -614,6 +614,10 @@
           0,
           0,
           0,
+          1,
+          0,
+          0,
+          0,
           0,
           0,
           0,
@@ -629,56 +633,14 @@
           0,
           0,
           0,
-          0,
-          0,
-          0,
-          0,
           0
         ],
         "revealAtMs": [
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
           null,
           null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
+          null,
+          null,
+          null,
           null,
           null,
           null,
@@ -700,7 +662,7 @@
           0,
           0,
           null,
-          2915,
+          null,
           0,
           0,
           0,
@@ -710,6 +672,44 @@
           0,
           null,
           null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          null,
+          2914,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          3914,
+          null,
+          null,
+          null,
+          0,
+          0,
           null,
           null,
           null,
@@ -887,12 +887,12 @@
       },
       "terminalAtMs": null,
       "status": "active",
-      "activeMs": 3687,
-      "revealedSafe": 61,
-      "safeCompletionRate": 0.8591549295774648,
+      "activeMs": 3954,
+      "revealedSafe": 49,
+      "safeCompletionRate": 0.6901408450704225,
       "clearMs": null,
       "revealedMineCells": 0,
-      "unrevealedSafeCells": 10,
+      "unrevealedSafeCells": 22,
       "flagsAtEnd": 0,
       "correctFlagsAtEnd": 0,
       "incorrectFlagsAtEnd": 0,
@@ -902,13 +902,13 @@
       "flagF1": 0,
       "flagPlacementPrecision": null,
       "flagChurn": 0,
-      "firstActionMs": 2915,
-      "lastActionMs": 2915,
-      "commandsPerSecond": 0.27122321670735017,
+      "firstActionMs": 2914,
+      "lastActionMs": 3914,
+      "commandsPerSecond": 0.5058168942842691,
       "safeCellsPerAction": 1,
       "revealYield": {
-        "count": 1,
-        "sum": 1,
+        "count": 2,
+        "sum": 2,
         "min": 1,
         "max": 1,
         "mean": 1,
@@ -919,18 +919,18 @@
         "populationStdDev": 0
       },
       "inputGapMs": {
-        "count": 1,
-        "sum": 2915,
-        "min": 2915,
-        "max": 2915,
-        "mean": 2915,
-        "p50": 2915,
-        "p90": 2915,
-        "p95": 2915,
-        "p99": 2915,
-        "populationStdDev": 0
+        "count": 2,
+        "sum": 3914,
+        "min": 1000,
+        "max": 2914,
+        "mean": 1957,
+        "p50": 1957,
+        "p90": 2722.6000000000004,
+        "p95": 2818.3,
+        "p99": 2894.8599999999997,
+        "populationStdDev": 957
       },
-      "maximumIdleGapMs": 2915,
+      "maximumIdleGapMs": 2914,
       "idleGapsOver2s": 1,
       "idleGapsOver5s": 0,
       "idleGapsOver10s": 0,
@@ -939,7 +939,7 @@
       "proofCoverage": 1,
       "exactRiskCoverage": 1,
       "exactChosenRisk": {
-        "count": 1,
+        "count": 2,
         "sum": 0,
         "min": 0,
         "max": 0,
@@ -951,7 +951,7 @@
         "populationStdDev": 0
       },
       "knownAlternativeRiskRegret": {
-        "count": 1,
+        "count": 2,
         "sum": 0,
         "min": 0,
         "max": 0,
@@ -963,40 +963,40 @@
         "populationStdDev": 0
       },
       "frontierSize": {
-        "count": 1,
-        "sum": 0,
+        "count": 2,
+        "sum": 5,
         "min": 0,
-        "max": 0,
-        "mean": 0,
-        "p50": 0,
-        "p90": 0,
-        "p95": 0,
-        "p99": 0,
-        "populationStdDev": 0
+        "max": 5,
+        "mean": 2.5,
+        "p50": 2.5,
+        "p90": 4.5,
+        "p95": 4.75,
+        "p99": 4.95,
+        "populationStdDev": 2.5
       },
       "largestComponent": {
-        "count": 1,
-        "sum": 0,
+        "count": 2,
+        "sum": 5,
         "min": 0,
-        "max": 0,
-        "mean": 0,
-        "p50": 0,
-        "p90": 0,
-        "p95": 0,
-        "p99": 0,
-        "populationStdDev": 0
+        "max": 5,
+        "mean": 2.5,
+        "p50": 2.5,
+        "p90": 4.5,
+        "p95": 4.75,
+        "p99": 4.95,
+        "populationStdDev": 2.5
       },
       "provenSafeOptions": {
-        "count": 1,
-        "sum": 9,
-        "min": 9,
-        "max": 9,
-        "mean": 9,
-        "p50": 9,
-        "p90": 9,
-        "p95": 9,
-        "p99": 9,
-        "populationStdDev": 0
+        "count": 2,
+        "sum": 27,
+        "min": 13,
+        "max": 14,
+        "mean": 13.5,
+        "p50": 13.5,
+        "p90": 13.9,
+        "p95": 13.95,
+        "p99": 13.99,
+        "populationStdDev": 0.5
       },
       "threeBVPerSecondOnClear": null,
       "explodedCell": null
@@ -1010,11 +1010,11 @@
       "mineCount": 10,
       "mineDensity": 0.12345679012345678,
       "safeCellCount": 71,
-      "zeroCells": 25,
+      "zeroCells": 20,
       "adjacencyHistogram": [
-        25,
-        31,
-        13,
+        20,
+        40,
+        9,
         2,
         0,
         0,
@@ -1022,23 +1022,23 @@
         0,
         0
       ],
-      "zeroRegions": 2,
+      "zeroRegions": 4,
       "openingSizeDistribution": {
-        "count": 2,
-        "sum": 58,
-        "min": 6,
-        "max": 52,
-        "mean": 29,
-        "p50": 29,
-        "p90": 47.4,
-        "p95": 49.699999999999996,
-        "p99": 51.54,
-        "populationStdDev": 23
+        "count": 4,
+        "sum": 57,
+        "min": 4,
+        "max": 35,
+        "mean": 14.25,
+        "p50": 9,
+        "p90": 28.100000000000005,
+        "p95": 31.54999999999999,
+        "p99": 34.309999999999995,
+        "populationStdDev": 12.336429791475327
       },
-      "isolatedNumberCells": 13,
-      "threeBV": 15,
-      "edgeMines": 3,
-      "cornerMines": 0,
+      "isolatedNumberCells": 14,
+      "threeBV": 18,
+      "edgeMines": 4,
+      "cornerMines": 1,
       "firstCell": 40,
       "firstCellRow": 5,
       "firstCellColumn": 5
@@ -1050,13 +1050,13 @@
       "mineCount": 10,
       "mineDensity": 0.12345679012345678,
       "safeCellCount": 71,
-      "zeroCells": 36,
+      "zeroCells": 31,
       "adjacencyHistogram": [
-        36,
-        23,
-        11,
+        31,
+        27,
+        13,
         0,
-        1,
+        0,
         0,
         0,
         0,
@@ -1065,20 +1065,20 @@
       "zeroRegions": 2,
       "openingSizeDistribution": {
         "count": 2,
-        "sum": 66,
-        "min": 6,
-        "max": 60,
-        "mean": 33,
-        "p50": 33,
-        "p90": 54.6,
-        "p95": 57.3,
-        "p99": 59.46,
-        "populationStdDev": 27
+        "sum": 57,
+        "min": 10,
+        "max": 47,
+        "mean": 28.5,
+        "p50": 28.5,
+        "p90": 43.300000000000004,
+        "p95": 45.15,
+        "p99": 46.63,
+        "populationStdDev": 18.5
       },
-      "isolatedNumberCells": 6,
-      "threeBV": 8,
+      "isolatedNumberCells": 16,
+      "threeBV": 18,
       "edgeMines": 7,
-      "cornerMines": 0,
+      "cornerMines": 1,
       "firstCell": 40,
       "firstCellRow": 5,
       "firstCellColumn": 5
@@ -1086,21 +1086,21 @@
   },
   "race": {
     "humanAheadMs": 0,
-    "jevAheadMs": 3687,
+    "jevAheadMs": 3954,
     "tiedMs": 0,
     "leadChanges": 0,
     "humanPeakLeadCells": 0,
-    "jevPeakLeadCells": 9,
-    "humanLeadAreaCellMs": -30268
+    "jevPeakLeadCells": 14,
+    "humanLeadAreaCellMs": -48528
   },
   "opponent": {
-    "decisions": 1,
+    "decisions": 2,
     "sourceCounts": {
-      "local": 1
+      "local": 2
     },
     "remoteDecisions": 0,
     "forcedDecisions": 0,
-    "localDecisions": 1,
+    "localDecisions": 2,
     "fallbackDecisions": 0,
     "fallbackReasons": {},
     "providerAttempts": 0,
@@ -1108,16 +1108,16 @@
     "retryCount": 0,
     "invalidResponseCount": 0,
     "latencyMs": {
-      "count": 1,
-      "sum": 1.5496249999996508,
-      "min": 1.5496249999996508,
-      "max": 1.5496249999996508,
-      "mean": 1.5496249999996508,
-      "p50": 1.5496249999996508,
-      "p90": 1.5496249999996508,
-      "p95": 1.5496249999996508,
-      "p99": 1.5496249999996508,
-      "populationStdDev": 0
+      "count": 2,
+      "sum": 3.2436259999813046,
+      "min": 1.3954169999924488,
+      "max": 1.8482089999888558,
+      "mean": 1.6218129999906523,
+      "p50": 1.6218129999906523,
+      "p90": 1.802929799989215,
+      "p95": 1.8255693999890354,
+      "p99": 1.8436810799888916,
+      "populationStdDev": 0.22639599999820348
     },
     "providerLatencyMs": {
       "count": 0,
@@ -1132,56 +1132,56 @@
       "populationStdDev": null
     },
     "solverMs": {
-      "count": 1,
-      "sum": 1.0092919999988226,
-      "min": 1.0092919999988226,
-      "max": 1.0092919999988226,
-      "mean": 1.0092919999988226,
-      "p50": 1.0092919999988226,
-      "p90": 1.0092919999988226,
-      "p95": 1.0092919999988226,
-      "p99": 1.0092919999988226,
-      "populationStdDev": 0
+      "count": 2,
+      "sum": 1.1456239999970421,
+      "min": 0.5705829999933485,
+      "max": 0.5750410000036936,
+      "mean": 0.5728119999985211,
+      "p50": 0.5728119999985211,
+      "p90": 0.5745952000026591,
+      "p95": 0.5748181000031763,
+      "p99": 0.5749964200035902,
+      "populationStdDev": 0.0022290000051725656
     },
     "candidates": {
-      "count": 1,
-      "sum": 9,
-      "min": 9,
-      "max": 9,
-      "mean": 9,
-      "p50": 9,
-      "p90": 9,
-      "p95": 9,
-      "p99": 9,
-      "populationStdDev": 0
+      "count": 2,
+      "sum": 27,
+      "min": 13,
+      "max": 14,
+      "mean": 13.5,
+      "p50": 13.5,
+      "p90": 13.9,
+      "p95": 13.95,
+      "p99": 13.99,
+      "populationStdDev": 0.5
     },
     "legalActions": {
-      "count": 1,
-      "sum": 42,
-      "min": 42,
-      "max": 42,
-      "mean": 42,
-      "p50": 42,
-      "p90": 42,
-      "p95": 42,
-      "p99": 42,
-      "populationStdDev": 0
+      "count": 2,
+      "sum": 134,
+      "min": 66,
+      "max": 68,
+      "mean": 67,
+      "p50": 67,
+      "p90": 67.8,
+      "p95": 67.9,
+      "p99": 67.98,
+      "populationStdDev": 1
     },
     "solverNodes": {
-      "count": 1,
-      "sum": 0,
+      "count": 2,
+      "sum": 49,
       "min": 0,
-      "max": 0,
-      "mean": 0,
-      "p50": 0,
-      "p90": 0,
-      "p95": 0,
-      "p99": 0,
-      "populationStdDev": 0
+      "max": 49,
+      "mean": 24.5,
+      "p50": 24.5,
+      "p90": 44.1,
+      "p95": 46.55,
+      "p99": 48.51,
+      "populationStdDev": 24.5
     },
     "exactEnumerationRate": 1,
     "solverCutoffReasons": {
-      "none": 1
+      "none": 2
     },
     "choiceConfidence": {
       "count": 0,
@@ -1196,19 +1196,19 @@
       "populationStdDev": null
     },
     "selectedRiskSource": {
-      "proof": 1
+      "proof": 2
     },
     "requestBytes": {
-      "count": 1,
-      "sum": 6281,
-      "min": 6281,
-      "max": 6281,
-      "mean": 6281,
-      "p50": 6281,
-      "p90": 6281,
-      "p95": 6281,
-      "p99": 6281,
-      "populationStdDev": 0
+      "count": 2,
+      "sum": 18250,
+      "min": 8855,
+      "max": 9395,
+      "mean": 9125,
+      "p50": 9125,
+      "p90": 9341,
+      "p95": 9368,
+      "p99": 9389.6,
+      "populationStdDev": 270
     },
     "tokenUsage": {
       "inputTokens": 0,
@@ -1441,15 +1441,15 @@
     "schedulingMisses": 1,
     "requestLatencyMs": {
       "count": 4,
-      "sum": 3,
+      "sum": 4,
       "min": 0,
-      "max": 1,
-      "mean": 0.75,
+      "max": 2,
+      "mean": 1,
       "p50": 1,
-      "p90": 1,
-      "p95": 1,
-      "p99": 1,
-      "populationStdDev": 0.4330127018922193
+      "p90": 1.7000000000000002,
+      "p95": 1.8499999999999996,
+      "p99": 1.9699999999999998,
+      "populationStdDev": 0.7071067811865476
     }
   },
   "timeline": [
@@ -1458,53 +1458,64 @@
       "atMs": 0,
       "actor": "human",
       "event": "start",
-      "humanSafe": 52,
-      "jevSafe": 60,
-      "humanLead": -8,
+      "humanSafe": 35,
+      "jevSafe": 47,
+      "humanLead": -12,
       "humanStatus": "active",
       "jevStatus": "active"
     },
     {
       "seq": 2,
-      "atMs": 1343,
+      "atMs": 1344,
       "actor": "human",
       "event": "action",
-      "humanSafe": 52,
-      "jevSafe": 60,
-      "humanLead": -8,
+      "humanSafe": 35,
+      "jevSafe": 47,
+      "humanLead": -12,
       "humanStatus": "active",
       "jevStatus": "active"
     },
     {
       "seq": 3,
-      "atMs": 1652,
+      "atMs": 1657,
       "actor": "human",
       "event": "action",
-      "humanSafe": 52,
-      "jevSafe": 60,
-      "humanLead": -8,
+      "humanSafe": 35,
+      "jevSafe": 47,
+      "humanLead": -12,
       "humanStatus": "active",
       "jevStatus": "active"
     },
     {
       "seq": 4,
-      "atMs": 2915,
+      "atMs": 2914,
       "actor": "jev",
       "event": "action",
-      "humanSafe": 52,
-      "jevSafe": 61,
-      "humanLead": -9,
+      "humanSafe": 35,
+      "jevSafe": 48,
+      "humanLead": -13,
       "humanStatus": "active",
       "jevStatus": "active"
     },
     {
       "seq": 5,
-      "atMs": 3687,
+      "atMs": 3914,
+      "actor": "jev",
+      "event": "action",
+      "humanSafe": 35,
+      "jevSafe": 49,
+      "humanLead": -14,
+      "humanStatus": "active",
+      "jevStatus": "active"
+    },
+    {
+      "seq": 6,
+      "atMs": 3954,
       "actor": "human",
       "event": "resign",
-      "humanSafe": 52,
-      "jevSafe": 61,
-      "humanLead": -9,
+      "humanSafe": 35,
+      "jevSafe": 49,
+      "humanLead": -14,
       "humanStatus": "active",
       "jevStatus": "active"
     }
@@ -1513,24 +1524,24 @@
     {
       "seq": 2,
       "actor": "human",
-      "atMs": 1343,
+      "atMs": 1344,
       "type": "setFlag",
       "flagValue": true,
       "cell": 0,
       "row": 1,
       "column": 1,
       "safeDelta": 0,
-      "revealedSafe": 52,
+      "revealedSafe": 35,
       "flagsBefore": 0,
       "flagsAfter": 1,
       "exploded": false,
       "classification": "setFlag",
       "riskValue": null,
       "riskSource": null,
-      "provenSafeAvailable": 7,
-      "frontierCells": 5,
-      "componentCount": 2,
-      "solverNodes": 22,
+      "provenSafeAvailable": 17,
+      "frontierCells": 0,
+      "componentCount": 0,
+      "solverNodes": 0,
       "solverExactComplete": true,
       "solverCutoff": null,
       "opponentSource": null,
@@ -1539,24 +1550,24 @@
     {
       "seq": 3,
       "actor": "human",
-      "atMs": 1652,
+      "atMs": 1657,
       "type": "setFlag",
       "flagValue": false,
       "cell": 0,
       "row": 1,
       "column": 1,
       "safeDelta": 0,
-      "revealedSafe": 52,
+      "revealedSafe": 35,
       "flagsBefore": 1,
       "flagsAfter": 0,
       "exploded": false,
       "classification": "setFlag",
       "riskValue": null,
       "riskSource": null,
-      "provenSafeAvailable": 7,
-      "frontierCells": 5,
-      "componentCount": 2,
-      "solverNodes": 22,
+      "provenSafeAvailable": 17,
+      "frontierCells": 0,
+      "componentCount": 0,
+      "solverNodes": 0,
       "solverExactComplete": true,
       "solverCutoff": null,
       "opponentSource": null,
@@ -1565,43 +1576,132 @@
     {
       "seq": 4,
       "actor": "jev",
-      "atMs": 2915,
+      "atMs": 2914,
       "type": "reveal",
       "flagValue": null,
-      "cell": 64,
-      "row": 8,
-      "column": 2,
+      "cell": 61,
+      "row": 7,
+      "column": 8,
       "safeDelta": 1,
-      "revealedSafe": 61,
+      "revealedSafe": 48,
       "flagsBefore": 0,
       "flagsAfter": 0,
       "exploded": false,
       "classification": "proven_safe",
       "riskValue": 0,
       "riskSource": "proof",
-      "provenSafeAvailable": 9,
+      "provenSafeAvailable": 14,
       "frontierCells": 0,
       "componentCount": 0,
       "solverNodes": 0,
       "solverExactComplete": true,
       "solverCutoff": null,
       "opponentSource": "local",
-      "decisionLatencyMs": 1.5496249999996508
+      "decisionLatencyMs": 1.8482089999888558
+    },
+    {
+      "seq": 5,
+      "actor": "jev",
+      "atMs": 3914,
+      "type": "reveal",
+      "flagValue": null,
+      "cell": 68,
+      "row": 8,
+      "column": 6,
+      "safeDelta": 1,
+      "revealedSafe": 49,
+      "flagsBefore": 0,
+      "flagsAfter": 0,
+      "exploded": false,
+      "classification": "proven_safe",
+      "riskValue": 0,
+      "riskSource": "proof",
+      "provenSafeAvailable": 13,
+      "frontierCells": 5,
+      "componentCount": 1,
+      "solverNodes": 49,
+      "solverExactComplete": true,
+      "solverCutoff": null,
+      "opponentSource": "local",
+      "decisionLatencyMs": 1.3954169999924488
     }
   ],
   "decisionJournal": [
     {
-      "id": "99376532-ef61-4153-80fe-74ce2336660c",
+      "id": "3a6a144e-258d-4633-af24-b7918887c302",
       "policyVersion": "ms-policy-1.1.0",
       "model": "jev-1.13.0",
       "boardRevision": 1,
-      "observationHash": "25cbed9ba75a9ca70653a77134ee2dcbf426802d69d83a3cde40fbf344759694",
+      "observationHash": "cb605d0b05b1f82388bb4c068b8a5685e588cc40557b60077c2762cc77b15ef4",
       "candidates": [
         {
-          "id": "reveal_64",
+          "id": "reveal_61",
           "action": {
             "type": "reveal",
-            "cell": 64
+            "cell": 61
+          },
+          "group": 0,
+          "risk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "evidence": [
+            "PROVEN_SAFE"
+          ],
+          "progress": 0.7,
+          "row": 7,
+          "column": 8,
+          "frontierTouches": 0,
+          "coveredNeighbors": 7,
+          "frontier": false
+        },
+        {
+          "id": "reveal_52",
+          "action": {
+            "type": "reveal",
+            "cell": 52
+          },
+          "group": 0,
+          "risk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "evidence": [
+            "PROVEN_SAFE"
+          ],
+          "progress": 0.6,
+          "row": 6,
+          "column": 8,
+          "frontierTouches": 0,
+          "coveredNeighbors": 6,
+          "frontier": false
+        },
+        {
+          "id": "reveal_60",
+          "action": {
+            "type": "reveal",
+            "cell": 60
+          },
+          "group": 0,
+          "risk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "evidence": [
+            "PROVEN_SAFE"
+          ],
+          "progress": 0.6,
+          "row": 7,
+          "column": 7,
+          "frontierTouches": 0,
+          "coveredNeighbors": 6,
+          "frontier": false
+        },
+        {
+          "id": "reveal_68",
+          "action": {
+            "type": "reveal",
+            "cell": 68
           },
           "group": 0,
           "risk": {
@@ -1613,16 +1713,16 @@
           ],
           "progress": 0.6,
           "row": 8,
-          "column": 2,
+          "column": 6,
           "frontierTouches": 0,
           "coveredNeighbors": 6,
           "frontier": false
         },
         {
-          "id": "reveal_55",
+          "id": "reveal_25",
           "action": {
             "type": "reveal",
-            "cell": 55
+            "cell": 25
           },
           "group": 0,
           "risk": {
@@ -1633,17 +1733,38 @@
             "PROVEN_SAFE"
           ],
           "progress": 0.5,
-          "row": 7,
-          "column": 2,
+          "row": 3,
+          "column": 8,
           "frontierTouches": 0,
           "coveredNeighbors": 5,
           "frontier": false
         },
         {
-          "id": "reveal_35",
+          "id": "reveal_43",
           "action": {
             "type": "reveal",
-            "cell": 35
+            "cell": 43
+          },
+          "group": 0,
+          "risk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "evidence": [
+            "PROVEN_SAFE"
+          ],
+          "progress": 0.5,
+          "row": 5,
+          "column": 8,
+          "frontierTouches": 0,
+          "coveredNeighbors": 5,
+          "frontier": false
+        },
+        {
+          "id": "reveal_7",
+          "action": {
+            "type": "reveal",
+            "cell": 7
           },
           "group": 0,
           "risk": {
@@ -1654,17 +1775,17 @@
             "PROVEN_SAFE"
           ],
           "progress": 0.4,
-          "row": 4,
-          "column": 9,
+          "row": 1,
+          "column": 8,
           "frontierTouches": 0,
           "coveredNeighbors": 4,
           "frontier": false
         },
         {
-          "id": "reveal_73",
+          "id": "reveal_77",
           "action": {
             "type": "reveal",
-            "cell": 73
+            "cell": 77
           },
           "group": 0,
           "risk": {
@@ -1676,51 +1797,9 @@
           ],
           "progress": 0.4,
           "row": 9,
-          "column": 2,
+          "column": 6,
           "frontierTouches": 0,
           "coveredNeighbors": 4,
-          "frontier": false
-        },
-        {
-          "id": "reveal_45",
-          "action": {
-            "type": "reveal",
-            "cell": 45
-          },
-          "group": 0,
-          "risk": {
-            "value": 0,
-            "source": "proof"
-          },
-          "evidence": [
-            "PROVEN_SAFE"
-          ],
-          "progress": 0.3,
-          "row": 6,
-          "column": 1,
-          "frontierTouches": 0,
-          "coveredNeighbors": 3,
-          "frontier": false
-        },
-        {
-          "id": "reveal_74",
-          "action": {
-            "type": "reveal",
-            "cell": 74
-          },
-          "group": 0,
-          "risk": {
-            "value": 0,
-            "source": "proof"
-          },
-          "evidence": [
-            "PROVEN_SAFE"
-          ],
-          "progress": 0.3,
-          "row": 9,
-          "column": 3,
-          "frontierTouches": 0,
-          "coveredNeighbors": 3,
           "frontier": false
         },
         {
@@ -1737,18 +1816,81 @@
           "evidence": [
             "PROVEN_SAFE"
           ],
-          "progress": 0.2,
+          "progress": 0.3,
           "row": 9,
+          "column": 5,
+          "frontierTouches": 0,
+          "coveredNeighbors": 3,
+          "frontier": false
+        },
+        {
+          "id": "reveal_2",
+          "action": {
+            "type": "reveal",
+            "cell": 2
+          },
+          "group": 0,
+          "risk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "evidence": [
+            "PROVEN_SAFE"
+          ],
+          "progress": 0.2,
+          "row": 1,
+          "column": 3,
+          "frontierTouches": 0,
+          "coveredNeighbors": 2,
+          "frontier": false
+        },
+        {
+          "id": "reveal_4",
+          "action": {
+            "type": "reveal",
+            "cell": 4
+          },
+          "group": 0,
+          "risk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "evidence": [
+            "PROVEN_SAFE"
+          ],
+          "progress": 0.2,
+          "row": 1,
           "column": 5,
           "frontierTouches": 0,
           "coveredNeighbors": 2,
           "frontier": false
         },
         {
-          "id": "reveal_78",
+          "id": "reveal_5",
           "action": {
             "type": "reveal",
-            "cell": 78
+            "cell": 5
+          },
+          "group": 0,
+          "risk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "evidence": [
+            "PROVEN_SAFE"
+          ],
+          "progress": 0.2,
+          "row": 1,
+          "column": 6,
+          "frontierTouches": 0,
+          "coveredNeighbors": 2,
+          "frontier": false
+        },
+        {
+          "id": "reveal_75",
+          "action": {
+            "type": "reveal",
+            "cell": 75
           },
           "group": 0,
           "risk": {
@@ -1760,16 +1902,16 @@
           ],
           "progress": 0.2,
           "row": 9,
-          "column": 7,
+          "column": 4,
           "frontierTouches": 0,
           "coveredNeighbors": 2,
           "frontier": false
         },
         {
-          "id": "reveal_80",
+          "id": "reveal_0",
           "action": {
             "type": "reveal",
-            "cell": 80
+            "cell": 0
           },
           "group": 0,
           "risk": {
@@ -1780,34 +1922,363 @@
             "PROVEN_SAFE"
           ],
           "progress": 0.1,
-          "row": 9,
-          "column": 9,
+          "row": 1,
+          "column": 1,
           "frontierTouches": 0,
           "coveredNeighbors": 1,
           "frontier": false
         }
       ],
-      "legalCount": 42,
+      "legalCount": 68,
       "solver": {
         "nodes": 0,
         "exactComplete": true,
         "cutoffReason": null,
         "components": 0,
         "largestComponent": 0,
-        "safeCount": 9
+        "safeCount": 14
       },
-      "solverMs": 1.0092919999988226,
-      "requestBytes": 6281,
+      "solverMs": 0.5750410000036936,
+      "requestBytes": 9395,
       "source": "local",
       "fallback": false,
       "errorCode": "not_configured",
       "attempts": [],
       "response": null,
       "selected": {
-        "id": "reveal_64",
+        "id": "reveal_61",
         "action": {
           "type": "reveal",
-          "cell": 64
+          "cell": 61
+        },
+        "group": 0,
+        "risk": {
+          "value": 0,
+          "source": "proof"
+        },
+        "evidence": [
+          "PROVEN_SAFE"
+        ],
+        "progress": 0.7,
+        "row": 7,
+        "column": 8,
+        "frontierTouches": 0,
+        "coveredNeighbors": 7,
+        "frontier": false,
+        "evaluatedRisk": {
+          "value": 0,
+          "source": "proof"
+        },
+        "continuation": 0.7,
+        "choiceProbability": 0
+      },
+      "latencyMs": 1.8482089999888558,
+      "scheduledAtMs": 1000,
+      "appliedAtMs": 2914,
+      "schedulingLagMs": 1914
+    },
+    {
+      "id": "02735d7f-f755-4a33-9322-6fe5ebf40e1e",
+      "policyVersion": "ms-policy-1.1.0",
+      "model": "jev-1.13.0",
+      "boardRevision": 2,
+      "observationHash": "4bc62163d544aa6691b620328374af85a97e52593e5aa8d9db33c2faed4b214d",
+      "candidates": [
+        {
+          "id": "reveal_68",
+          "action": {
+            "type": "reveal",
+            "cell": 68
+          },
+          "group": 0,
+          "risk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "evidence": [
+            "PROVEN_SAFE"
+          ],
+          "progress": 0.6,
+          "row": 8,
+          "column": 6,
+          "frontierTouches": 0,
+          "coveredNeighbors": 6,
+          "frontier": false
+        },
+        {
+          "id": "reveal_25",
+          "action": {
+            "type": "reveal",
+            "cell": 25
+          },
+          "group": 0,
+          "risk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "evidence": [
+            "PROVEN_SAFE"
+          ],
+          "progress": 0.5,
+          "row": 3,
+          "column": 8,
+          "frontierTouches": 0,
+          "coveredNeighbors": 5,
+          "frontier": false
+        },
+        {
+          "id": "reveal_43",
+          "action": {
+            "type": "reveal",
+            "cell": 43
+          },
+          "group": 0,
+          "risk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "evidence": [
+            "PROVEN_SAFE"
+          ],
+          "progress": 0.5,
+          "row": 5,
+          "column": 8,
+          "frontierTouches": 0,
+          "coveredNeighbors": 5,
+          "frontier": false
+        },
+        {
+          "id": "reveal_52",
+          "action": {
+            "type": "reveal",
+            "cell": 52
+          },
+          "group": 0,
+          "risk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "evidence": [
+            "PROVEN_SAFE"
+          ],
+          "progress": 0.5,
+          "row": 6,
+          "column": 8,
+          "frontierTouches": 0,
+          "coveredNeighbors": 5,
+          "frontier": false
+        },
+        {
+          "id": "reveal_60",
+          "action": {
+            "type": "reveal",
+            "cell": 60
+          },
+          "group": 0,
+          "risk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "evidence": [
+            "PROVEN_SAFE"
+          ],
+          "progress": 0.5,
+          "row": 7,
+          "column": 7,
+          "frontierTouches": 0,
+          "coveredNeighbors": 5,
+          "frontier": false
+        },
+        {
+          "id": "reveal_7",
+          "action": {
+            "type": "reveal",
+            "cell": 7
+          },
+          "group": 0,
+          "risk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "evidence": [
+            "PROVEN_SAFE"
+          ],
+          "progress": 0.4,
+          "row": 1,
+          "column": 8,
+          "frontierTouches": 0,
+          "coveredNeighbors": 4,
+          "frontier": false
+        },
+        {
+          "id": "reveal_77",
+          "action": {
+            "type": "reveal",
+            "cell": 77
+          },
+          "group": 0,
+          "risk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "evidence": [
+            "PROVEN_SAFE"
+          ],
+          "progress": 0.4,
+          "row": 9,
+          "column": 6,
+          "frontierTouches": 0,
+          "coveredNeighbors": 4,
+          "frontier": false
+        },
+        {
+          "id": "reveal_76",
+          "action": {
+            "type": "reveal",
+            "cell": 76
+          },
+          "group": 0,
+          "risk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "evidence": [
+            "PROVEN_SAFE"
+          ],
+          "progress": 0.3,
+          "row": 9,
+          "column": 5,
+          "frontierTouches": 0,
+          "coveredNeighbors": 3,
+          "frontier": false
+        },
+        {
+          "id": "reveal_2",
+          "action": {
+            "type": "reveal",
+            "cell": 2
+          },
+          "group": 0,
+          "risk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "evidence": [
+            "PROVEN_SAFE"
+          ],
+          "progress": 0.2,
+          "row": 1,
+          "column": 3,
+          "frontierTouches": 0,
+          "coveredNeighbors": 2,
+          "frontier": false
+        },
+        {
+          "id": "reveal_4",
+          "action": {
+            "type": "reveal",
+            "cell": 4
+          },
+          "group": 0,
+          "risk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "evidence": [
+            "PROVEN_SAFE"
+          ],
+          "progress": 0.2,
+          "row": 1,
+          "column": 5,
+          "frontierTouches": 0,
+          "coveredNeighbors": 2,
+          "frontier": false
+        },
+        {
+          "id": "reveal_5",
+          "action": {
+            "type": "reveal",
+            "cell": 5
+          },
+          "group": 0,
+          "risk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "evidence": [
+            "PROVEN_SAFE"
+          ],
+          "progress": 0.2,
+          "row": 1,
+          "column": 6,
+          "frontierTouches": 0,
+          "coveredNeighbors": 2,
+          "frontier": false
+        },
+        {
+          "id": "reveal_75",
+          "action": {
+            "type": "reveal",
+            "cell": 75
+          },
+          "group": 0,
+          "risk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "evidence": [
+            "PROVEN_SAFE"
+          ],
+          "progress": 0.2,
+          "row": 9,
+          "column": 4,
+          "frontierTouches": 0,
+          "coveredNeighbors": 2,
+          "frontier": false
+        },
+        {
+          "id": "reveal_0",
+          "action": {
+            "type": "reveal",
+            "cell": 0
+          },
+          "group": 0,
+          "risk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "evidence": [
+            "PROVEN_SAFE"
+          ],
+          "progress": 0.1,
+          "row": 1,
+          "column": 1,
+          "frontierTouches": 0,
+          "coveredNeighbors": 1,
+          "frontier": false
+        }
+      ],
+      "legalCount": 66,
+      "solver": {
+        "nodes": 49,
+        "exactComplete": true,
+        "cutoffReason": null,
+        "components": 1,
+        "largestComponent": 5,
+        "safeCount": 13
+      },
+      "solverMs": 0.5705829999933485,
+      "requestBytes": 8855,
+      "source": "local",
+      "fallback": false,
+      "errorCode": "not_configured",
+      "attempts": [],
+      "response": null,
+      "selected": {
+        "id": "reveal_68",
+        "action": {
+          "type": "reveal",
+          "cell": 68
         },
         "group": 0,
         "risk": {
@@ -1819,7 +2290,7 @@
         ],
         "progress": 0.6,
         "row": 8,
-        "column": 2,
+        "column": 6,
         "frontierTouches": 0,
         "coveredNeighbors": 6,
         "frontier": false,
@@ -1830,10 +2301,10 @@
         "continuation": 0.6,
         "choiceProbability": 0
       },
-      "latencyMs": 1.5496249999996508,
-      "scheduledAtMs": 1000,
-      "appliedAtMs": 2915,
-      "schedulingLagMs": 1915
+      "latencyMs": 1.3954169999924488,
+      "scheduledAtMs": 3914,
+      "appliedAtMs": 3914,
+      "schedulingLagMs": 0
     }
   ],
   "limitations": [

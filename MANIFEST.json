@@ -181,8 +181,8 @@
     },
     {
       "path": "public/brand/apple-touch-icon.png",
-      "bytes": 697,
-      "sha256": "dc29c844de8f7cf28788c789ee2deb06bf4a8473e1796d2332a367b825620488"
+      "bytes": 718,
+      "sha256": "9791e499393bbbdb56c812da26b736657c35d3978b00175da07357debae384cd"
     },
     {
       "path": "public/brand/brand.css",
@@ -196,18 +196,18 @@
     },
     {
       "path": "public/brand/favicon-32.png",
-      "bytes": 289,
-      "sha256": "a1795eeacb362f581e91e09fb8fa49f9e7a578456c19810a50115502c69470fe"
+      "bytes": 302,
+      "sha256": "356464acb91b33d7cd369b2d739dcbea00e41b9d6732e40c49a902b25853bc0e"
     },
     {
       "path": "public/brand/icon.svg",
-      "bytes": 764,
-      "sha256": "4cc06afe1a28573e69d4772b99893283825aed96d2ca5f8124f07e8a21342cda"
+      "bytes": 918,
+      "sha256": "8ff0aa5c221849930d16e307eda68b65c7d58f9e92d84c4292e430d20ec107e7"
     },
     {
       "path": "public/brand/mark.svg",
-      "bytes": 764,
-      "sha256": "4cc06afe1a28573e69d4772b99893283825aed96d2ca5f8124f07e8a21342cda"
+      "bytes": 918,
+      "sha256": "8ff0aa5c221849930d16e307eda68b65c7d58f9e92d84c4292e430d20ec107e7"
     },
     {
       "path": "public/brand/og.png",
@@ -231,8 +231,8 @@
     },
     {
       "path": "public/game.css",
-      "bytes": 21547,
-      "sha256": "c6fa00bd04b67b298eef6180a5183eec06561183901ef0dd512478f2bbd2367f"
+      "bytes": 21635,
+      "sha256": "7a293d9d358b391a67c025656bdccbd48ddca86006b865313a9d67ded24730e8"
     },
     {
       "path": "public/game.js",
@@ -241,8 +241,8 @@
     },
     {
       "path": "public/index.html",
-      "bytes": 19902,
-      "sha256": "b6468b60699507ce2d2ccd81ae05a86402d361ba5e004e81fcbfb3cc2684d9a4"
+      "bytes": 19991,
+      "sha256": "316be938815bccc2e7ccc0f6f8fe30ef84e4d492e077c3922238bfa79bd12ce2"
     },
     {
       "path": "public/offline.js",
@@ -346,8 +346,8 @@
     },
     {
       "path": "reports/browser/browser-analytics.json",
-      "bytes": 36913,
-      "sha256": "d3de079c27487201d2babf9a4886ab66870ac720f3465a737e0129542e58d699"
+      "bytes": 48079,
+      "sha256": "4f8588ae1824fba71a46dfb48ad4bb96bac8ec58a876f1ea0edd31a3cca55eb8"
     },
     {
       "path": "reports/browser/browser-results.json",
@@ -356,23 +356,23 @@
     },
     {
       "path": "reports/browser/desktop-analytics.png",
-      "bytes": 369005,
-      "sha256": "ca9f991e3fc8d7d9156e357e9a1aa75bda0af039929600bb9d6a3366d92d1461"
+      "bytes": 370250,
+      "sha256": "ba46fa957d76820909ad4fcc08b4d78483213613c06b86d144a5a5d82d43979b"
     },
     {
       "path": "reports/browser/desktop-ready.png",
-      "bytes": 161383,
-      "sha256": "dd6fa8f07f1930babf6bb46d6572e6b5cffc596cf235c5ca01529ba47c83d652"
+      "bytes": 161390,
+      "sha256": "9c7e408b55af4367f35a7dc53482bed0445cb242cf5292de781f28238ba7bfb8"
     },
     {
       "path": "reports/browser/desktop-running.png",
-      "bytes": 175778,
-      "sha256": "d040fe4bba5aa3f83547b9f26c3bd6d5f864c007b01b9ab4d195cffe4c4c53dd"
+      "bytes": 174827,
+      "sha256": "fc302b6296b1e3ea584ebf56a088c58cf51b001c3da8c6c1638489e6f20a7f9f"
     },
     {
       "path": "reports/browser/mobile.png",
-      "bytes": 145888,
-      "sha256": "961df41a73e914d26d178bf4aeefdf53d1257ea99f26b752214de084c0f86910"
+      "bytes": 145617,
+      "sha256": "641f166d0e1455f7282f9c9c4d6f316787115231e803d70b3a1e4266bcaff0d7"
     },
     {
       "path": "reports/clean-start.json",
@@ -381,8 +381,8 @@
     },
     {
       "path": "reports/coverage.txt",
-      "bytes": 16391,
-      "sha256": "2aacde9debb8d87429ea878bc104d6ee0cffbaf8f06bb0633ee9d044ae68f33b"
+      "bytes": 16377,
+      "sha256": "2fe3f579ad14a185567527673f892b81dd77e507fc4f0f27cb0077e5416cad35"
     },
     {
       "path": "reports/cpu/cpu.json",
@@ -426,13 +426,13 @@
     },
     {
       "path": "reports/static-footprint.json",
-      "bytes": 1330,
-      "sha256": "eefcacc0a115c454b5f7405ee9a7ab950e4e08e5e97e9ee2e0350eeab0ddcd0e"
+      "bytes": 1500,
+      "sha256": "2f6a4dbe19ac58f147520878875151dfa933e59ebdfcf41a23a775ad2af415c3"
     },
     {
       "path": "reports/tests.tap",
-      "bytes": 35856,
-      "sha256": "afab68058aa7bb4809a37bdfc38a8c68f129955e0a688e55c954d67a47a421d3"
+      "bytes": 35855,
+      "sha256": "c187b75e58651f26274b8ae91fdd841f4142a0d4c0fcf730c979d1c100859473"
     },
     {
       "path": "scripts/backup.js",
@@ -521,8 +521,8 @@
     },
     {
       "path": "tests/browser_smoke.py",
-      "bytes": 9910,
-      "sha256": "16bda02ca1b41482ac2b71a79e470f0181f6155f74e469a3ce2af3d243123dd9"
+      "bytes": 10405,
+      "sha256": "b90a51f51451958a9e8598979733c27d1ef436330b9df9e631649db0e1620971"
     },
     {
       "path": "tests/decision-journal.test.js",
