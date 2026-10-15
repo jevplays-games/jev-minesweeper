@@ -1,5 +1,5 @@
 {
-  "mode": "DOM bridge (HTTP/SSE navigation not certified)",
+  "mode": "native browser HTTP/SSE",
   "browser": "Chromium",
   "viewports": [
     "1440x1100",

@@ -12,7 +12,7 @@
   <meta property="og:image" content="https://safesweep.jevplay.games/brand/og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="SafeSweep on jevplay.games: a spiked mine on a green tile with a red flag planted in it.">
+  <meta property="og:image:alt" content="SafeSweep title and tagline on a pink halftone field beside a grey pixel window with an ink title bar, holding a raised grey tile with a pink flag and a paper check mark, with the Jev robot below the window's lower corner.">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://safesweep.jevplay.games/brand/og.png">
   <link rel="preload" href="/brand/inter-var.woff2" as="font" type="font/woff2" crossorigin>
@@ -44,32 +44,24 @@
     </header>
     <main class="jv-main" id="main">
       <section class="hero jv-hero jv-pip-hide" aria-labelledby="gameTitle">
-        <div><p class="eyebrow">HUMAN VS STRUCTURED INTELLIGENCE</p><h1 id="gameTitle">Safe<span class="title-accent">Sweep</span><span class="versus">vs Jev</span></h1><p class="subtitle">Two independent boards. The same starting square. First to clear wins.</p></div>
+        <div><p class="eyebrow">HUMAN VS STRUCTURED INTELLIGENCE</p><h1 id="gameTitle">Safe<span class="title-accent">Sweep</span><span class="versus" id="versus">vs local opponent</span></h1><p class="subtitle">Two independent boards. The same starting square. First to clear wins.</p></div>
         <div class="hero-status"><span class="eyebrow">MATCH MODE</span><span id="matchMode" class="pill">Unofficial practice</span></div>
-      </section>
-      <section class="toolbar jv-pip-hide" aria-label="Game setup">
-        <label>Board<select id="preset"><option value="beginner">Beginner · 9 × 9 / 10 mines</option><option value="intermediate">Intermediate · 16 × 16 / 40 mines</option><option value="expert">Expert · 30 × 16 / 99 mines</option></select></label>
-        <label>Opponent reasoning<select id="difficulty"><option value="easy">Easy</option><option value="normal">Normal</option><option value="hard">Hard</option><option value="jev" selected>Jev</option></select></label>
-        <label>Match mode<select id="mode"><option value="practice">Practice</option><option value="ranked">Ranked · Discord + Jev required</option></select></label>
-        <label>Cell size<select id="cellSize"><option value="standard">Standard</option><option value="large">Large · 44 px</option></select></label>
-        <label id="contextLabel" hidden>Community<select id="context"><option value="world">World only</option><option value="current">Discord launch context</option></select></label>
-        <div class="toolbar-actions"><button id="newGame" class="button primary">New game</button><button id="resign" class="button" disabled>Resign</button><button id="offline" class="button quiet">Offline practice</button></div>
       </section>
       <div id="notice" class="notice" role="status" aria-live="polite">Click a square on your board to open the same starting coordinate on both boards.</div>
       <section class="arena jv-first" aria-label="Two-board SafeSweep race">
         <article class="jv-panel is-tight board-card is-human">
           <div class="board-header"><div class="player-title"><span class="player-token you-token">Y</span><div><h2>You</h2><span id="humanStatus" class="muted">Choose your opening</span></div></div><div class="board-count"><strong id="humanProgress">0 / 71</strong><span>safe cells</span></div></div>
           <progress id="humanMeter" value="0" max="71" aria-label="Your safe-cell progress"></progress>
+          <div class="board-controls"><div class="segmented" role="group" aria-label="Touch action"><button id="revealMode" aria-pressed="true">Reveal</button><button id="flagMode" aria-pressed="false">Flag</button></div><span id="flagCount" class="muted">0 flags / 10 mines</span></div>
           <div class="board-scroll"><div id="humanBoard" class="board jv-tray" role="grid" aria-label="Your SafeSweep board"></div></div>
-          <div class="board-footer"><div class="segmented" aria-label="Touch action"><button id="revealMode" aria-pressed="true">Reveal</button><button id="flagMode" aria-pressed="false">Flag</button></div><span id="flagCount" class="muted">0 flags / 10 mines</span></div>
-          <p class="board-help jv-pip-hide">Click: reveal · Right-click / F: flag · C / double-click: chord</p>
+          <p class="board-note jv-pip-hide">Click: reveal · Right-click / F: flag · C / double-click: chord</p>
         </article>
         <article class="jv-panel is-tight board-card is-jev jv-pip-hide">
           <div class="board-header"><div class="player-title"><span class="player-token jev-token">J</span><div><h2 id="opponentTitle">Opponent</h2><span id="jevStatus" class="muted">Waiting for your opening</span></div></div><div class="board-count"><strong id="jevProgress">0 / 71</strong><span>safe cells</span></div></div>
           <progress id="jevMeter" value="0" max="71" aria-label="Opponent safe-cell progress"></progress>
+          <div class="board-controls"><span id="opponentBadge" class="pill amber">Local heuristic · not Jev</span><span class="muted">Read-only board</span></div>
           <div class="board-scroll"><div id="jevBoard" class="board readonly jv-tray" role="grid" aria-label="Opponent SafeSweep board, read only"></div></div>
-          <div class="board-footer"><span id="opponentBadge" class="pill amber">Local heuristic · not Jev</span><span class="muted">Read-only board</span></div>
-          <p class="board-help">Independent mine layout. No hidden information is shared.</p>
+          <p class="board-note">Independent mine layout. No hidden information is shared.</p>
         </article>
         <aside class="jv-panel is-tight decision-card jv-pip-hide" aria-labelledby="decisionTitle">
           <div class="section-heading"><h2 id="decisionTitle">Decision lab</h2><label class="switch-label"><input type="checkbox" id="analysisToggle" checked> Show</label></div>
@@ -82,16 +74,24 @@
           </div>
         </aside>
       </section>
+      <section class="toolbar jv-pip-hide" aria-label="Game setup">
+        <label>Board<select id="preset"><option value="beginner">Beginner · 9 × 9 / 10 mines</option><option value="intermediate">Intermediate · 16 × 16 / 40 mines</option><option value="expert">Expert · 30 × 16 / 99 mines</option></select></label>
+        <label>Opponent reasoning<select id="difficulty"><option value="easy">Easy</option><option value="normal">Normal</option><option value="hard">Hard</option><option value="jev" selected>Jev</option></select></label>
+        <label>Match mode<select id="mode"><option value="practice">Practice</option><option value="ranked">Ranked · Discord + Jev required</option></select></label>
+        <label>Cell size<select id="cellSize"><option value="standard">Standard</option><option value="large">Large · 44 px</option></select></label>
+        <label id="contextLabel" hidden>Community<select id="context"><option value="world">World only</option><option value="current">Discord launch context</option></select></label>
+        <div class="toolbar-actions"><button id="newGame" class="button primary">New game</button><button id="resign" class="button" disabled>Resign</button><button id="offline" class="button quiet">Offline practice</button></div>
+      </section>
       <section class="live-strip jv-pip-hide" aria-label="Live race metrics">
         <div><span>YOUR COMPLETION</span><strong id="liveCompletion">0%</strong></div><div><span>SAFE-CELL LEAD</span><strong id="liveLead">0</strong></div><div><span>YOUR COMMANDS</span><strong id="liveActions">0</strong></div><div><span>OPPONENT COMMANDS</span><strong id="liveJevActions">0</strong></div><div><span>VERIFICATION</span><strong id="liveVerification" class="small-value">Not started</strong></div>
       </section>
       <section class="workspace jv-pip-hide" aria-label="Analytics and records">
         <div class="tabs" role="tablist" aria-label="Analysis views">
           <button role="tab" id="tab-live" aria-selected="true" aria-controls="panel-live" data-panel="live">Race telemetry</button>
-          <button role="tab" id="tab-report" aria-selected="false" aria-controls="panel-report" data-panel="report">Post-game analytics</button>
-          <button role="tab" id="tab-history" aria-selected="false" aria-controls="panel-history" data-panel="history">Your history</button>
-          <button role="tab" id="tab-leaderboards" aria-selected="false" aria-controls="panel-leaderboards" data-panel="leaderboards">Leaderboards</button>
-          <button role="tab" id="tab-rules" aria-selected="false" aria-controls="panel-rules" data-panel="rules">Rules & integrity</button>
+          <button role="tab" id="tab-report" aria-selected="false" tabindex="-1" aria-controls="panel-report" data-panel="report">Post-game analytics</button>
+          <button role="tab" id="tab-history" aria-selected="false" tabindex="-1" aria-controls="panel-history" data-panel="history">Your history</button>
+          <button role="tab" id="tab-leaderboards" aria-selected="false" tabindex="-1" aria-controls="panel-leaderboards" data-panel="leaderboards">Leaderboards</button>
+          <button role="tab" id="tab-rules" aria-selected="false" tabindex="-1" aria-controls="panel-rules" data-panel="rules">Rules & integrity</button>
         </div>
         <div class="jv-panel" id="panel-live" role="tabpanel" aria-labelledby="tab-live">
           <div class="section-heading"><div><h2>Progress, move by move</h2><p class="muted">Only visible information is shown during an active match.</p></div><div class="chart-legend"><span class="human-key">You</span><span class="jev-key">Opponent</span></div></div>
@@ -105,7 +105,7 @@
             <div id="reportSummary" class="stat-grid"></div>
             <div class="export-bar"><button class="button small" id="exportJson">Analytics JSON</button><button class="button small" id="exportCsv">Action CSV</button><button class="button small" id="exportTimeline">Timeline CSV</button><button class="button small" id="exportEvents">Events JSONL</button><button class="button small" id="exportReplay">Replay JSON</button><button class="button small primary" id="viewReplay">Replay viewer</button></div>
             <div class="report-columns"><section><h3>Player comparison</h3><div id="comparison" class="table-scroll"></div></section><section><h3>Opponent quality & reliability</h3><div id="opponentReport" class="table-scroll"></div></section></div>
-            <section><div class="section-heading"><h3>Spatial analysis</h3><label>Heatmap<select id="heatmapType"><option value="commands">Accepted commands</option><option value="revealAtMs">Reveal time</option><option value="flagPlacements">Flag placements</option><option value="uncertainReveals">Uncertain reveals</option></select></label></div><div class="heatmap-grid"><div><h4>You</h4><canvas id="humanHeatmap" height="270" role="img" aria-label="Your post-game board heatmap"></canvas></div><div><h4>Opponent</h4><canvas id="jevHeatmap" height="270" role="img" aria-label="Opponent post-game board heatmap"></canvas></div></div><p class="muted">Darker cells indicate lower values; brighter cells indicate higher values. Full numeric matrices are included in the JSON export.</p></section>
+            <section><div class="section-heading"><h3>Spatial analysis</h3><label>Heatmap<select id="heatmapType"><option value="commands">Accepted commands</option><option value="revealAtMs">Reveal time</option><option value="flagPlacements">Flag placements</option><option value="uncertainReveals">Uncertain reveals</option></select></label></div><div class="heatmap-grid"><div><h4>You</h4><canvas id="humanHeatmap" height="270" role="img" aria-label="Your post-game board heatmap"></canvas></div><div><h4>Opponent</h4><canvas id="jevHeatmap" height="270" role="img" aria-label="Opponent post-game board heatmap"></canvas></div></div><p class="muted">Darker, stronger fills indicate higher values; pale cells indicate lower values. Full numeric matrices are included in the JSON export.</p></section>
             <section><h3>Safety-forecast calibration</h3><p class="muted">Model safety probabilities only. An unconfigured or purely deterministic opponent has no model calibration samples.</p><div id="calibration" class="table-scroll"></div></section>
             <details open><summary>Per-action journal</summary><p id="actionCoverage" class="muted"></p><div id="actionJournal" class="table-scroll tall"></div></details>
             <details><summary>Structured opponent decisions</summary><div id="decisionJournal" class="table-scroll tall"></div></details>

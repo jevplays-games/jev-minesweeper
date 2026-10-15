@@ -1,18 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
-  <defs>
-    <radialGradient id="body" cx="0.32" cy="0.28" r="0.85">
-      <stop offset="0" stop-color="#a4acd0"/>
-      <stop offset="0.35" stop-color="#454c70"/>
-      <stop offset="1" stop-color="#0d0f1d"/>
-    </radialGradient>
-  </defs>
-  <g stroke="#05060c" stroke-opacity="0.5" stroke-width="5.4" stroke-linecap="round" transform="translate(1.2 1.8)">
-    <path d="M24 24V6M24 24V42M24 24H6M24 24H42M24 24L11.3 11.3M24 24L36.7 36.7M24 24L36.7 11.3M24 24L11.3 36.7"/>
+  <g shape-rendering="crispEdges">
+    <path d="M16 12H32V16H36V32H32V36H16V32H12V16H16Z M20 4H28V12H20Z M20 36H28V44H20Z M4 20H12V28H4Z M36 20H44V28H36Z M8 8H16V16H8Z M32 8H40V16H32Z M8 32H16V40H8Z M32 32H40V40H32Z" fill="#1E1E1E"/>
+    <rect x="16" y="16" width="8" height="6" fill="#FEFEFE"/>
   </g>
-  <g stroke="#2c3152" stroke-width="5.4" stroke-linecap="round">
-    <path d="M24 24V6M24 24V42M24 24H6M24 24H42M24 24L11.3 11.3M24 24L36.7 36.7M24 24L36.7 11.3M24 24L11.3 36.7"/>
-  </g>
-  <circle cx="25.2" cy="25.8" r="13.5" fill="#05060c" opacity="0.5"/>
-  <circle cx="24" cy="24" r="13.5" fill="url(#body)"/>
-  <ellipse cx="19.5" cy="19" rx="5" ry="3.2" fill="#ffffff" opacity="0.55" transform="rotate(-35 19.5 19)"/>
 </svg>

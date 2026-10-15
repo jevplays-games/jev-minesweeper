@@ -4,6 +4,7 @@ import {applyRecordedEvent} from '/shared/replay.js';
 import {csv,analyzeReplay} from '/shared/analytics.js';
 import {MODEL} from '/shared/decisions.js';
 import {POLICY_VERSION} from '/shared/solver.js';
+import {opponentView,metricLabel,metricValue} from './opponent.js';
 const $=id=>document.getElementById(id);
 let me=null,snapshot=null,unsubscribe=null,offline=null,report=null,reportIsOffline=false,reportReplay=null,livePoints=[],focusCell=40,flagMode=false,actionQueue=Promise.resolve(),historyCursor=null,leaderboardCursor=null,frames=[],lastAutoReport=null;
 let receivedAt=performance.now(),receivedElapsed=0;
@@ -14,6 +15,10 @@ const ms=v=>v===null||v===undefined?'—':v<1000?`${number(v)} ms`:`${number(v/1
 const time=v=>{const seconds=Math.max(0,v)/1000;return `${String(Math.floor(seconds/60)).padStart(2,'0')}:${(seconds%60).toFixed(1).padStart(4,'0')}`;};
 function notify(message,type=''){text('notice',message);$('notice').className=`notice ${type}`;}
 const PLAQUE={win:'success jv-plaque is-win',loss:'jv-plaque is-loss',draw:'jv-plaque is-draw',void:'jv-plaque is-draw'};
+// Words for stored codes (outcome and eligibility reasons, event actors). The codes stay as they are in replays, exports and the API.
+// The opponent slot reads "opponent": a local heuristic fills it whenever Jev is not configured, so it must never be shown as "jev".
+const CODE_TEXT={human_cleared_first:'you cleared first',jev_cleared_first:'opponent cleared first',jev_not_configured:'Jev not configured',jev_fallback:'Jev fallback',stale_jev_decision:'stale opponent decision',human:'You',jev:'Opponent',system:'System'};
+const codeText=code=>CODE_TEXT[code]??String(code).replaceAll('_',' ');
 function connection(ok,message){text('connection',offline?'Offline practice':ok?'Connected':'Reconnecting');$('connection').className=`connection ${ok?'online':'offline'}`;if(message)notify(message,'error');}
 function preferences(){try{return JSON.parse(localStorage.getItem('jev-ms-preferences')||'{}');}catch{return{};}}
 function savePreferences(){try{localStorage.setItem('jev-ms-preferences',JSON.stringify({preset:$('preset').value,difficulty:$('difficulty').value,analysis:$('analysisToggle').checked,cellSize:$('cellSize').value}));}catch{}}
@@ -65,8 +70,8 @@ function render(){
   text('humanStatus',h.status==='ready'?'Choose your opening':h.status==='active'?'Board active':h.status==='cleared'?'All safe cells cleared':'Mine hit · board ended');
   text('jevStatus',j.status==='ready'?'Waiting for your opening':j.status==='active'?'One move per second':j.status==='cleared'?'All safe cells cleared':'Mine hit · board ended');
   text('flagCount',`${h.flagsPlaced} flags / ${h.mineCount} mines`);
-  const actualJev=me?.features.jev&&!offline;
-  text('opponentTitle',actualJev?'Jev':'Local opponent');text('opponentBadge',snapshot?.opponent||(actualJev?'Jev + constraint solver':'Local heuristic · not Jev'));
+  const opp=opponentView({jevConfigured:me?.features.jev,offline:Boolean(offline),snapshot});
+  text('opponentTitle',opp.title);text('opponentBadge',opp.badge);text('versus',opp.versus);
   text('liveCompletion',percent(h.revealedSafe/target));const lead=h.revealedSafe-j.revealedSafe;text('liveLead',`${lead>0?'+':''}${lead}`);
   text('liveActions',Math.max(0,h.revision-(h.status==='ready'?0:1)));text('liveJevActions',Math.max(0,j.revision-(j.status==='ready'?0:1)));
   const e=snapshot?.eligibility;
@@ -78,7 +83,7 @@ function render(){
   renderDecision(snapshot?.decision);drawLive();
   if(phase==='complete'){
     const label={win:'You win',loss:'Opponent wins',draw:'Draw',void:'Match voided'}[snapshot.outcome];
-    notify(`${label} · ${snapshot.outcomeReason.replaceAll('_',' ')}. ${e.eligible?'Verified ranked result.':`Unofficial: ${e.reasons.join(', ').replaceAll('_',' ')}.`} Post-game analytics are available below.`,PLAQUE[snapshot.outcome]||'');
+    notify(`${label} · ${codeText(snapshot.outcomeReason)}. ${e.eligible?'Verified ranked result.':`Unofficial: ${e.reasons.map(codeText).join(', ')}.`} Post-game analytics are available below.`,PLAQUE[snapshot.outcome]||'');
   }else if(phase==='running'){
     const message=h.status==='exploded'?'Your board exploded. The opponent must still clear; watch it finish or resign.':j.status==='exploded'?'The opponent exploded. Clear your board to win.':`Clear every safe cell. ${offline?'Offline practice is never ranked.':'Hidden layouts and official timing remain server-side.'}`;
     notify(message);
@@ -102,7 +107,11 @@ function drawLive(){
   const target=snapshot?snapshot.config.width*snapshot.config.height-snapshot.config.mineCount:71,maxTime=Math.max(1000,...livePoints.map(p=>p.atMs));
   const gridStroke=token('--line'),axisText=token('--muted');ctx.clearRect(0,0,width,height);ctx.font='10px system-ui';ctx.fillStyle=axisText;ctx.strokeStyle=gridStroke;ctx.lineWidth=1;
   for(let i=0;i<=4;i++){const y=Math.round(top+(height-top-bottom)*i/4)+.5;ctx.beginPath();ctx.moveTo(left,y);ctx.lineTo(width-right,y);ctx.stroke();ctx.fillText(String(Math.round(target*(1-i/4))),3,y+3);}
-  for(let i=0;i<=4;i++){const x=left+(width-left-right)*i/4;ctx.fillText(`${(maxTime*i/4000).toFixed(0)}s`,x-5,height-9);}
+  // Time ticks sit on a whole-second step at their true positions. Rounding equal quarters of the elapsed time repeated labels
+  // ("0s 1s 1s 2s") and printed each one away from the instant it marked. Steps of a minute or more are labelled in minutes.
+  const span=maxTime/1000,step=[1,2,3,5,10,15,20,30,60,120,180,300,600].find(s=>span/s<=6)??900;ctx.textAlign='center';
+  for(let s=0;s<=span;s+=step)ctx.fillText(step>=60?`${s/60}m`:`${s}s`,left+s*1000/maxTime*(width-left-right),height-9);
+  ctx.textAlign='start';
   for(const [key,color,dash]of[['humanSafe',token('--chart-human'),[]],['jevSafe',token('--chart-jev'),[6,4]]]){ctx.setLineDash(dash);ctx.strokeStyle=color;ctx.lineWidth=2;ctx.beginPath();livePoints.forEach((p,i)=>{const x=left+p.atMs/maxTime*(width-left-right),y=top+(1-p[key]/target)*(height-top-bottom);if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);});ctx.stroke();ctx.setLineDash([]);const last=livePoints.at(-1);if(last){ctx.fillStyle=color;ctx.beginPath();ctx.arc(left+last.atMs/maxTime*(width-left-right),top+(1-last[key]/target)*(height-top-bottom),3,0,Math.PI*2);ctx.fill();}}
   if(!livePoints.length){ctx.fillStyle=token('--text');ctx.font='12px system-ui';ctx.fillText('Start a match to see the race develop.',left+12,110);}
   table($('liveData'),['Event','Elapsed','Your safe cells','Opponent safe cells'],livePoints.map(p=>[p.seq,ms(p.atMs),p.humanSafe,p.jevSafe]));
@@ -131,7 +140,7 @@ async function newGame(useOffline=false){
     try{await submit({type:'resign'});}catch(e){if(!useOffline)throw e;notify('The server match may continue and become an abandonment loss. Offline practice is separate.','error');}
   }
   $('preset').value=selected.preset;$('difficulty').value=selected.difficulty;$('mode').value=selected.mode;
-  if(useOffline){unsubscribe?.();unsubscribe=null;offline?.close();const {OfflineGame}=await import('./offline.js');offline=await OfflineGame.create({...PRESETS[$('preset').value],preset:$('preset').value,aiDifficulty:$('difficulty').value,model:MODEL,policyVersion:POLICY_VERSION,jevIntervalMs:1000,adjudicationMs:100,deadlineMs:900000},update);connection(false);notify('Offline practice. The local heuristic is not Jev, and these results cannot enter server leaderboards.');}
+  if(useOffline){unsubscribe?.();unsubscribe=null;offline?.close();const {OfflineGame}=await import('./offline.js');offline=await OfflineGame.create({...PRESETS[$('preset').value],preset:$('preset').value,aiDifficulty:$('difficulty').value,model:MODEL,policyVersion:POLICY_VERSION,jevIntervalMs:1000,adjudicationMs:100,deadlineMs:900000},update);render();connection(false);notify('Offline practice. The local heuristic is not Jev, and these results cannot enter server leaderboards.');}
   else{await createServerMatch();notify('Choose any square on your board. The same coordinate opens on both independent layouts.');}
 }
 async function submit(action){
@@ -181,7 +190,7 @@ async function loadReport(id=snapshot?.id,isOffline=Boolean(offline)){
 $('loadReport').onclick=()=>loadReport().catch(e=>{text('reportStatus',e.message);showError(e);});
 function renderReport(){
   $('reportContent').hidden=false;const {players:p,opponent:o,result:r}=report;
-  text('reportStatus',`${r.outcome.toUpperCase()} · ${r.reason.replaceAll('_',' ')} · ${report.matchId.slice(0,8)} · ${report.analyticsVersion} · ${reportIsOffline?'local-only':'server-verified replay, derived in this browser'}`);
+  text('reportStatus',`${r.outcome.toUpperCase()} · ${codeText(r.reason)} · ${report.matchId.slice(0,8)} · ${report.analyticsVersion} · ${reportIsOffline?'local-only':'server-verified replay, derived in this browser'}`);
   stats($('reportSummary'),[['Your clear time',ms(r.humanClearMs)],['Your completion',percent(p.human.safeCompletionRate)],['Safe cells / command',number(p.human.safeCellsPerAction,2)],['Lead changes',number(report.race.leadChanges)],['Remote Jev decisions',number(o.remoteDecisions)],['Fallback decisions',number(o.fallbackDecisions)]]);
   const metrics=[['Accepted commands','actions',number],['Reveal commands','reveals',number],['Flag placements','flagsPlaced',number],['Flag removals','flagsRemoved',number],['Chord commands','chords',number],['Unsafe chords','unsafeChords',number],['Opening safe cells','safeCellsFromOpening',number],['Safe cells from commands','safeCellsFromActions',number],['Expansion actions','zeroExpansionActions',number],['Expansion bonus cells','zeroExpansionCells',number],['Proven-safe reveals','provenSafeRevealActions',number],['Uncertain reveals','uncertainRevealActions',number],['Uncertain survival rate','uncertainRevealSurvivalRate',percent],['Uncertain despite safe alternative','uncertainRevealsWhileProvenSafeAvailable',number],['Mine hit with safe alternative','explodedWhileProvenSafeAvailable',number],['Known-mine reveals','knownMineRevealActions',number],['Flags at end','flagsAtEnd',number],['Flag precision at end','flagPrecision',percent],['Flag recall at end','flagRecall',percent],['Flag F1 at end','flagF1',percent],['Incorrect flag placements','incorrectFlagPlacements',number],['Correct flags removed','correctFlagsRemoved',number],['Commands per active second','commandsPerSecond',v=>number(v,2)],['Safe cells per command','safeCellsPerAction',v=>number(v,2)],['First command after opening','firstActionMs',ms],['Active time','activeMs',ms],['Exact/proven risk coverage','exactRiskCoverage',percent],['Static 3BV / second on clear','threeBVPerSecondOnClear',v=>number(v,2)]];
   table($('comparison'),['Metric','You','Opponent'],metrics.map(([label,key,format])=>[label,format(p.human[key]),format(p.jev[key])]).concat([['Median command gap',ms(p.human.inputGapMs?.p50),ms(p.jev.inputGapMs?.p50)],['95th percentile command gap',ms(p.human.inputGapMs?.p95),ms(p.jev.inputGapMs?.p95)],['Static board 3BV',number(report.boards.human?.threeBV),number(report.boards.jev?.threeBV)]]));
@@ -189,8 +198,8 @@ function renderReport(){
   const calibrationRows=o.calibration.selected.bins.map((b,i)=>[`${b.lower.toFixed(1)}–${b.upper.toFixed(1)}`,b.count,percent(b.meanPrediction),percent(b.observedFrequency),o.calibration.allEvaluated.bins[i].count]);
   table($('calibration'),['Safety probability bin','Selected samples','Mean prediction','Observed safe rate','All-evaluated samples'],calibrationRows);
   text('actionCoverage',`Showing ${Math.min(200,report.actions.length)} of ${report.actions.length} accepted actions. CSV and JSON exports include every recorded action.`);
-  table($('actionJournal'),['Event','Actor','Time','Action','Cell','Safe Δ','Classification','Risk / source','Safe alternatives'],report.actions.slice(0,200).map(a=>[a.seq,a.actor,ms(a.atMs),a.type+(a.flagValue===null?'':a.flagValue?' on':' off'),`R${a.row} C${a.column}`,a.safeDelta,a.classification,`${percent(a.riskValue)} / ${a.riskSource||'—'}`,a.provenSafeAvailable]));
-  table($('decisionJournal'),['Decision','Source','Candidates','Chosen action','Mine risk','Latency','Input tokens','Fallback'],report.decisionJournal.slice(0,200).map(d=>[d.id.slice(0,8),d.source,d.candidates.length,d.selected.id,`${percent(d.selected.evaluatedRisk.value)} (${d.selected.evaluatedRisk.source})`,ms(d.latencyMs),d.response?.usage.input_tokens??'—',d.fallback?'Yes':'No']));
+  table($('actionJournal'),['Event','Actor','Time','Action','Cell','Safe Δ','Classification','Risk / source','Safe alternatives'],report.actions.slice(0,200).map(a=>[a.seq,codeText(a.actor),ms(a.atMs),a.type+(a.flagValue===null?'':a.flagValue?' on':' off'),`R${a.row} C${a.column}`,a.safeDelta,a.classification,`${percent(a.riskValue)} / ${a.riskSource||'—'}`,a.provenSafeAvailable]));
+  table($('decisionJournal'),['Decision','Source','Candidates','Chosen action','Mine risk','Latency','Input tokens','Fallback'],report.decisionJournal.slice(0,200).map(d=>[d.id.slice(0,8),d.source==='jev'?'Jev':d.source,d.candidates.length,d.selected.id,`${percent(d.selected.evaluatedRisk.value)} (${d.selected.evaluatedRisk.source})`,ms(d.latencyMs),d.response?.usage.input_tokens??'—',d.fallback?'Yes':'No']));
   text('reportLimitations',report.limitations.join(' '));renderMetricExplorer();drawHeatmaps();
 }
 function flatten(value,path='',out=[]){
@@ -198,23 +207,25 @@ function flatten(value,path='',out=[]){
   if(Array.isArray(value)&&value.length>12){out.push([path,`${value.length} entries — full values in JSON export`]);return out;}
   for(const[k,v]of Object.entries(value)){if(['decisionJournal','actions','timeline'].includes(k))continue;flatten(v,path?`${path}.${k}`:k,out);}return out;
 }
-function renderMetricExplorer(){if(!report)return;const q=$('metricSearch').value.toLowerCase();table($('metricExplorer'),['Field','Value'],flatten(report).filter(([k])=>k.toLowerCase().includes(q)));}
+// Field names are shown as display labels (players.jev → opponent); the stored keys in the report and its exports are unchanged.
+function renderMetricExplorer(){if(!report)return;const q=$('metricSearch').value.toLowerCase(),remoteJev=(report.opponent?.remoteDecisions??0)>0;table($('metricExplorer'),['Field','Value'],flatten(report).map(([k,v])=>[k,metricLabel(k,{remoteJev}),metricValue(k,v,{remoteJev})]).filter(([k,label])=>k.toLowerCase().includes(q)||label.toLowerCase().includes(q)).map(([,label,v])=>[label,v]));}
 $('metricSearch').oninput=renderMetricExplorer;
-function drawHeatmaps(){if(!report)return;const type=$('heatmapType').value;for(const actor of['human','jev']){const values=report.players[actor].heatmaps[type],w=report.configuration.width,h=report.configuration.height;const{ctx,width,height}=canvasContext($(actor+'Heatmap'),270);ctx.clearRect(0,0,width,height);const fill=token(actor==='human'?'--chart-human':'--chart-jev'),labelText=token('--text');const max=Math.max(1,...values.filter(v=>v!==null)),size=Math.min((width-20)/w,(height-18)/h),x=(width-size*w)/2,y=(height-size*h)/2;
-  for(let i=0;i<values.length;i++){const value=values[i],intensity=value===null?0:Math.max(.08,value/max);// Opacity tops out at .69: ink labels then hold >=4.6:1 on both D8 fills over paper.
-  ctx.fillStyle=rgba(fill,.07+intensity*.62);ctx.fillRect(x+i%w*size+1,y+Math.floor(i/w)*size+1,size-2,size-2);if(size>=23){ctx.font='10px system-ui';ctx.textAlign='center';ctx.fillStyle=labelText;ctx.fillText(value===null?'·':type==='revealAtMs'?(value/1000).toFixed(0):String(value),x+(i%w+.5)*size,y+(Math.floor(i/w)+.5)*size+3);}}
+function drawHeatmaps(){if(!report)return;const type=$('heatmapType').value;for(const actor of['human','jev']){const values=report.players[actor].heatmaps[type],w=report.configuration.width,h=report.configuration.height;const{ctx,width,height}=canvasContext($(actor+'Heatmap'),270);ctx.clearRect(0,0,width,height);const fill=token(actor==='human'?'--chart-human':'--chart-jev'),labelText=token('--text'),paperText=token('--paper');const max=Math.max(1,...values.filter(v=>v!==null)),size=Math.min((width-20)/w,(height-18)/h),x=(width-size*w)/2,y=(height-size*h)/2;
+  for(let i=0;i<values.length;i++){const value=values[i],intensity=value===null?0:Math.max(.08,value/max);// Opacity runs from .07 to the full D8 colour, so the strongest cell is 7.42:1 (You) / 7.13:1 (opponent) against the paper panel. It skips
+  // .66-.86, where neither ink nor paper text reaches 4.5:1 on the fill: labels are ink up to .66 (>=4.9:1) and paper from .86 (>=5.1:1).
+  const span=intensity*.73,alpha=span<=.59?.07+span:.86+(span-.59),label=alpha<=.66?labelText:paperText;ctx.fillStyle=rgba(fill,alpha);ctx.fillRect(x+i%w*size+1,y+Math.floor(i/w)*size+1,size-2,size-2);if(size>=23){ctx.font='10px system-ui';ctx.textAlign='center';ctx.fillStyle=label;ctx.fillText(value===null?'·':type==='revealAtMs'?(value/1000).toFixed(0):String(value),x+(i%w+.5)*size,y+(Math.floor(i/w)+.5)*size+3);}}
 }}
 $('heatmapType').onchange=drawHeatmaps;
 async function exportReport(format){if(!report)return;const id=report.matchId;if(format==='json')download(report,`safesweep-${id}-analytics.json`);else if(format==='jsonl')download(reportReplay.events.map(e=>JSON.stringify(e)).join(String.fromCharCode(10))+String.fromCharCode(10),`safesweep-${id}-events.jsonl`,'application/x-ndjson');else download(csv(format==='csv'?report.actions:report.timeline),`safesweep-${id}-${format==='csv'?'actions':'timeline'}.csv`,'text/csv');}
 $('exportJson').onclick=()=>exportReport('json').catch(showError);$('exportCsv').onclick=()=>exportReport('csv').catch(showError);$('exportTimeline').onclick=()=>exportReport('timeline').catch(showError);$('exportEvents').onclick=()=>exportReport('jsonl').catch(showError);
 async function getReportReplay(){if(reportReplay)return reportReplay;reportReplay=await fetchReplay(report.matchId);return reportReplay;}
 $('exportReplay').onclick=()=>getReportReplay().then(r=>download(r,`safesweep-${r.matchId}-replay.json`)).catch(showError);
-$('viewReplay').onclick=async()=>{try{const replay=await getReportReplay(),state=await createMatch(replay.config,replay.seeds,replay.matchId);frames=[{view:observeMatch(state),caption:'Before the protected opening'}];for(const e of replay.events){await applyRecordedEvent(state,e);frames.push({view:observeMatch(state),caption:`Event ${e.seq} · ${e.actor} ${e.type} · ${ms(e.atMs)}`});}$('replayStep').max=frames.length-1;$('replayStep').value='0';renderReplay();$('replayDialog').showModal();}catch(e){showError(e);}};
+$('viewReplay').onclick=async()=>{try{const replay=await getReportReplay(),state=await createMatch(replay.config,replay.seeds,replay.matchId);frames=[{view:observeMatch(state),caption:'Before the protected opening'}];for(const e of replay.events){await applyRecordedEvent(state,e);frames.push({view:observeMatch(state),caption:`Event ${e.seq} · ${codeText(e.actor)} · ${e.type} · ${ms(e.atMs)}`});}$('replayStep').max=frames.length-1;$('replayStep').value='0';renderReplay();$('replayDialog').showModal();}catch(e){showError(e);}};
 function renderReplay(){const frame=frames[Number($('replayStep').value)];if(!frame)return;text('replayCaption',frame.caption);renderBoard($('replayHuman'),frame.view.boards.human,false);renderBoard($('replayJev'),frame.view.boards.jev,false);}
 $('replayStep').oninput=renderReplay;$('replayPrev').onclick=()=>{$('replayStep').value=Math.max(0,Number($('replayStep').value)-1);renderReplay();};$('replayNext').onclick=()=>{$('replayStep').value=Math.min(frames.length-1,Number($('replayStep').value)+1);renderReplay();};$('closeReplay').onclick=()=>$('replayDialog').close();
 function filterQuery(period){return new URLSearchParams({preset:$('preset').value,difficulty:$('difficulty').value,period});}
 async function loadHistory(cursor=null){const q=filterQuery($('historyPeriod').value);q.set('mode',$('historyMode').value);if(cursor)q.set('cursor',cursor);const data=await request(`/api/analytics/profile?${q}`),s=data.summary;stats($('historySummary'),[['Completed',number(s.completed)],['Wins / losses / draws',`${s.wins} / ${s.losses} / ${s.draws}`],['Clear-win rate',percent(s.clearWinRate)],['Best actual clear',ms(s.clearTimeMs.min)],['Current / best streak',`${s.currentWinStreak} / ${s.bestWinStreak}`]]);
-  table($('historyTable'),['Finished','Difficulty','Result','Eligibility','Clear time','Report'],data.matches.map(m=>{const b=document.createElement('button');b.className='link-button';b.textContent='Inspect';b.onclick=()=>{switchTab('report');loadReport(m.id,false).catch(e=>text('reportStatus',e.message));};return[new Date(m.finished_at).toLocaleString(),m.ai_difficulty,m.outcome,m.eligible?'Ranked':'Unofficial',ms(m.human_clear_ms),b];}));historyCursor=data.nextCursor;$('historyMore').hidden=!historyCursor;
+  table($('historyTable'),['Finished','Difficulty','Result','Eligibility','Clear time','Report'],data.matches.map(m=>{const b=document.createElement('button');b.type='button';b.className='jv-link-btn';b.textContent='Inspect';b.setAttribute('aria-label',`Inspect the match finished ${new Date(m.finished_at).toLocaleString()}`);b.onclick=()=>{switchTab('report');loadReport(m.id,false).catch(e=>text('reportStatus',e.message));};return[new Date(m.finished_at).toLocaleString(),[...$('difficulty').options].find(o=>o.value===m.ai_difficulty)?.textContent??m.ai_difficulty,m.outcome,m.eligible?'Ranked':'Unofficial',ms(m.human_clear_ms),b];}));historyCursor=data.nextCursor;$('historyMore').hidden=!historyCursor;
 }
 async function loadLeaderboard(cursor=null){const q=filterQuery($('leaderboardPeriod').value);q.set('scope',$('leaderboardScope').value);if(cursor)q.set('cursor',cursor);const data=await request(`/api/leaderboard?${q}`);table($('leaderboardTable'),['Rank','Player','Clear-win rate','W','L','D','Games','Best clear','Streak'],data.entries.map(e=>[e.provisional?`${e.completed}/20`:e.rank,e.displayName,percent(e.clearWinRate),e.wins,e.losses,e.draws,e.completed,ms(e.clearTimeMs.min),e.currentWinStreak]));text('leaderboardNote',`${data.totalPlayers} players · ${data.scope} · ${data.weeklyBoundary} · ${data.competitionKey}`);leaderboardCursor=data.nextCursor;$('leaderboardMore').hidden=!leaderboardCursor;}
 $('refreshHistory').onclick=()=>loadHistory().catch(showError);$('historyMore').onclick=()=>loadHistory(historyCursor).catch(showError);for(const id of['historyPeriod','historyMode'])$(id).onchange=()=>loadHistory().catch(showError);

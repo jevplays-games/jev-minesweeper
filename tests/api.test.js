@@ -42,7 +42,9 @@ test('a real generated board can be cleared and verified through the HTTP API',a
  s=await untilVerified(c,s);assert.equal(s.eligibility.verification,'verified');
  const replay=(await pagedReplay(c.req,s.id)).data,report=await analyzeReplay(replay,{verified:true});assert.equal(report.players.human.revealedSafe,71);assert.ok(report.players.human.clearMs>=0);});
 test('the replay is served in pages that reassemble into the verifiable document, and the jsonl journal is the stored events',async()=>{
- const c=await client(),s=await started(c);for(let i=0;i<30;i++){const snap=(await c.req(`/api/matches/${s.id}`)).data,cell=snap.boards.human.cells.indexOf(-1);await c.req(`/api/matches/${s.id}/actions`,act({type:'setFlag',cell,value:true},{expectedBoardRevision:snap.boards.human.revision}));}
+ // Toggle a flag on one covered cell: every toggle is an accepted event, however large the random opening was. (Flagging 30 different
+ // cells ran out of covered cells after a big opening, the rest were rejected, and the journal sometimes fit on one page.)
+ const c=await client(),s=await started(c);for(let i=0;i<30;i++){const snap=(await c.req(`/api/matches/${s.id}`)).data,cell=snap.boards.human.cells.findIndex(v=>v===-1||v===-2);const r=await c.req(`/api/matches/${s.id}/actions`,act({type:'setFlag',cell,value:i%2===0},{expectedBoardRevision:snap.boards.human.revision}));assert.equal(r.status,200,`toggle ${i}`);}
  await c.req(`/api/matches/${s.id}/actions`,act({type:'resign'}));await app.idle();
  const stored=app.database.raw.prepare('SELECT event_json FROM match_events WHERE match_id=? ORDER BY seq').all(s.id).map(x=>x.event_json);assert.ok(stored.length>24,'more than one page');
  const first=(await c.req(`/api/matches/${s.id}/replay`)).data;assert.equal(first.page.count,24);assert.equal(first.page.next,25);assert.equal(first.page.total,stored.length);

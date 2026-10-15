@@ -76,13 +76,16 @@ def run():
     with sync_playwright() as p:
         executable=args.chromium or ('/usr/bin/chromium' if Path('/usr/bin/chromium').exists() else None)
         browser=p.chromium.launch(executable_path=executable,headless=True,args=['--no-sandbox'])
-        context=browser.new_context(viewport={'width':1440,'height':1100},device_scale_factor=1,accept_downloads=True)
+        # bypass_csp: Playwright's wait_for_function evaluates a string, which the app's script-src 'self' CSP blocks; this affects the harness only.
+        context=browser.new_context(viewport={'width':1440,'height':1100},device_scale_factor=1,accept_downloads=True,bypass_csp=True)
         page=context.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)));page.on('dialog',lambda d:d.accept())
         if args.dom_bridge: bridge(page,args.base)
         else: page.goto(args.base);page.wait_for_function("document.getElementById('connection').textContent==='Connected'")
         assert page.locator('#humanBoard .cell').count()==81
         assert page.locator('#jevBoard .cell').count()==81
-        page.screenshot(path=str(out/'desktop-ready.png'),full_page=True)
+        # Full-page captures start from the top: the sticky header is drawn where the page is scrolled, so a capture taken after a click
+        # lower down froze it across the boards.
+        page.evaluate('window.scrollTo(0, 0)');page.screenshot(path=str(out/'desktop-ready.png'),full_page=True,animations='disabled')
         page.locator('#humanBoard [data-cell="40"]').click()
         page.wait_for_function("document.getElementById('humanStatus').textContent==='Board active'",timeout=10000)
         page.wait_for_timeout(1300)
@@ -94,15 +97,19 @@ def run():
         assert page.locator('#humanBoard .flagged').count()==0
         covered.press('ArrowRight')
         assert page.locator('#humanBoard .cell[tabindex="0"]').count()==1
-        assert int(page.locator('#liveJevActions').inner_text())>=1
-        page.screenshot(path=str(out/'desktop-running.png'),full_page=True)
+        # The Worker applies Jev's moves lazily on the 600 ms polls, so wait for the first one rather than asserting at a fixed instant.
+        page.wait_for_function("Number(document.getElementById('liveJevActions').textContent)>=1",timeout=10000)
+        # Jev reveals a cell every second with a 0.32 s pop animation. A full-page capture resizes the viewport, which re-renders the boards
+        # and restarts that animation, so screenshots use animations='disabled' (finished state); this wait also avoids a move landing mid-capture.
+        page.wait_for_function("document.getAnimations().every(a=>a.playState!=='running')",timeout=10000,polling=50)
+        page.evaluate('window.scrollTo(0, 0)');page.screenshot(path=str(out/'desktop-running.png'),full_page=True,animations='disabled')
         observations.append({'workflow':'desktop game, protected opening, local opponent, flag/unflag, keyboard roving focus','pass':True})
         page.locator('#resign').click()
         page.wait_for_function("!document.getElementById('reportContent').hidden",timeout=30000)
         page.locator('#tab-report').click()
         assert 'LOSS' in page.locator('#reportStatus').inner_text()
         assert page.locator('#comparison tr').count()>20
-        page.screenshot(path=str(out/'desktop-analytics.png'),full_page=True)
+        page.evaluate('window.scrollTo(0, 0)');page.screenshot(path=str(out/'desktop-analytics.png'),full_page=True,animations='disabled')
         with page.expect_download() as event: page.locator('#exportJson').click()
         download=event.value;download.save_as(str(out/'browser-analytics.json'))
         report=json.loads((out/'browser-analytics.json').read_text());assert report['analyticsVersion']=='ms-analytics-1.1.0'
@@ -114,7 +121,7 @@ def run():
         page.locator('#tab-leaderboards').click();page.wait_for_timeout(300)
         observations.append({'workflow':'history and public leaderboard empty state','pass':True})
         page.set_viewport_size({'width':390,'height':844});page.locator('#tab-live').click()
-        page.screenshot(path=str(out/'mobile.png'),full_page=True)
+        page.evaluate('window.scrollTo(0, 0)');page.screenshot(path=str(out/'mobile.png'),full_page=True,animations='disabled')
         width=page.evaluate('({scroll:document.documentElement.scrollWidth, viewport:innerWidth})')
         assert width['scroll']<=width['viewport']+1,width
         observations.append({'workflow':'390px mobile layout without document-level horizontal overflow','pass':True})

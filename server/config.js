@@ -60,7 +60,8 @@ export function loadConfig(env = {}) {
   const salt = env.RATE_LIMIT_SALT || (dev ? 'local-development-only' : '');
   if (!salt) throw new Error('RATE_LIMIT_SALT is required outside local development');
   return {
-    dev, production, origin: parsed.origin, // Pre-rename hosts (minesweeper.jevplay.games) this deployment still answers on until the 301 cutover. Comma-separated.
+    dev, production, origin: parsed.origin,
+    // Pre-rename hosts (minesweeper.jevplay.games) this deployment still answers on until the 301 cutover. Comma-separated.
     legacyOrigins: legacyOrigins(env.LEGACY_APP_ORIGINS, parsed, dev), rateLimitSalt: salt,
     jevKey: env.TYPESAFE_API_KEY || '', model: env.JEV_MODEL || MODEL, jevEndpoint: 'https://api.typesafe.ai/v1/systemone',
     discordClientId: env.DISCORD_CLIENT_ID || '', discordClientSecret: env.DISCORD_CLIENT_SECRET || '', discordPublicKey: env.DISCORD_PUBLIC_KEY || '',
