@@ -381,8 +381,8 @@
     },
     {
       "path": "reports/coverage.txt",
-      "bytes": 17142,
-      "sha256": "c9c83978ba656c12fbace03ffda07829820ca002ffd03b0ce77db70b32eccebc"
+      "bytes": 16406,
+      "sha256": "cdf04b314292b75e6bc7c4ac19d9ad57f501340178984622fb4447b508dcc07f"
     },
     {
       "path": "reports/cpu/cpu.json",
@@ -431,8 +431,8 @@
     },
     {
       "path": "reports/tests.tap",
-      "bytes": 35857,
-      "sha256": "1ba68e8cd236503d6588739bfed5e7146894df1552bd21d32997d75f8c201980"
+      "bytes": 35862,
+      "sha256": "06a05b9a70fc22648dd53e97de207f908eef3716397c81402a9fada31d38599a"
     },
     {
       "path": "scripts/backup.js",
@@ -516,8 +516,8 @@
     },
     {
       "path": "tests/api.test.js",
-      "bytes": 13838,
-      "sha256": "d4160e829f79ccb1c3954034858e767c921a8f53e793c1262495ef8321e8deff"
+      "bytes": 14166,
+      "sha256": "b8ed234a7f7bf04b8c31f960f9053f30897358435ce446249b989831047a637f"
     },
     {
       "path": "tests/browser_smoke.py",
