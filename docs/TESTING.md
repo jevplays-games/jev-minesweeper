@@ -1,6 +1,6 @@
 # Executed validation and remaining gates
 
-Run date: September22,2026. This records measurements, not promises of production readiness.
+Run date: September 22, 2026. This records measurements, not promises of production readiness.
 
 ## Automated Node suite (Workers port)
 
@@ -49,17 +49,17 @@ Playwright/Python are development-only and are unnecessary to run the game. The 
 
 ## Benchmark evidence
 
-`reports/benchmark/report.md` (regenerated under policy `ms-policy-1.1.0`; beginner clear rates are unchanged from 1.0.0) records 100 board seeds×5 local policies=500 game runs. `reports/benchmark-expert/` adds 40 expert boards, zero invalid moves and zero live provider calls. Paired independent-board races also swap seed assignments. Raw records and traces are included. Clear percentages describe that deterministic seed corpus and those local policies only. They are not measured remote Jev capability, human skill estimates, or a claim that difficulty labels produce statistically distinct remote strength. `--remote` is available only after explicit key configuration.
+`reports/benchmark/report.md` (regenerated under policy `ms-policy-1.1.0`; beginner clear rates are unchanged from 1.0.0) records 100 board seeds × 5 local policies = 500 game runs. `reports/benchmark-expert/` adds 40 expert boards, zero invalid moves and zero live provider calls. Paired independent-board races also swap seed assignments. Raw records and traces are included. Clear percentages describe that deterministic seed corpus and those local policies only. They are not measured remote Jev capability, human skill estimates, or a claim that difficulty labels produce statistically distinct remote strength. `--remote` is available only after explicit key configuration.
 
 ## Replay and backup checks
 
-The synthetic two-scripted-player sample produced24 events and verified from its released seeds and journal. It is labeled synthetic and excluded from ranking. CSV/JSON/JSONL examples are included. The replay verifier returns a compact result and does not need external services.
+The synthetic two-scripted-player sample produced 24 events and verified from its released seeds and journal. It is labeled synthetic and excluded from ranking. CSV/JSON/JSONL examples are included. The replay verifier returns a compact result and does not need external services.
 
 The backup script ran successfully against the local live SQLite database and its destination passed integrity_check. The private database and backup are deliberately excluded from the deliverable. Full production restore, OS/service setup, TLS certificate issuance and Docker image build were not performed.
 
 ## Static footprint
 
-`reports/static-footprint.json` sums separately gzip-compressed public/shared files. At measurement, all included static modules—including optional offline/replay/analytics modules—totaled41,434 gzip bytes. This is a reproducible asset-size measurement, not actual transfer size under every proxy or a measured first-contentful-paint result. No frontend framework or external font is loaded.
+`reports/static-footprint.json` sums separately gzip-compressed public/shared files. At measurement, all included static modules—including optional offline/replay/analytics modules—totaled 41,434 gzip bytes. This is a reproducible asset-size measurement, not actual transfer size under every proxy or a measured first-contentful-paint result. No frontend framework or external font is loaded.
 
 ## Remaining deployment validation
 

@@ -1,6 +1,6 @@
 # Source and implementation notes
 
-External documentation reviewed on **September22,2026**. These references support integration boundaries and deployment choices; the application's rules variant, analytics definitions, tests, benchmarks, code and screenshots are generated implementation artifacts, not claims made by the providers. No full external documentation or proprietary SDK is redistributed.
+External documentation reviewed on **September 22, 2026**. These references support integration boundaries and deployment choices; the application's rules variant, analytics definitions, tests, benchmarks, code and screenshots are generated implementation artifacts, not claims made by the providers. No full external documentation or proprietary SDK is redistributed.
 
 | Source | Use in this project |
 |---|---|
@@ -15,7 +15,7 @@ External documentation reviewed on **September22,2026**. These references suppor
 | [Discord interactions overview](https://docs.discord.com/developers/interactions/overview) | Signed HTTP interaction verification and response behavior |
 | [Discord receiving/responding](https://docs.discord.com/developers/interactions/receiving-and-responding) | Interaction user/guild/channel data and private responses |
 | [Node release schedule](https://nodejs.org/en/about/previous-releases) | Node24 LTS deployment target; actual tested runtime is separately recorded |
-| [Node24 SQLite documentation](https://nodejs.org/docs/latest-v24.x/api/sqlite.html) | Native database API; tested22 runtime has different experimental-status labeling |
+| [Node 24 SQLite documentation](https://nodejs.org/docs/latest-v24.x/api/sqlite.html) | Native database API; the tested Node 22 runtime has different experimental-status labeling |
 | [Cloudflare Workers limits](https://developers.cloudflare.com/workers/platform/limits/), [D1 limits](https://developers.cloudflare.com/d1/platform/limits/) | Free-plan budget: 10 ms CPU, 128 MB, 50 subrequests/queries per invocation, 100 k requests/day, 500 MB per D1 database (fetched 2026-09-30; D1 daily row allowances are from the pricing page and were not re-fetched) |
 | [OWASP session management](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html) | Session/cookie lifecycle design reference, not a certification |
 
