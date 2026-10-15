@@ -47,20 +47,12 @@
         <div><p class="eyebrow">HUMAN VS STRUCTURED INTELLIGENCE</p><h1 id="gameTitle">Safe<span class="title-accent">Sweep</span><span class="versus">vs Jev</span></h1><p class="subtitle">Two independent boards. The same starting square. First to clear wins.</p></div>
         <div class="hero-status"><span class="eyebrow">MATCH MODE</span><span id="matchMode" class="pill">Unofficial practice</span></div>
       </section>
-      <section class="toolbar jv-pip-hide" aria-label="Game setup">
-        <label>Board<select id="preset"><option value="beginner">Beginner · 9 × 9 / 10 mines</option><option value="intermediate">Intermediate · 16 × 16 / 40 mines</option><option value="expert">Expert · 30 × 16 / 99 mines</option></select></label>
-        <label>Opponent reasoning<select id="difficulty"><option value="easy">Easy</option><option value="normal">Normal</option><option value="hard">Hard</option><option value="jev" selected>Jev</option></select></label>
-        <label>Match mode<select id="mode"><option value="practice">Practice</option><option value="ranked">Ranked · Discord + Jev required</option></select></label>
-        <label>Cell size<select id="cellSize"><option value="standard">Standard</option><option value="large">Large · 44 px</option></select></label>
-        <label id="contextLabel" hidden>Community<select id="context"><option value="world">World only</option><option value="current">Discord launch context</option></select></label>
-        <div class="toolbar-actions"><button id="newGame" class="button primary">New game</button><button id="resign" class="button" disabled>Resign</button><button id="offline" class="button quiet">Offline practice</button></div>
-      </section>
       <div id="notice" class="notice" role="status" aria-live="polite">Click a square on your board to open the same starting coordinate on both boards.</div>
       <section class="arena jv-first" aria-label="Two-board SafeSweep race">
         <article class="jv-panel is-tight board-card is-human">
           <div class="board-header"><div class="player-title"><span class="player-token you-token">Y</span><div><h2>You</h2><span id="humanStatus" class="muted">Choose your opening</span></div></div><div class="board-count"><strong id="humanProgress">0 / 71</strong><span>safe cells</span></div></div>
           <progress id="humanMeter" value="0" max="71" aria-label="Your safe-cell progress"></progress>
-          <div class="board-controls"><div class="segmented" aria-label="Touch action"><button id="revealMode" aria-pressed="true">Reveal</button><button id="flagMode" aria-pressed="false">Flag</button></div><span id="flagCount" class="muted">0 flags / 10 mines</span></div>
+          <div class="board-controls"><div class="segmented" role="group" aria-label="Touch action"><button id="revealMode" aria-pressed="true">Reveal</button><button id="flagMode" aria-pressed="false">Flag</button></div><span id="flagCount" class="muted">0 flags / 10 mines</span></div>
           <div class="board-scroll"><div id="humanBoard" class="board jv-tray" role="grid" aria-label="Your SafeSweep board"></div></div>
           <p class="board-note jv-pip-hide">Click: reveal · Right-click / F: flag · C / double-click: chord</p>
         </article>
@@ -82,16 +74,24 @@
           </div>
         </aside>
       </section>
+      <section class="toolbar jv-pip-hide" aria-label="Game setup">
+        <label>Board<select id="preset"><option value="beginner">Beginner · 9 × 9 / 10 mines</option><option value="intermediate">Intermediate · 16 × 16 / 40 mines</option><option value="expert">Expert · 30 × 16 / 99 mines</option></select></label>
+        <label>Opponent reasoning<select id="difficulty"><option value="easy">Easy</option><option value="normal">Normal</option><option value="hard">Hard</option><option value="jev" selected>Jev</option></select></label>
+        <label>Match mode<select id="mode"><option value="practice">Practice</option><option value="ranked">Ranked · Discord + Jev required</option></select></label>
+        <label>Cell size<select id="cellSize"><option value="standard">Standard</option><option value="large">Large · 44 px</option></select></label>
+        <label id="contextLabel" hidden>Community<select id="context"><option value="world">World only</option><option value="current">Discord launch context</option></select></label>
+        <div class="toolbar-actions"><button id="newGame" class="button primary">New game</button><button id="resign" class="button" disabled>Resign</button><button id="offline" class="button quiet">Offline practice</button></div>
+      </section>
       <section class="live-strip jv-pip-hide" aria-label="Live race metrics">
         <div><span>YOUR COMPLETION</span><strong id="liveCompletion">0%</strong></div><div><span>SAFE-CELL LEAD</span><strong id="liveLead">0</strong></div><div><span>YOUR COMMANDS</span><strong id="liveActions">0</strong></div><div><span>OPPONENT COMMANDS</span><strong id="liveJevActions">0</strong></div><div><span>VERIFICATION</span><strong id="liveVerification" class="small-value">Not started</strong></div>
       </section>
       <section class="workspace jv-pip-hide" aria-label="Analytics and records">
         <div class="tabs" role="tablist" aria-label="Analysis views">
           <button role="tab" id="tab-live" aria-selected="true" aria-controls="panel-live" data-panel="live">Race telemetry</button>
-          <button role="tab" id="tab-report" aria-selected="false" aria-controls="panel-report" data-panel="report">Post-game analytics</button>
-          <button role="tab" id="tab-history" aria-selected="false" aria-controls="panel-history" data-panel="history">Your history</button>
-          <button role="tab" id="tab-leaderboards" aria-selected="false" aria-controls="panel-leaderboards" data-panel="leaderboards">Leaderboards</button>
-          <button role="tab" id="tab-rules" aria-selected="false" aria-controls="panel-rules" data-panel="rules">Rules & integrity</button>
+          <button role="tab" id="tab-report" aria-selected="false" tabindex="-1" aria-controls="panel-report" data-panel="report">Post-game analytics</button>
+          <button role="tab" id="tab-history" aria-selected="false" tabindex="-1" aria-controls="panel-history" data-panel="history">Your history</button>
+          <button role="tab" id="tab-leaderboards" aria-selected="false" tabindex="-1" aria-controls="panel-leaderboards" data-panel="leaderboards">Leaderboards</button>
+          <button role="tab" id="tab-rules" aria-selected="false" tabindex="-1" aria-controls="panel-rules" data-panel="rules">Rules & integrity</button>
         </div>
         <div class="jv-panel" id="panel-live" role="tabpanel" aria-labelledby="tab-live">
           <div class="section-heading"><div><h2>Progress, move by move</h2><p class="muted">Only visible information is shown during an active match.</p></div><div class="chart-legend"><span class="human-key">You</span><span class="jev-key">Opponent</span></div></div>
