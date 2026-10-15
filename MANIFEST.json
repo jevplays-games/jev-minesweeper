@@ -236,8 +236,8 @@
     },
     {
       "path": "public/game.js",
-      "bytes": 36557,
-      "sha256": "d1677ec3e0745bf9378fd26aeaf56821218bb2de303b444353889d952d6e3cfb"
+      "bytes": 36658,
+      "sha256": "9f243666c2772220e8e6b33144028ae7c6c3b2404ab79979a92bccca92d4bb7b"
     },
     {
       "path": "public/index.html",
@@ -346,8 +346,8 @@
     },
     {
       "path": "reports/browser/browser-analytics.json",
-      "bytes": 39913,
-      "sha256": "ad6bc4ff421f7bc5c7b593d412d2d1741c9809612b448f339ba359fe763bf6c9"
+      "bytes": 50012,
+      "sha256": "0900c716454aaa30b555aae605cbc623e86b2596ffc8c74f0ac7b99d7458be0c"
     },
     {
       "path": "reports/browser/browser-results.json",
@@ -356,8 +356,8 @@
     },
     {
       "path": "reports/browser/desktop-analytics.png",
-      "bytes": 370950,
-      "sha256": "ccf0478c785f2aa7bdc38262950235d623c6f5b403eea813a176d4fdf9194027"
+      "bytes": 368182,
+      "sha256": "766b49b27dbf278981fe03db0bdaa6f8a56faf377f1b206be3fede608a4d12f1"
     },
     {
       "path": "reports/browser/desktop-ready.png",
@@ -366,13 +366,13 @@
     },
     {
       "path": "reports/browser/desktop-running.png",
-      "bytes": 166783,
-      "sha256": "30f7bba4f4e7e6b86d1c1f2683387e72ebc067f7086f7246c543433ab0643aaf"
+      "bytes": 164886,
+      "sha256": "b40df92b946014ef3e607dc014d8b394c179b61e1d6bd0b252cf16fa692900c0"
     },
     {
       "path": "reports/browser/mobile.png",
-      "bytes": 147771,
-      "sha256": "c9520c5de2d4ee12e285d3d114efd7515618b70ca79ebb3518e7769e5578ff29"
+      "bytes": 144714,
+      "sha256": "40addc5f0e7d55294976b497d282d402a0d23169c9a9fe20597aceaeff104b4a"
     },
     {
       "path": "reports/clean-start.json",
@@ -382,7 +382,7 @@
     {
       "path": "reports/coverage.txt",
       "bytes": 16390,
-      "sha256": "29f9a444c1c70b92fef35967ff14b5ace4baa87b7963aab76fc36b28987139c3"
+      "sha256": "bad4eb6808cce1aab941a4c07f38f8860c4ef6f51a325842814a045befc17444"
     },
     {
       "path": "reports/cpu/cpu.json",
@@ -431,8 +431,8 @@
     },
     {
       "path": "reports/tests.tap",
-      "bytes": 35865,
-      "sha256": "0dd4671860e1507800973e6717c94dc1daa78931674d560f94532d3a68ffcaa5"
+      "bytes": 35868,
+      "sha256": "8c2797deead828ddc8906be1b731d65d8495fa4f6ea2b8ba6042e380838e9482"
     },
     {
       "path": "scripts/backup.js",
