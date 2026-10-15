@@ -31,7 +31,7 @@ cd jev-safesweep        # the clone directory (jev-minesweeper before the repo r
 npm start
 ```
 
-Open `http://localhost:3000`. Select **New game**, then click your starting square. The same coordinate opens on Jev's independently generated board. `npm start` is a local development shim over the same Worker code production runs (`server/worker.js`), with SQLite standing in for D1. It tolerates a missing `.env` and creates a private SQLite database at `data/safesweep.sqlite` (an existing pre-rename `data/minesweeper.sqlite` is reused). To deploy, follow `docs/DEPLOYMENT.md` (`npm run deploy`, `npm run db:remote`).
+Open `http://localhost:3000`. Select **New game**, then click your starting square. The same coordinate opens on the opponent's independently generated board: Jev when `TYPESAFE_API_KEY` is set, otherwise the labeled local heuristic. `npm start` is a local development shim over the same Worker code production runs (`server/worker.js`), with SQLite standing in for D1. It tolerates a missing `.env` and creates a private SQLite database at `data/safesweep.sqlite` (an existing pre-rename `data/minesweeper.sqlite` is reused). To deploy, follow `docs/DEPLOYMENT.md` (`npm run deploy`, `npm run db:remote`).
 
 For configuration, copy `.env.example` to `.env`, edit the relevant values, and restart. On Windows PowerShell, use `Copy-Item .env.example .env`; on macOS/Linux, use `cp .env.example .env`. [START-HERE.md](START-HERE.md) is the same in three steps.
 
@@ -64,7 +64,7 @@ flowchart LR
   linkStyle default stroke:#E551BA,stroke-width:2px
 ```
 
-<p align="center"><img src="reports/browser/desktop-running.png" alt="SafeSweep mid-race at 1440 pixels wide: your board and Jev's read-only board side by side, the decision lab, match controls and the live progress chart" width="100%"></p>
+<p align="center"><img src="reports/browser/desktop-running.png" alt="SafeSweep mid-race at 1440 pixels wide against the labeled local practice opponent: your board and the opponent's read-only board side by side, the decision lab, match controls and the live progress chart" width="100%"></p>
 
 The server holds the seeds, mine layouts, official time and outcomes. Opponent moves, 100-ms adjudication and abandonment are applied lazily by whichever request next touches the match, so nothing runs in the background (`docs/ARCHITECTURE.md`). When a match ends, its event journal is sealed into a replay that anyone can re-verify against the same engine.
 
@@ -123,7 +123,7 @@ npm run bench -- --boards 100 --remote --difficulty jev --out reports/live-jev
 
 No missing-key substitution is allowed for `--remote`; failures in an authorized live run remain counted in its results. Do not present the bundled local baseline as Jev performance.
 
-The optional browser test uses Python Playwright, a development-only tool, not an application dependency. This runner's Chromium navigation policy blocked normal URL navigation, so recorded UI checks used a documented DOM/API bridge. Native Node HTTP/SSE, ownership, CSRF, and server headers were tested separately. See [TESTING.md](docs/TESTING.md).
+The optional browser test (`tests/browser_smoke.py`) uses Python Playwright, a development-only tool, not an application dependency. The recorded run in `reports/browser/` navigates a real Chromium against the local Worker shim; the original 1.0.0 recording had to use a documented DOM/API bridge because that runner's Chromium policy blocked navigation. Native Node HTTP/SSE, ownership, CSRF, and server headers are also tested separately. See [TESTING.md](docs/TESTING.md).
 
 ## Repository layout
 

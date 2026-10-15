@@ -156,7 +156,7 @@ Production: Cloudflare Workers, D1 and Static Assets (Web APIs and Web Crypto on
 
 ## S. Tests
 
-Rules, deterministic generation vectors, actions/chords/race boundaries, observations, solver proofs/exact probabilities, candidate caps, response parsing, malformed/timeout/fallback handling, OAuth mocks, real cryptographic signature fixtures, ownership/CSRF, HTTP/SSE, replay tampering, SQL transactions, CSV defenses, aggregation, and leaderboards are automated. Scheduler, verification, quota, degradation and Workers-compatibility tests run the real handler on real SQLite through the D1 wrapper with a controllable clock and provider. Chromium UI checks (not re-run for the Workers port) cover desktop/mobile/local offline and exports. `TESTING.md` states execution conditions and the DOM-bridge limitation.
+Rules, deterministic generation vectors, actions/chords/race boundaries, observations, solver proofs/exact probabilities, candidate caps, response parsing, malformed/timeout/fallback handling, OAuth mocks, real cryptographic signature fixtures, ownership/CSRF, HTTP/SSE, replay tampering, SQL transactions, CSV defenses, aggregation, and leaderboards are automated. Scheduler, verification, quota, degradation and Workers-compatibility tests run the real handler on real SQLite through the D1 wrapper with a controllable clock and provider. Chromium UI checks (re-run natively against the Workers port for the jevplay.games rebrand) cover desktop/mobile/local offline and exports. `TESTING.md` states execution conditions, including the DOM bridge the original 1.0.0 run needed.
 
 ## T. Benchmarking
 

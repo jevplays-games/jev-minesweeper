@@ -25,6 +25,6 @@ External documentation reviewed on **September22,2026**. These references suppor
 
 ## Measurement evidence
 
-`reports/tests.tap` and `reports/coverage.txt` contain executed Node test output. `reports/browser/` contains the measured Chromium DOM-bridge report and screenshots; it is not evidence of a normally navigating browser's live OAuth or native SSE behavior. Node tests separately exercise native HTTP/SSE. `reports/benchmark/` records deterministic local-policy measurements only. `reports/sample/` is a labeled scripted regression fixture, never an actual player record or live Jev benchmark.
+`reports/tests.tap` and `reports/coverage.txt` contain executed Node test output. `reports/browser/` contains the Chromium smoke-test results and screenshots, recorded with normal browser navigation against the local Worker shim; they are not evidence of live OAuth, Discord or public HTTPS behavior. Node tests separately exercise native HTTP/SSE. `reports/benchmark/` records deterministic local-policy measurements only. `reports/sample/` is a labeled scripted regression fixture, never an actual player record or live Jev benchmark.
 
 No real Discord or TypeSafe credentials were supplied or used. No image/font assets were fetched from the sources above. Model capability, production latency and successful third-party authorization remain unverified until the operator runs staging checks.
