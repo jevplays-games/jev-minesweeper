@@ -76,7 +76,8 @@ def run():
     with sync_playwright() as p:
         executable=args.chromium or ('/usr/bin/chromium' if Path('/usr/bin/chromium').exists() else None)
         browser=p.chromium.launch(executable_path=executable,headless=True,args=['--no-sandbox'])
-        context=browser.new_context(viewport={'width':1440,'height':1100},device_scale_factor=1,accept_downloads=True)
+        # bypass_csp: Playwright's wait_for_function evaluates a string, which the app's script-src 'self' CSP blocks; this affects the harness only.
+        context=browser.new_context(viewport={'width':1440,'height':1100},device_scale_factor=1,accept_downloads=True,bypass_csp=True)
         page=context.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)));page.on('dialog',lambda d:d.accept())
         if args.dom_bridge: bridge(page,args.base)
         else: page.goto(args.base);page.wait_for_function("document.getElementById('connection').textContent==='Connected'")
@@ -94,7 +95,8 @@ def run():
         assert page.locator('#humanBoard .flagged').count()==0
         covered.press('ArrowRight')
         assert page.locator('#humanBoard .cell[tabindex="0"]').count()==1
-        assert int(page.locator('#liveJevActions').inner_text())>=1
+        # The Worker applies Jev's moves lazily on the 600 ms polls, so wait for the first one rather than asserting at a fixed instant.
+        page.wait_for_function("Number(document.getElementById('liveJevActions').textContent)>=1",timeout=10000)
         page.screenshot(path=str(out/'desktop-running.png'),full_page=True)
         observations.append({'workflow':'desktop game, protected opening, local opponent, flag/unflag, keyboard roving focus','pass':True})
         page.locator('#resign').click()

@@ -1,4 +1,4 @@
-<p align="center"><img src="assets/banner.jpg" alt="Pixel-art robot Jev at a neon minesweeper grid with red flags and a glowing mine" width="100%"></p>
+<p align="center"><img src="assets/banner.png" alt="Flat pink and ink pixel-window banner for SafeSweep showing two minefield windows racing side by side, a safe-probability panel and the Jev robot" width="100%"></p>
 
 <div align="center">
 
@@ -63,6 +63,8 @@ flowchart LR
   class J,D,R ink
   linkStyle default stroke:#E551BA,stroke-width:2px
 ```
+
+<p align="center"><img src="reports/browser/desktop-running.png" alt="SafeSweep mid-race at 1440 pixels wide: your board and Jev's read-only board side by side, the decision lab, match controls and the live progress chart" width="100%"></p>
 
 The server holds the seeds, mine layouts, official time and outcomes. Opponent moves, 100-ms adjudication and abandonment are applied lazily by whichever request next touches the match, so nothing runs in the background (`docs/ARCHITECTURE.md`). When a match ends, its event journal is sealed into a replay that anyone can re-verify against the same engine.
 
@@ -138,6 +140,7 @@ bench/                   Matched-seed policy benchmark and CPU measurements
 tests/                   Node tests, fixtures (including a pre-rename replay) and the Playwright smoke test
 docs/                    Architecture, analytics, API, security, deployment, Activity, testing, sources
 reports/                 Executed test output, benchmarks, screenshots, synthetic sample exports
+assets/                  README banner and GitHub social preview; assets/src holds their HTML sources and render.mjs
 wrangler.jsonc           Cloudflare Worker, routes, D1 binding and vars
 ```
 
