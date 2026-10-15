@@ -60,16 +60,16 @@
         <article class="jv-panel is-tight board-card is-human">
           <div class="board-header"><div class="player-title"><span class="player-token you-token">Y</span><div><h2>You</h2><span id="humanStatus" class="muted">Choose your opening</span></div></div><div class="board-count"><strong id="humanProgress">0 / 71</strong><span>safe cells</span></div></div>
           <progress id="humanMeter" value="0" max="71" aria-label="Your safe-cell progress"></progress>
+          <div class="board-controls"><div class="segmented" aria-label="Touch action"><button id="revealMode" aria-pressed="true">Reveal</button><button id="flagMode" aria-pressed="false">Flag</button></div><span id="flagCount" class="muted">0 flags / 10 mines</span></div>
           <div class="board-scroll"><div id="humanBoard" class="board jv-tray" role="grid" aria-label="Your SafeSweep board"></div></div>
-          <div class="board-footer"><div class="segmented" aria-label="Touch action"><button id="revealMode" aria-pressed="true">Reveal</button><button id="flagMode" aria-pressed="false">Flag</button></div><span id="flagCount" class="muted">0 flags / 10 mines</span></div>
-          <p class="board-help jv-pip-hide">Click: reveal · Right-click / F: flag · C / double-click: chord</p>
+          <p class="board-note jv-pip-hide">Click: reveal · Right-click / F: flag · C / double-click: chord</p>
         </article>
         <article class="jv-panel is-tight board-card is-jev jv-pip-hide">
           <div class="board-header"><div class="player-title"><span class="player-token jev-token">J</span><div><h2 id="opponentTitle">Opponent</h2><span id="jevStatus" class="muted">Waiting for your opening</span></div></div><div class="board-count"><strong id="jevProgress">0 / 71</strong><span>safe cells</span></div></div>
           <progress id="jevMeter" value="0" max="71" aria-label="Opponent safe-cell progress"></progress>
+          <div class="board-controls"><span id="opponentBadge" class="pill amber">Local heuristic · not Jev</span><span class="muted">Read-only board</span></div>
           <div class="board-scroll"><div id="jevBoard" class="board readonly jv-tray" role="grid" aria-label="Opponent SafeSweep board, read only"></div></div>
-          <div class="board-footer"><span id="opponentBadge" class="pill amber">Local heuristic · not Jev</span><span class="muted">Read-only board</span></div>
-          <p class="board-help">Independent mine layout. No hidden information is shared.</p>
+          <p class="board-note">Independent mine layout. No hidden information is shared.</p>
         </article>
         <aside class="jv-panel is-tight decision-card jv-pip-hide" aria-labelledby="decisionTitle">
           <div class="section-heading"><h2 id="decisionTitle">Decision lab</h2><label class="switch-label"><input type="checkbox" id="analysisToggle" checked> Show</label></div>

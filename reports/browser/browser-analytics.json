@@ -1,11 +1,11 @@
 {
   "analyticsVersion": "ms-analytics-1.1.0",
-  "matchId": "7f9aeb76-9aea-4d5b-96cc-2f84dafc724d",
+  "matchId": "8d9386ea-f0f1-4545-8755-b25e25b72dde",
   "generatedFrom": "sealed authoritative event replay",
   "metadata": {
-    "createdAt": 1792023570705,
-    "startedAt": 1792023570804,
-    "finishedAt": 1792023574758,
+    "createdAt": 1792028357902,
+    "startedAt": 1792028357996,
+    "finishedAt": 1792028362052,
     "competitionKey": "ms-race-1.0.0|ms-policy-1.1.0|jev-1.13.0|beginner|jev|1000|100",
     "eligible": false,
     "eligibilityReasons": [
@@ -36,17 +36,17 @@
   "result": {
     "outcome": "loss",
     "reason": "resigned",
-    "finishedAtMs": 3954,
+    "finishedAtMs": 4056,
     "openingOnly": false,
     "humanStatus": "active",
     "jevStatus": "active",
-    "humanRevealed": 35,
-    "jevRevealed": 49,
+    "humanRevealed": 56,
+    "jevRevealed": 59,
     "humanClearMs": null,
     "jevClearMs": null
   },
   "match": {
-    "durationMs": 3954,
+    "durationMs": 4056,
     "acceptedEvents": 6,
     "acceptedCommands": 4,
     "mineDensity": 0.12345679012345678,
@@ -66,7 +66,7 @@
       "incorrectFlagsRemoved": 0,
       "correctFlagsRemoved": 1,
       "safeCellsFromActions": 0,
-      "safeCellsFromOpening": 35,
+      "safeCellsFromOpening": 56,
       "zeroExpansionActions": 0,
       "zeroExpansionCells": 0,
       "uncertainRevealActions": 0,
@@ -173,17 +173,8 @@
           null,
           null,
           null,
-          null,
-          null,
           0,
           0,
-          0,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
           0,
           0,
           0,
@@ -199,6 +190,29 @@
           0,
           0,
           null,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
           0,
           0,
           0,
@@ -211,34 +225,20 @@
           0,
           0,
           0,
-          0,
-          0,
-          0,
-          0,
-          0,
+          null,
           null,
           0,
           0,
           0,
+          null,
+          0,
+          0,
           0,
           null,
           null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
+          0,
+          0,
+          0,
           null,
           null,
           null,
@@ -413,12 +413,12 @@
       },
       "terminalAtMs": null,
       "status": "active",
-      "activeMs": 3954,
-      "revealedSafe": 35,
-      "safeCompletionRate": 0.49295774647887325,
+      "activeMs": 4056,
+      "revealedSafe": 56,
+      "safeCompletionRate": 0.7887323943661971,
       "clearMs": null,
       "revealedMineCells": 0,
-      "unrevealedSafeCells": 36,
+      "unrevealedSafeCells": 15,
       "flagsAtEnd": 0,
       "correctFlagsAtEnd": 0,
       "incorrectFlagsAtEnd": 0,
@@ -428,9 +428,9 @@
       "flagF1": 0,
       "flagPlacementPrecision": 1,
       "flagChurn": 1,
-      "firstActionMs": 1344,
-      "lastActionMs": 1657,
-      "commandsPerSecond": 0.5058168942842691,
+      "firstActionMs": 1367,
+      "lastActionMs": 1683,
+      "commandsPerSecond": 0.4930966469428008,
       "safeCellsPerAction": 0,
       "revealYield": {
         "count": 2,
@@ -446,17 +446,17 @@
       },
       "inputGapMs": {
         "count": 2,
-        "sum": 1657,
-        "min": 313,
-        "max": 1344,
-        "mean": 828.5,
-        "p50": 828.5,
-        "p90": 1240.9,
-        "p95": 1292.4499999999998,
-        "p99": 1333.69,
-        "populationStdDev": 515.5
+        "sum": 1683,
+        "min": 316,
+        "max": 1367,
+        "mean": 841.5,
+        "p50": 841.5,
+        "p90": 1261.9,
+        "p95": 1314.4499999999998,
+        "p99": 1356.49,
+        "populationStdDev": 525.5
       },
-      "maximumIdleGapMs": 1344,
+      "maximumIdleGapMs": 1367,
       "idleGapsOver2s": 0,
       "idleGapsOver5s": 0,
       "idleGapsOver10s": 0,
@@ -514,14 +514,14 @@
       },
       "provenSafeOptions": {
         "count": 2,
-        "sum": 34,
-        "min": 17,
-        "max": 17,
-        "mean": 17,
-        "p50": 17,
-        "p90": 17,
-        "p95": 17,
-        "p99": 17,
+        "sum": 24,
+        "min": 12,
+        "max": 12,
+        "mean": 12,
+        "p50": 12,
+        "p90": 12,
+        "p95": 12,
+        "p99": 12,
         "populationStdDev": 0
       },
       "threeBVPerSecondOnClear": null,
@@ -540,7 +540,7 @@
       "incorrectFlagsRemoved": 0,
       "correctFlagsRemoved": 0,
       "safeCellsFromActions": 2,
-      "safeCellsFromOpening": 47,
+      "safeCellsFromOpening": 57,
       "zeroExpansionActions": 0,
       "zeroExpansionCells": 0,
       "uncertainRevealActions": 0,
@@ -568,22 +568,7 @@
           0,
           0,
           0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
+          1,
           0,
           0,
           0,
@@ -621,7 +606,22 @@
           0,
           0,
           0,
-          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
           0,
           0,
           0,
@@ -636,31 +636,22 @@
           0
         ],
         "revealAtMs": [
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
           0,
           0,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
           0,
           0,
           0,
           0,
           0,
           null,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
+          3921,
           null,
           null,
           0,
@@ -670,15 +661,17 @@
           0,
           0,
           0,
+          0,
           null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
           null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
           null,
           null,
           0,
@@ -689,6 +682,17 @@
           0,
           0,
           null,
+          2921,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          null,
+          null,
           null,
           0,
           0,
@@ -697,26 +701,22 @@
           0,
           null,
           null,
-          2914,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
           null,
           0,
           0,
           0,
           0,
           0,
-          3914,
-          null,
-          null,
-          null,
           0,
-          0,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null
+          0
         ],
         "flagPlacements": [
           0,
@@ -887,12 +887,12 @@
       },
       "terminalAtMs": null,
       "status": "active",
-      "activeMs": 3954,
-      "revealedSafe": 49,
-      "safeCompletionRate": 0.6901408450704225,
+      "activeMs": 4056,
+      "revealedSafe": 59,
+      "safeCompletionRate": 0.8309859154929577,
       "clearMs": null,
       "revealedMineCells": 0,
-      "unrevealedSafeCells": 22,
+      "unrevealedSafeCells": 12,
       "flagsAtEnd": 0,
       "correctFlagsAtEnd": 0,
       "incorrectFlagsAtEnd": 0,
@@ -902,9 +902,9 @@
       "flagF1": 0,
       "flagPlacementPrecision": null,
       "flagChurn": 0,
-      "firstActionMs": 2914,
-      "lastActionMs": 3914,
-      "commandsPerSecond": 0.5058168942842691,
+      "firstActionMs": 2921,
+      "lastActionMs": 3921,
+      "commandsPerSecond": 0.4930966469428008,
       "safeCellsPerAction": 1,
       "revealYield": {
         "count": 2,
@@ -920,17 +920,17 @@
       },
       "inputGapMs": {
         "count": 2,
-        "sum": 3914,
+        "sum": 3921,
         "min": 1000,
-        "max": 2914,
-        "mean": 1957,
-        "p50": 1957,
-        "p90": 2722.6000000000004,
-        "p95": 2818.3,
-        "p99": 2894.8599999999997,
-        "populationStdDev": 957
+        "max": 2921,
+        "mean": 1960.5,
+        "p50": 1960.5,
+        "p90": 2728.9,
+        "p95": 2824.95,
+        "p99": 2901.79,
+        "populationStdDev": 960.5
       },
-      "maximumIdleGapMs": 2914,
+      "maximumIdleGapMs": 2921,
       "idleGapsOver2s": 1,
       "idleGapsOver5s": 0,
       "idleGapsOver10s": 0,
@@ -964,38 +964,38 @@
       },
       "frontierSize": {
         "count": 2,
-        "sum": 5,
-        "min": 0,
-        "max": 5,
-        "mean": 2.5,
-        "p50": 2.5,
-        "p90": 4.5,
-        "p95": 4.75,
-        "p99": 4.95,
-        "populationStdDev": 2.5
+        "sum": 4,
+        "min": 2,
+        "max": 2,
+        "mean": 2,
+        "p50": 2,
+        "p90": 2,
+        "p95": 2,
+        "p99": 2,
+        "populationStdDev": 0
       },
       "largestComponent": {
         "count": 2,
-        "sum": 5,
-        "min": 0,
-        "max": 5,
-        "mean": 2.5,
-        "p50": 2.5,
-        "p90": 4.5,
-        "p95": 4.75,
-        "p99": 4.95,
-        "populationStdDev": 2.5
+        "sum": 4,
+        "min": 2,
+        "max": 2,
+        "mean": 2,
+        "p50": 2,
+        "p90": 2,
+        "p95": 2,
+        "p99": 2,
+        "populationStdDev": 0
       },
       "provenSafeOptions": {
         "count": 2,
-        "sum": 27,
-        "min": 13,
-        "max": 14,
-        "mean": 13.5,
-        "p50": 13.5,
-        "p90": 13.9,
-        "p95": 13.95,
-        "p99": 13.99,
+        "sum": 15,
+        "min": 7,
+        "max": 8,
+        "mean": 7.5,
+        "p50": 7.5,
+        "p90": 7.9,
+        "p95": 7.95,
+        "p99": 7.99,
         "populationStdDev": 0.5
       },
       "threeBVPerSecondOnClear": null,
@@ -1010,34 +1010,34 @@
       "mineCount": 10,
       "mineDensity": 0.12345679012345678,
       "safeCellCount": 71,
-      "zeroCells": 20,
+      "zeroCells": 29,
       "adjacencyHistogram": [
-        20,
-        40,
+        29,
+        32,
         9,
-        2,
         0,
+        1,
         0,
         0,
         0,
         0
       ],
-      "zeroRegions": 4,
+      "zeroRegions": 1,
       "openingSizeDistribution": {
-        "count": 4,
-        "sum": 57,
-        "min": 4,
-        "max": 35,
-        "mean": 14.25,
-        "p50": 9,
-        "p90": 28.100000000000005,
-        "p95": 31.54999999999999,
-        "p99": 34.309999999999995,
-        "populationStdDev": 12.336429791475327
+        "count": 1,
+        "sum": 56,
+        "min": 56,
+        "max": 56,
+        "mean": 56,
+        "p50": 56,
+        "p90": 56,
+        "p95": 56,
+        "p99": 56,
+        "populationStdDev": 0
       },
-      "isolatedNumberCells": 14,
-      "threeBV": 18,
-      "edgeMines": 4,
+      "isolatedNumberCells": 15,
+      "threeBV": 16,
+      "edgeMines": 6,
       "cornerMines": 1,
       "firstCell": 40,
       "firstCellRow": 5,
@@ -1050,12 +1050,12 @@
       "mineCount": 10,
       "mineDensity": 0.12345679012345678,
       "safeCellCount": 71,
-      "zeroCells": 31,
+      "zeroCells": 36,
       "adjacencyHistogram": [
-        31,
-        27,
-        13,
-        0,
+        36,
+        20,
+        11,
+        4,
         0,
         0,
         0,
@@ -1065,20 +1065,20 @@
       "zeroRegions": 2,
       "openingSizeDistribution": {
         "count": 2,
-        "sum": 57,
-        "min": 10,
-        "max": 47,
-        "mean": 28.5,
-        "p50": 28.5,
-        "p90": 43.300000000000004,
-        "p95": 45.15,
-        "p99": 46.63,
-        "populationStdDev": 18.5
+        "sum": 66,
+        "min": 9,
+        "max": 57,
+        "mean": 33,
+        "p50": 33,
+        "p90": 52.2,
+        "p95": 54.599999999999994,
+        "p99": 56.519999999999996,
+        "populationStdDev": 24
       },
-      "isolatedNumberCells": 16,
-      "threeBV": 18,
-      "edgeMines": 7,
-      "cornerMines": 1,
+      "isolatedNumberCells": 7,
+      "threeBV": 9,
+      "edgeMines": 6,
+      "cornerMines": 0,
       "firstCell": 40,
       "firstCellRow": 5,
       "firstCellColumn": 5
@@ -1086,12 +1086,12 @@
   },
   "race": {
     "humanAheadMs": 0,
-    "jevAheadMs": 3954,
+    "jevAheadMs": 4056,
     "tiedMs": 0,
     "leadChanges": 0,
     "humanPeakLeadCells": 0,
-    "jevPeakLeadCells": 14,
-    "humanLeadAreaCellMs": -48528
+    "jevPeakLeadCells": 3,
+    "humanLeadAreaCellMs": -5326
   },
   "opponent": {
     "decisions": 2,
@@ -1109,15 +1109,15 @@
     "invalidResponseCount": 0,
     "latencyMs": {
       "count": 2,
-      "sum": 3.2436259999813046,
-      "min": 1.3954169999924488,
-      "max": 1.8482089999888558,
-      "mean": 1.6218129999906523,
-      "p50": 1.6218129999906523,
-      "p90": 1.802929799989215,
-      "p95": 1.8255693999890354,
-      "p99": 1.8436810799888916,
-      "populationStdDev": 0.22639599999820348
+      "sum": 2.8318339999532327,
+      "min": 1.4112499999755528,
+      "max": 1.42058399997768,
+      "mean": 1.4159169999766164,
+      "p50": 1.4159169999766164,
+      "p90": 1.4196505999774671,
+      "p95": 1.4201172999775735,
+      "p99": 1.4204906599776586,
+      "populationStdDev": 0.00466700000106357
     },
     "providerLatencyMs": {
       "count": 0,
@@ -1133,51 +1133,51 @@
     },
     "solverMs": {
       "count": 2,
-      "sum": 1.1456239999970421,
-      "min": 0.5705829999933485,
-      "max": 0.5750410000036936,
-      "mean": 0.5728119999985211,
-      "p50": 0.5728119999985211,
-      "p90": 0.5745952000026591,
-      "p95": 0.5748181000031763,
-      "p99": 0.5749964200035902,
-      "populationStdDev": 0.0022290000051725656
+      "sum": 1.2770000000018626,
+      "min": 0.46945899998536333,
+      "max": 0.8075410000164993,
+      "mean": 0.6385000000009313,
+      "p50": 0.6385000000009313,
+      "p90": 0.7737328000133857,
+      "p95": 0.7906369000149425,
+      "p99": 0.8041601800161879,
+      "populationStdDev": 0.169041000015568
     },
     "candidates": {
       "count": 2,
-      "sum": 27,
-      "min": 13,
-      "max": 14,
-      "mean": 13.5,
-      "p50": 13.5,
-      "p90": 13.9,
-      "p95": 13.95,
-      "p99": 13.99,
+      "sum": 15,
+      "min": 7,
+      "max": 8,
+      "mean": 7.5,
+      "p50": 7.5,
+      "p90": 7.9,
+      "p95": 7.95,
+      "p99": 7.99,
       "populationStdDev": 0.5
     },
     "legalActions": {
       "count": 2,
-      "sum": 134,
-      "min": 66,
-      "max": 68,
-      "mean": 67,
-      "p50": 67,
-      "p90": 67.8,
-      "p95": 67.9,
-      "p99": 67.98,
+      "sum": 94,
+      "min": 46,
+      "max": 48,
+      "mean": 47,
+      "p50": 47,
+      "p90": 47.8,
+      "p95": 47.9,
+      "p99": 47.98,
       "populationStdDev": 1
     },
     "solverNodes": {
       "count": 2,
-      "sum": 49,
-      "min": 0,
-      "max": 49,
-      "mean": 24.5,
-      "p50": 24.5,
-      "p90": 44.1,
-      "p95": 46.55,
-      "p99": 48.51,
-      "populationStdDev": 24.5
+      "sum": 14,
+      "min": 7,
+      "max": 7,
+      "mean": 7,
+      "p50": 7,
+      "p90": 7,
+      "p95": 7,
+      "p99": 7,
+      "populationStdDev": 0
     },
     "exactEnumerationRate": 1,
     "solverCutoffReasons": {
@@ -1200,15 +1200,15 @@
     },
     "requestBytes": {
       "count": 2,
-      "sum": 18250,
-      "min": 8855,
-      "max": 9395,
-      "mean": 9125,
-      "p50": 9125,
-      "p90": 9341,
-      "p95": 9368,
-      "p99": 9389.6,
-      "populationStdDev": 270
+      "sum": 10830,
+      "min": 5110,
+      "max": 5720,
+      "mean": 5415,
+      "p50": 5415,
+      "p90": 5659,
+      "p95": 5689.5,
+      "p99": 5713.9,
+      "populationStdDev": 305
     },
     "tokenUsage": {
       "inputTokens": 0,
@@ -1442,14 +1442,14 @@
     "requestLatencyMs": {
       "count": 4,
       "sum": 4,
-      "min": 0,
-      "max": 2,
+      "min": 1,
+      "max": 1,
       "mean": 1,
       "p50": 1,
-      "p90": 1.7000000000000002,
-      "p95": 1.8499999999999996,
-      "p99": 1.9699999999999998,
-      "populationStdDev": 0.7071067811865476
+      "p90": 1,
+      "p95": 1,
+      "p99": 1,
+      "populationStdDev": 0
     }
   },
   "timeline": [
@@ -1458,64 +1458,64 @@
       "atMs": 0,
       "actor": "human",
       "event": "start",
-      "humanSafe": 35,
-      "jevSafe": 47,
-      "humanLead": -12,
+      "humanSafe": 56,
+      "jevSafe": 57,
+      "humanLead": -1,
       "humanStatus": "active",
       "jevStatus": "active"
     },
     {
       "seq": 2,
-      "atMs": 1344,
+      "atMs": 1367,
       "actor": "human",
       "event": "action",
-      "humanSafe": 35,
-      "jevSafe": 47,
-      "humanLead": -12,
+      "humanSafe": 56,
+      "jevSafe": 57,
+      "humanLead": -1,
       "humanStatus": "active",
       "jevStatus": "active"
     },
     {
       "seq": 3,
-      "atMs": 1657,
+      "atMs": 1683,
       "actor": "human",
       "event": "action",
-      "humanSafe": 35,
-      "jevSafe": 47,
-      "humanLead": -12,
+      "humanSafe": 56,
+      "jevSafe": 57,
+      "humanLead": -1,
       "humanStatus": "active",
       "jevStatus": "active"
     },
     {
       "seq": 4,
-      "atMs": 2914,
+      "atMs": 2921,
       "actor": "jev",
       "event": "action",
-      "humanSafe": 35,
-      "jevSafe": 48,
-      "humanLead": -13,
+      "humanSafe": 56,
+      "jevSafe": 58,
+      "humanLead": -2,
       "humanStatus": "active",
       "jevStatus": "active"
     },
     {
       "seq": 5,
-      "atMs": 3914,
+      "atMs": 3921,
       "actor": "jev",
       "event": "action",
-      "humanSafe": 35,
-      "jevSafe": 49,
-      "humanLead": -14,
+      "humanSafe": 56,
+      "jevSafe": 59,
+      "humanLead": -3,
       "humanStatus": "active",
       "jevStatus": "active"
     },
     {
       "seq": 6,
-      "atMs": 3954,
+      "atMs": 4056,
       "actor": "human",
       "event": "resign",
-      "humanSafe": 35,
-      "jevSafe": 49,
-      "humanLead": -14,
+      "humanSafe": 56,
+      "jevSafe": 59,
+      "humanLead": -3,
       "humanStatus": "active",
       "jevStatus": "active"
     }
@@ -1524,21 +1524,21 @@
     {
       "seq": 2,
       "actor": "human",
-      "atMs": 1344,
+      "atMs": 1367,
       "type": "setFlag",
       "flagValue": true,
       "cell": 0,
       "row": 1,
       "column": 1,
       "safeDelta": 0,
-      "revealedSafe": 35,
+      "revealedSafe": 56,
       "flagsBefore": 0,
       "flagsAfter": 1,
       "exploded": false,
       "classification": "setFlag",
       "riskValue": null,
       "riskSource": null,
-      "provenSafeAvailable": 17,
+      "provenSafeAvailable": 12,
       "frontierCells": 0,
       "componentCount": 0,
       "solverNodes": 0,
@@ -1550,21 +1550,21 @@
     {
       "seq": 3,
       "actor": "human",
-      "atMs": 1657,
+      "atMs": 1683,
       "type": "setFlag",
       "flagValue": false,
       "cell": 0,
       "row": 1,
       "column": 1,
       "safeDelta": 0,
-      "revealedSafe": 35,
+      "revealedSafe": 56,
       "flagsBefore": 1,
       "flagsAfter": 0,
       "exploded": false,
       "classification": "setFlag",
       "riskValue": null,
       "riskSource": null,
-      "provenSafeAvailable": 17,
+      "provenSafeAvailable": 12,
       "frontierCells": 0,
       "componentCount": 0,
       "solverNodes": 0,
@@ -1576,90 +1576,69 @@
     {
       "seq": 4,
       "actor": "jev",
-      "atMs": 2914,
+      "atMs": 2921,
       "type": "reveal",
       "flagValue": null,
-      "cell": 61,
-      "row": 7,
-      "column": 8,
+      "cell": 46,
+      "row": 6,
+      "column": 2,
       "safeDelta": 1,
-      "revealedSafe": 48,
+      "revealedSafe": 58,
       "flagsBefore": 0,
       "flagsAfter": 0,
       "exploded": false,
       "classification": "proven_safe",
       "riskValue": 0,
       "riskSource": "proof",
-      "provenSafeAvailable": 14,
-      "frontierCells": 0,
-      "componentCount": 0,
-      "solverNodes": 0,
+      "provenSafeAvailable": 7,
+      "frontierCells": 2,
+      "componentCount": 1,
+      "solverNodes": 7,
       "solverExactComplete": true,
       "solverCutoff": null,
       "opponentSource": "local",
-      "decisionLatencyMs": 1.8482089999888558
+      "decisionLatencyMs": 1.42058399997768
     },
     {
       "seq": 5,
       "actor": "jev",
-      "atMs": 3914,
+      "atMs": 3921,
       "type": "reveal",
       "flagValue": null,
-      "cell": 68,
-      "row": 8,
-      "column": 6,
+      "cell": 15,
+      "row": 2,
+      "column": 7,
       "safeDelta": 1,
-      "revealedSafe": 49,
+      "revealedSafe": 59,
       "flagsBefore": 0,
       "flagsAfter": 0,
       "exploded": false,
       "classification": "proven_safe",
       "riskValue": 0,
       "riskSource": "proof",
-      "provenSafeAvailable": 13,
-      "frontierCells": 5,
+      "provenSafeAvailable": 8,
+      "frontierCells": 2,
       "componentCount": 1,
-      "solverNodes": 49,
+      "solverNodes": 7,
       "solverExactComplete": true,
       "solverCutoff": null,
       "opponentSource": "local",
-      "decisionLatencyMs": 1.3954169999924488
+      "decisionLatencyMs": 1.4112499999755528
     }
   ],
   "decisionJournal": [
     {
-      "id": "3a6a144e-258d-4633-af24-b7918887c302",
+      "id": "bbf60acd-8f6a-405c-8615-96ea60447a32",
       "policyVersion": "ms-policy-1.1.0",
       "model": "jev-1.13.0",
       "boardRevision": 1,
-      "observationHash": "cb605d0b05b1f82388bb4c068b8a5685e588cc40557b60077c2762cc77b15ef4",
+      "observationHash": "19c89e04bf963f57f27a644bfcc567ecbe5883a07f40cd249acbf8c7a9f71acf",
       "candidates": [
         {
-          "id": "reveal_61",
+          "id": "reveal_46",
           "action": {
             "type": "reveal",
-            "cell": 61
-          },
-          "group": 0,
-          "risk": {
-            "value": 0,
-            "source": "proof"
-          },
-          "evidence": [
-            "PROVEN_SAFE"
-          ],
-          "progress": 0.7,
-          "row": 7,
-          "column": 8,
-          "frontierTouches": 0,
-          "coveredNeighbors": 7,
-          "frontier": false
-        },
-        {
-          "id": "reveal_52",
-          "action": {
-            "type": "reveal",
-            "cell": 52
+            "cell": 46
           },
           "group": 0,
           "risk": {
@@ -1671,16 +1650,16 @@
           ],
           "progress": 0.6,
           "row": 6,
-          "column": 8,
+          "column": 2,
           "frontierTouches": 0,
           "coveredNeighbors": 6,
           "frontier": false
         },
         {
-          "id": "reveal_60",
+          "id": "reveal_55",
           "action": {
             "type": "reveal",
-            "cell": 60
+            "cell": 55
           },
           "group": 0,
           "risk": {
@@ -1692,177 +1671,30 @@
           ],
           "progress": 0.6,
           "row": 7,
+          "column": 2,
+          "frontierTouches": 0,
+          "coveredNeighbors": 6,
+          "frontier": false
+        },
+        {
+          "id": "reveal_15",
+          "action": {
+            "type": "reveal",
+            "cell": 15
+          },
+          "group": 0,
+          "risk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "evidence": [
+            "PROVEN_SAFE"
+          ],
+          "progress": 0.5,
+          "row": 2,
           "column": 7,
           "frontierTouches": 0,
-          "coveredNeighbors": 6,
-          "frontier": false
-        },
-        {
-          "id": "reveal_68",
-          "action": {
-            "type": "reveal",
-            "cell": 68
-          },
-          "group": 0,
-          "risk": {
-            "value": 0,
-            "source": "proof"
-          },
-          "evidence": [
-            "PROVEN_SAFE"
-          ],
-          "progress": 0.6,
-          "row": 8,
-          "column": 6,
-          "frontierTouches": 0,
-          "coveredNeighbors": 6,
-          "frontier": false
-        },
-        {
-          "id": "reveal_25",
-          "action": {
-            "type": "reveal",
-            "cell": 25
-          },
-          "group": 0,
-          "risk": {
-            "value": 0,
-            "source": "proof"
-          },
-          "evidence": [
-            "PROVEN_SAFE"
-          ],
-          "progress": 0.5,
-          "row": 3,
-          "column": 8,
-          "frontierTouches": 0,
           "coveredNeighbors": 5,
-          "frontier": false
-        },
-        {
-          "id": "reveal_43",
-          "action": {
-            "type": "reveal",
-            "cell": 43
-          },
-          "group": 0,
-          "risk": {
-            "value": 0,
-            "source": "proof"
-          },
-          "evidence": [
-            "PROVEN_SAFE"
-          ],
-          "progress": 0.5,
-          "row": 5,
-          "column": 8,
-          "frontierTouches": 0,
-          "coveredNeighbors": 5,
-          "frontier": false
-        },
-        {
-          "id": "reveal_7",
-          "action": {
-            "type": "reveal",
-            "cell": 7
-          },
-          "group": 0,
-          "risk": {
-            "value": 0,
-            "source": "proof"
-          },
-          "evidence": [
-            "PROVEN_SAFE"
-          ],
-          "progress": 0.4,
-          "row": 1,
-          "column": 8,
-          "frontierTouches": 0,
-          "coveredNeighbors": 4,
-          "frontier": false
-        },
-        {
-          "id": "reveal_77",
-          "action": {
-            "type": "reveal",
-            "cell": 77
-          },
-          "group": 0,
-          "risk": {
-            "value": 0,
-            "source": "proof"
-          },
-          "evidence": [
-            "PROVEN_SAFE"
-          ],
-          "progress": 0.4,
-          "row": 9,
-          "column": 6,
-          "frontierTouches": 0,
-          "coveredNeighbors": 4,
-          "frontier": false
-        },
-        {
-          "id": "reveal_76",
-          "action": {
-            "type": "reveal",
-            "cell": 76
-          },
-          "group": 0,
-          "risk": {
-            "value": 0,
-            "source": "proof"
-          },
-          "evidence": [
-            "PROVEN_SAFE"
-          ],
-          "progress": 0.3,
-          "row": 9,
-          "column": 5,
-          "frontierTouches": 0,
-          "coveredNeighbors": 3,
-          "frontier": false
-        },
-        {
-          "id": "reveal_2",
-          "action": {
-            "type": "reveal",
-            "cell": 2
-          },
-          "group": 0,
-          "risk": {
-            "value": 0,
-            "source": "proof"
-          },
-          "evidence": [
-            "PROVEN_SAFE"
-          ],
-          "progress": 0.2,
-          "row": 1,
-          "column": 3,
-          "frontierTouches": 0,
-          "coveredNeighbors": 2,
-          "frontier": false
-        },
-        {
-          "id": "reveal_4",
-          "action": {
-            "type": "reveal",
-            "cell": 4
-          },
-          "group": 0,
-          "risk": {
-            "value": 0,
-            "source": "proof"
-          },
-          "evidence": [
-            "PROVEN_SAFE"
-          ],
-          "progress": 0.2,
-          "row": 1,
-          "column": 5,
-          "frontierTouches": 0,
-          "coveredNeighbors": 2,
           "frontier": false
         },
         {
@@ -1879,18 +1711,18 @@
           "evidence": [
             "PROVEN_SAFE"
           ],
-          "progress": 0.2,
+          "progress": 0.4,
           "row": 1,
           "column": 6,
           "frontierTouches": 0,
-          "coveredNeighbors": 2,
+          "coveredNeighbors": 4,
           "frontier": false
         },
         {
-          "id": "reveal_75",
+          "id": "reveal_17",
           "action": {
             "type": "reveal",
-            "cell": 75
+            "cell": 17
           },
           "group": 0,
           "risk": {
@@ -1900,18 +1732,18 @@
           "evidence": [
             "PROVEN_SAFE"
           ],
-          "progress": 0.2,
-          "row": 9,
-          "column": 4,
+          "progress": 0.4,
+          "row": 2,
+          "column": 9,
           "frontierTouches": 0,
-          "coveredNeighbors": 2,
+          "coveredNeighbors": 4,
           "frontier": false
         },
         {
-          "id": "reveal_0",
+          "id": "reveal_56",
           "action": {
             "type": "reveal",
-            "cell": 0
+            "cell": 56
           },
           "group": 0,
           "risk": {
@@ -1921,256 +1753,11 @@
           "evidence": [
             "PROVEN_SAFE"
           ],
-          "progress": 0.1,
-          "row": 1,
-          "column": 1,
-          "frontierTouches": 0,
-          "coveredNeighbors": 1,
-          "frontier": false
-        }
-      ],
-      "legalCount": 68,
-      "solver": {
-        "nodes": 0,
-        "exactComplete": true,
-        "cutoffReason": null,
-        "components": 0,
-        "largestComponent": 0,
-        "safeCount": 14
-      },
-      "solverMs": 0.5750410000036936,
-      "requestBytes": 9395,
-      "source": "local",
-      "fallback": false,
-      "errorCode": "not_configured",
-      "attempts": [],
-      "response": null,
-      "selected": {
-        "id": "reveal_61",
-        "action": {
-          "type": "reveal",
-          "cell": 61
-        },
-        "group": 0,
-        "risk": {
-          "value": 0,
-          "source": "proof"
-        },
-        "evidence": [
-          "PROVEN_SAFE"
-        ],
-        "progress": 0.7,
-        "row": 7,
-        "column": 8,
-        "frontierTouches": 0,
-        "coveredNeighbors": 7,
-        "frontier": false,
-        "evaluatedRisk": {
-          "value": 0,
-          "source": "proof"
-        },
-        "continuation": 0.7,
-        "choiceProbability": 0
-      },
-      "latencyMs": 1.8482089999888558,
-      "scheduledAtMs": 1000,
-      "appliedAtMs": 2914,
-      "schedulingLagMs": 1914
-    },
-    {
-      "id": "02735d7f-f755-4a33-9322-6fe5ebf40e1e",
-      "policyVersion": "ms-policy-1.1.0",
-      "model": "jev-1.13.0",
-      "boardRevision": 2,
-      "observationHash": "4bc62163d544aa6691b620328374af85a97e52593e5aa8d9db33c2faed4b214d",
-      "candidates": [
-        {
-          "id": "reveal_68",
-          "action": {
-            "type": "reveal",
-            "cell": 68
-          },
-          "group": 0,
-          "risk": {
-            "value": 0,
-            "source": "proof"
-          },
-          "evidence": [
-            "PROVEN_SAFE"
-          ],
-          "progress": 0.6,
-          "row": 8,
-          "column": 6,
-          "frontierTouches": 0,
-          "coveredNeighbors": 6,
-          "frontier": false
-        },
-        {
-          "id": "reveal_25",
-          "action": {
-            "type": "reveal",
-            "cell": 25
-          },
-          "group": 0,
-          "risk": {
-            "value": 0,
-            "source": "proof"
-          },
-          "evidence": [
-            "PROVEN_SAFE"
-          ],
-          "progress": 0.5,
-          "row": 3,
-          "column": 8,
-          "frontierTouches": 0,
-          "coveredNeighbors": 5,
-          "frontier": false
-        },
-        {
-          "id": "reveal_43",
-          "action": {
-            "type": "reveal",
-            "cell": 43
-          },
-          "group": 0,
-          "risk": {
-            "value": 0,
-            "source": "proof"
-          },
-          "evidence": [
-            "PROVEN_SAFE"
-          ],
-          "progress": 0.5,
-          "row": 5,
-          "column": 8,
-          "frontierTouches": 0,
-          "coveredNeighbors": 5,
-          "frontier": false
-        },
-        {
-          "id": "reveal_52",
-          "action": {
-            "type": "reveal",
-            "cell": 52
-          },
-          "group": 0,
-          "risk": {
-            "value": 0,
-            "source": "proof"
-          },
-          "evidence": [
-            "PROVEN_SAFE"
-          ],
-          "progress": 0.5,
-          "row": 6,
-          "column": 8,
-          "frontierTouches": 0,
-          "coveredNeighbors": 5,
-          "frontier": false
-        },
-        {
-          "id": "reveal_60",
-          "action": {
-            "type": "reveal",
-            "cell": 60
-          },
-          "group": 0,
-          "risk": {
-            "value": 0,
-            "source": "proof"
-          },
-          "evidence": [
-            "PROVEN_SAFE"
-          ],
-          "progress": 0.5,
+          "progress": 0.4,
           "row": 7,
-          "column": 7,
-          "frontierTouches": 0,
-          "coveredNeighbors": 5,
-          "frontier": false
-        },
-        {
-          "id": "reveal_7",
-          "action": {
-            "type": "reveal",
-            "cell": 7
-          },
-          "group": 0,
-          "risk": {
-            "value": 0,
-            "source": "proof"
-          },
-          "evidence": [
-            "PROVEN_SAFE"
-          ],
-          "progress": 0.4,
-          "row": 1,
-          "column": 8,
-          "frontierTouches": 0,
-          "coveredNeighbors": 4,
-          "frontier": false
-        },
-        {
-          "id": "reveal_77",
-          "action": {
-            "type": "reveal",
-            "cell": 77
-          },
-          "group": 0,
-          "risk": {
-            "value": 0,
-            "source": "proof"
-          },
-          "evidence": [
-            "PROVEN_SAFE"
-          ],
-          "progress": 0.4,
-          "row": 9,
-          "column": 6,
-          "frontierTouches": 0,
-          "coveredNeighbors": 4,
-          "frontier": false
-        },
-        {
-          "id": "reveal_76",
-          "action": {
-            "type": "reveal",
-            "cell": 76
-          },
-          "group": 0,
-          "risk": {
-            "value": 0,
-            "source": "proof"
-          },
-          "evidence": [
-            "PROVEN_SAFE"
-          ],
-          "progress": 0.3,
-          "row": 9,
-          "column": 5,
-          "frontierTouches": 0,
-          "coveredNeighbors": 3,
-          "frontier": false
-        },
-        {
-          "id": "reveal_2",
-          "action": {
-            "type": "reveal",
-            "cell": 2
-          },
-          "group": 0,
-          "risk": {
-            "value": 0,
-            "source": "proof"
-          },
-          "evidence": [
-            "PROVEN_SAFE"
-          ],
-          "progress": 0.2,
-          "row": 1,
           "column": 3,
           "frontierTouches": 0,
-          "coveredNeighbors": 2,
+          "coveredNeighbors": 4,
           "frontier": false
         },
         {
@@ -2187,98 +1774,35 @@
           "evidence": [
             "PROVEN_SAFE"
           ],
-          "progress": 0.2,
+          "progress": 0.3,
           "row": 1,
           "column": 5,
           "frontierTouches": 0,
-          "coveredNeighbors": 2,
-          "frontier": false
-        },
-        {
-          "id": "reveal_5",
-          "action": {
-            "type": "reveal",
-            "cell": 5
-          },
-          "group": 0,
-          "risk": {
-            "value": 0,
-            "source": "proof"
-          },
-          "evidence": [
-            "PROVEN_SAFE"
-          ],
-          "progress": 0.2,
-          "row": 1,
-          "column": 6,
-          "frontierTouches": 0,
-          "coveredNeighbors": 2,
-          "frontier": false
-        },
-        {
-          "id": "reveal_75",
-          "action": {
-            "type": "reveal",
-            "cell": 75
-          },
-          "group": 0,
-          "risk": {
-            "value": 0,
-            "source": "proof"
-          },
-          "evidence": [
-            "PROVEN_SAFE"
-          ],
-          "progress": 0.2,
-          "row": 9,
-          "column": 4,
-          "frontierTouches": 0,
-          "coveredNeighbors": 2,
-          "frontier": false
-        },
-        {
-          "id": "reveal_0",
-          "action": {
-            "type": "reveal",
-            "cell": 0
-          },
-          "group": 0,
-          "risk": {
-            "value": 0,
-            "source": "proof"
-          },
-          "evidence": [
-            "PROVEN_SAFE"
-          ],
-          "progress": 0.1,
-          "row": 1,
-          "column": 1,
-          "frontierTouches": 0,
-          "coveredNeighbors": 1,
+          "coveredNeighbors": 3,
           "frontier": false
         }
       ],
-      "legalCount": 66,
+      "legalCount": 48,
       "solver": {
-        "nodes": 49,
+        "nodes": 7,
         "exactComplete": true,
         "cutoffReason": null,
         "components": 1,
-        "largestComponent": 5,
-        "safeCount": 13
+        "largestComponent": 2,
+        "safeCount": 7
       },
-      "solverMs": 0.5705829999933485,
-      "requestBytes": 8855,
+      "solverMs": 0.8075410000164993,
+      "requestBytes": 5110,
       "source": "local",
       "fallback": false,
       "errorCode": "not_configured",
       "attempts": [],
       "response": null,
       "selected": {
-        "id": "reveal_68",
+        "id": "reveal_46",
         "action": {
           "type": "reveal",
-          "cell": 68
+          "cell": 46
         },
         "group": 0,
         "risk": {
@@ -2289,8 +1813,8 @@
           "PROVEN_SAFE"
         ],
         "progress": 0.6,
-        "row": 8,
-        "column": 6,
+        "row": 6,
+        "column": 2,
         "frontierTouches": 0,
         "coveredNeighbors": 6,
         "frontier": false,
@@ -2301,9 +1825,233 @@
         "continuation": 0.6,
         "choiceProbability": 0
       },
-      "latencyMs": 1.3954169999924488,
-      "scheduledAtMs": 3914,
-      "appliedAtMs": 3914,
+      "latencyMs": 1.42058399997768,
+      "scheduledAtMs": 1000,
+      "appliedAtMs": 2921,
+      "schedulingLagMs": 1921
+    },
+    {
+      "id": "5627e15f-fef5-4749-b76c-ca5a3510bfd2",
+      "policyVersion": "ms-policy-1.1.0",
+      "model": "jev-1.13.0",
+      "boardRevision": 2,
+      "observationHash": "e6084445f88698a6cf579c82bf407313b4889ff23f3fe7f516fed4e60e7793ab",
+      "candidates": [
+        {
+          "id": "reveal_15",
+          "action": {
+            "type": "reveal",
+            "cell": 15
+          },
+          "group": 0,
+          "risk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "evidence": [
+            "PROVEN_SAFE"
+          ],
+          "progress": 0.5,
+          "row": 2,
+          "column": 7,
+          "frontierTouches": 0,
+          "coveredNeighbors": 5,
+          "frontier": false
+        },
+        {
+          "id": "reveal_55",
+          "action": {
+            "type": "reveal",
+            "cell": 55
+          },
+          "group": 0,
+          "risk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "evidence": [
+            "PROVEN_SAFE"
+          ],
+          "progress": 0.5,
+          "row": 7,
+          "column": 2,
+          "frontierTouches": 0,
+          "coveredNeighbors": 5,
+          "frontier": false
+        },
+        {
+          "id": "reveal_5",
+          "action": {
+            "type": "reveal",
+            "cell": 5
+          },
+          "group": 0,
+          "risk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "evidence": [
+            "PROVEN_SAFE"
+          ],
+          "progress": 0.4,
+          "row": 1,
+          "column": 6,
+          "frontierTouches": 0,
+          "coveredNeighbors": 4,
+          "frontier": false
+        },
+        {
+          "id": "reveal_17",
+          "action": {
+            "type": "reveal",
+            "cell": 17
+          },
+          "group": 0,
+          "risk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "evidence": [
+            "PROVEN_SAFE"
+          ],
+          "progress": 0.4,
+          "row": 2,
+          "column": 9,
+          "frontierTouches": 0,
+          "coveredNeighbors": 4,
+          "frontier": false
+        },
+        {
+          "id": "reveal_45",
+          "action": {
+            "type": "reveal",
+            "cell": 45
+          },
+          "group": 0,
+          "risk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "evidence": [
+            "PROVEN_SAFE"
+          ],
+          "progress": 0.4,
+          "row": 6,
+          "column": 1,
+          "frontierTouches": 0,
+          "coveredNeighbors": 4,
+          "frontier": false
+        },
+        {
+          "id": "reveal_54",
+          "action": {
+            "type": "reveal",
+            "cell": 54
+          },
+          "group": 0,
+          "risk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "evidence": [
+            "PROVEN_SAFE"
+          ],
+          "progress": 0.4,
+          "row": 7,
+          "column": 1,
+          "frontierTouches": 0,
+          "coveredNeighbors": 4,
+          "frontier": false
+        },
+        {
+          "id": "reveal_4",
+          "action": {
+            "type": "reveal",
+            "cell": 4
+          },
+          "group": 0,
+          "risk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "evidence": [
+            "PROVEN_SAFE"
+          ],
+          "progress": 0.3,
+          "row": 1,
+          "column": 5,
+          "frontierTouches": 0,
+          "coveredNeighbors": 3,
+          "frontier": false
+        },
+        {
+          "id": "reveal_56",
+          "action": {
+            "type": "reveal",
+            "cell": 56
+          },
+          "group": 0,
+          "risk": {
+            "value": 0,
+            "source": "proof"
+          },
+          "evidence": [
+            "PROVEN_SAFE"
+          ],
+          "progress": 0.3,
+          "row": 7,
+          "column": 3,
+          "frontierTouches": 0,
+          "coveredNeighbors": 3,
+          "frontier": false
+        }
+      ],
+      "legalCount": 46,
+      "solver": {
+        "nodes": 7,
+        "exactComplete": true,
+        "cutoffReason": null,
+        "components": 1,
+        "largestComponent": 2,
+        "safeCount": 8
+      },
+      "solverMs": 0.46945899998536333,
+      "requestBytes": 5720,
+      "source": "local",
+      "fallback": false,
+      "errorCode": "not_configured",
+      "attempts": [],
+      "response": null,
+      "selected": {
+        "id": "reveal_15",
+        "action": {
+          "type": "reveal",
+          "cell": 15
+        },
+        "group": 0,
+        "risk": {
+          "value": 0,
+          "source": "proof"
+        },
+        "evidence": [
+          "PROVEN_SAFE"
+        ],
+        "progress": 0.5,
+        "row": 2,
+        "column": 7,
+        "frontierTouches": 0,
+        "coveredNeighbors": 5,
+        "frontier": false,
+        "evaluatedRisk": {
+          "value": 0,
+          "source": "proof"
+        },
+        "continuation": 0.5,
+        "choiceProbability": 0
+      },
+      "latencyMs": 1.4112499999755528,
+      "scheduledAtMs": 3921,
+      "appliedAtMs": 3921,
       "schedulingLagMs": 0
     }
   ],
