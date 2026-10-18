@@ -123,3 +123,12 @@ Sessions, launch tickets, quota counters and audit rows are pruned lazily. After
 ## 8. Pre-launch gates (not run here)
 
 `wrangler d1 create`, migrations, secrets, deploy and DNS; a real signed Discord launch and Activity session; a complete real Jev match on each preset, including an expert match, watching for 1102 errors (the CPU figures are from Node, not workerd); provider-failure behaviour; `wrangler tail` during a full match; D1 write usage after a day of play; browser test (`tests/browser_smoke.py`, needs Python Playwright) against the deployed origin.
+
+## Continuous deployment to GoDaddy
+
+`.github/workflows/deploy.yml` runs `npm test` on every pull request and push. On a push to `main` (or **Run workflow**) it then zips the committed tree with `git archive` and `scripts/godaddy-deploy.js` uploads it through the GoDaddy Hosting API (`https://api.godaddy.com/v1/hosting`), waits for the import, and deploys it to the published app `NODEJS-tl0rvpsp0l`. A failed test, import or build stops the run and leaves the live app unchanged.
+
+- Repository secret `GODADDY_PAT`: a GoDaddy Personal Access Token with `hosting.application:read`, `hosting.source:write` and `hosting.deployment:execute`. Without it the deploy step is skipped with a warning.
+- Optional repository variable `GODADDY_APP_ID` overrides the target app (API IDs carry the `NODEJS-` prefix).
+- Runtime configuration is not in the zip: keep it under the app's **Settings → Secrets** (Preview and Publish) in GoDaddy.
+- Manual deploy: put `GODADDY_APP_ID` and `GODADDY_PAT` in `.env`, then `git archive --format=zip -o deploy.zip HEAD && npm run deploy:godaddy -- deploy.zip`.
